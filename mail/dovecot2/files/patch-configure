@@ -1,0 +1,36 @@
+--- configure.orig	2013-05-19 18:04:28.000000000 -0500
++++ configure	2013-05-24 10:16:59.972724561 -0500
+@@ -24619,13 +24619,13 @@
+ 
+ fi
+   if test $want_stemmer != no; then
+-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sb_stemmer_new in -lstemmer" >&5
+-$as_echo_n "checking for sb_stemmer_new in -lstemmer... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sb_stemmer_new in -lclucene-contribs-lib" >&5
++$as_echo_n "checking for sb_stemmer_new in -lclucene-contribs-lib... " >&6; }
+ if ${ac_cv_lib_stemmer_sb_stemmer_new+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lstemmer  $LIBS"
++LIBS="-lclucene-contribs-lib  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -24706,13 +24706,13 @@
+ 
+ else
+ 
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for special_textcat_Init in -lexttextcat" >&5
+-$as_echo_n "checking for special_textcat_Init in -lexttextcat... " >&6; }
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for special_textcat_Init in -lexttextcat-2.0" >&5
++$as_echo_n "checking for special_textcat_Init in -lexttextcat-2.0... " >&6; }
+ if ${ac_cv_lib_exttextcat_special_textcat_Init+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lexttextcat  $LIBS"
++LIBS="-lexttextcat-2.0  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
