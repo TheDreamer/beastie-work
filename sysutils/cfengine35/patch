@@ -1,0 +1,13 @@
+--- files/patch-configure.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-configure	2013-07-27 15:33:51.954665402 -0500
+@@ -0,0 +1,10 @@
++--- configure.orig	2013-07-11 03:26:15.000000000 -0500
+++++ configure	2013-07-26 19:51:44.843664757 -0500
++@@ -15122,6 +15122,7 @@
++    if test "x$cross_compiling" = "xno"; then
++       if test x`which $XML2_CONFIG` != x ; then
++          CPPFLAGS="$CPPFLAGS `$XML2_CONFIG --cflags`"
+++         LDFLAGS="$LDFLAGS `$XML2_CONFIG --libs`"
++       fi
++    fi
++ 
