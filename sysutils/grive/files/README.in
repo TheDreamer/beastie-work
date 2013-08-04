@@ -1,0 +1,63 @@
+This README adapted from http://www.lbreda.com/grive/installation
+
+6. Copying the Executable
+=========================
+You probably won't want to run grive in the directory it is installed in.
+That entire directory would be uploaded to your google drive, and your google
+drive would be downloaded into the directory.
+
+So copy the grive executable to the top level of your local google drive
+directory.
+
+cp %%DATADIR%%/grive /home/you/yourGoogleDrive/
+
+ * As a side effect, this file will be uploaded ("sync'd") by grive to
+   your Google Drive top-level directory.
+
+   [So, if you also use the Linux version the name should be changed.]
+
+ * There is one terrific advantage -- you can copy the grive executable to
+   different directories, sync'd with different Google Drive accounts, and it
+   should all work.
+
+7. Backup
+=========
+Since, grive is alpha softwre, you DEFINITELY want to keep a backup copy of
+your google directory.
+
+You can download an archive of your data at Google using
+https://www.google.com/takeout
+
+8. First Run
+============
+Change to your google drive directory and run grive.
+
+cd /home/you/yourGoogleDrive
+./grive -a
+
+  * The "-a" option is only needed the very first time you run grive.
+  * Visit the URL that comes up, then post the auth code given (you must have
+    been logged into Google).  You should get some messages including
+    "Synchronizing files"... now you are running.
+
+9. Syncs
+========
+To sync, you must run the program manually (there is no "real-time watching"
+yet).  At the prompt, type:
+
+./grive
+
+You can set up a cron job, if you want this done on a regular basis.
+
+If you get a "crash" (bunch of error meesages on the screen), you should
+run:
+
+./grive -l log.txt
+
+to create a file you can send to
+
+Nestal - https://plus.google.com/117286709411978324355
+
+As the file will contain a log of the syn operation, you may want to edit the
+file firs tto remove personally sensitive information.
+

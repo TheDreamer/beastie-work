@@ -1,0 +1,18 @@
+--- CMakeLists.txt.orig	2012-07-07 10:43:18.000000000 -0500
++++ CMakeLists.txt	2013-08-03 19:29:38.398939712 -0500
+@@ -4,6 +4,7 @@
+ 
+ include_directories(
+ 	${grive_SOURCE_DIR}/../libgrive/src
++	${Boost_INCLUDE_DIR}
+ 	${OPT_INCS}
+ )
+ 
+@@ -26,5 +27,5 @@
+     PROPERTIES OUTPUT_NAME grive
+ )
+ 
+-install(TARGETS grive_executable RUNTIME DESTINATION bin)
+-install(FILES doc/grive.1 DESTINATION share/man/man1 )
++#install(TARGETS grive_executable RUNTIME DESTINATION bin)
++#install(FILES doc/grive.1 DESTINATION share/man/man1 )

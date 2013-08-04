@@ -1,0 +1,8 @@
+The purpose of this project is to provide an independent open source
+implemenation of Google Drive client for GNU/Linux.  It uses the
+Google Document API to talk to the servers in Google.  The code is
+written in standard C++.
+
+The source code of Grive is released under GPLv2.
+
+WWW: http://www.lbreda.com/grive/

@@ -1,0 +1,5 @@
+JSON-C implements a reference counting object model that allows you to
+easily construct JSON objects in C, output them as JSON formated strings and
+parse JSON formated strings back into the C representation of JSON objects.
+
+WWW: https://github.com/json-c/json-c/wiki

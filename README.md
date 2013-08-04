@@ -14,6 +14,28 @@ www/p5-WWW-Shorten-Yourls
 
 	www/yourls exists in ports, but not this Perl module?
 
+sysutils/grive
+
+	I got grive-0.2.0 to build on FreeBSD, and thought about turning
+	it into a port.  But, I think I'm out of my depth on whether this
+	is even right.  Plus I don't think I want to be stuck maintain this.
+
+sysutils/grive-devel
+
+	I took a look at the current work on grive-0.3.0 on github, but it
+	needs at least 0.10 of devel/json-c and ports stops at 0.9.  I had
+	started work on making a patch to update the port, but sounds like
+	development is heading towards needing 0.11 now.
+
+	I then ran into it needing a new version of devel/boost-libs than
+	currently in ports.  Given the difficulty I've had in buidling as
+	a dependency of other ports, I don't feel like tackling this update.
+
+devel/json-c
+
+	This was to form the patch for a PR to get json-c-0.9 updated to
+	json-c-0.10, though the latest is json-c-0.11.
+
 patches
 =======
 mail/dovecot2
