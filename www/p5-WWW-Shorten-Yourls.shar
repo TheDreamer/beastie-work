@@ -1,0 +1,63 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh file".  Note, it may
+# create directories; files and directories will be owned by you and
+# have default permissions.
+#
+# This archive contains:
+#
+#	p5-WWW-Shorten-Yourls
+#	p5-WWW-Shorten-Yourls/distinfo
+#	p5-WWW-Shorten-Yourls/Makefile
+#	p5-WWW-Shorten-Yourls/pkg-descr
+#	p5-WWW-Shorten-Yourls/pkg-plist
+#
+echo c - p5-WWW-Shorten-Yourls
+mkdir -p p5-WWW-Shorten-Yourls > /dev/null 2>&1
+echo x - p5-WWW-Shorten-Yourls/distinfo
+sed 's/^X//' >p5-WWW-Shorten-Yourls/distinfo << '2a871764adf52e0496e05d42d3683023'
+XSHA256 (WWW-Shorten-Yourls-0.06.tar.gz) = 4ad89a8b858f9e78dcfcc86dea14efaab32b6c185e53136f3114779b8402135e
+XSIZE (WWW-Shorten-Yourls-0.06.tar.gz) = 6434
+2a871764adf52e0496e05d42d3683023
+echo x - p5-WWW-Shorten-Yourls/Makefile
+sed 's/^X//' >p5-WWW-Shorten-Yourls/Makefile << '5f4e91192d3a975a84d9344d86a5a6db'
+X# Created by: Lawrence Chen <beastie@tardisi.com>
+X# $FreeBSD$
+X
+XPORTNAME=	WWW-Shorten-Yourls
+XPORTVERSION=	0.06
+XCATEGORIES=	www perl5
+XMASTER_SITES=	CPAN
+XPKGNAMEPREFIX=	p5-
+X
+XMAINTAINER=	beastie@tardisi.com
+XCOMMENT=	Perl interface to www/yourls, Your Own URL Shortener
+X
+XBUILD_DEPENDS=	p5-JSON-Any>=1.18:${PORTSDIR}/converters/p5-JSON-Any \
+X		p5-WWW-Shorten>=1.9:${PORTSDIR}/www/p5-WWW-Shorten \
+X		p5-XML-Simple>=2.18:${PORTSDIR}/textproc/p5-XML-Simple
+XRUN_DEPENDS:=	${BUILD_DEPENDS}
+X
+XPERL_CONFIGURE=	yes
+X
+XMAN3=		WWW::Shorten::Yourls.3
+X
+X.include <bsd.port.mk>
+5f4e91192d3a975a84d9344d86a5a6db
+echo x - p5-WWW-Shorten-Yourls/pkg-descr
+sed 's/^X//' >p5-WWW-Shorten-Yourls/pkg-descr << 'f47548de45ace96511f45517dfdb1bf8'
+XA Perl Interface to shortening URLs with www/yourls. Your Own URL Shortener.
+X
+XWWW: http://search.cpan.org/dist/WWW-Shorten-Yourls/
+f47548de45ace96511f45517dfdb1bf8
+echo x - p5-WWW-Shorten-Yourls/pkg-plist
+sed 's/^X//' >p5-WWW-Shorten-Yourls/pkg-plist << '754808bc9736d408a512008581fc3983'
+X%%SITE_PERL%%/WWW/Shorten/Yourls.pm
+X%%SITE_PERL%%/%%PERL_ARCH%%/auto/WWW/Shorten/Yourls/.packlist
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/WWW/Shorten/Yourls
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/WWW/Shorten
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/WWW
+X@dirrmtry %%SITE_PERL%%/WWW/Shorten
+X@dirrmtry %%SITE_PERL%%/WWW
+754808bc9736d408a512008581fc3983
+exit
+
