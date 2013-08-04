@@ -31,6 +31,11 @@ sysutils/grive-devel
 	currently in ports.  Given the difficulty I've had in buidling as
 	a dependency of other ports, I don't feel like tackling this update.
 
+	Plus I still haven't figured out how to do distfiles from GitHub,
+	MASTER_SITES=GH
+
+	Otherwise, I might reveal my stab at print/cups-cloud-print.
+
 devel/json-c
 
 	This was to form the patch for a PR to get json-c-0.9 updated to
