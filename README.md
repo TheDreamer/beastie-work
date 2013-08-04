@@ -41,6 +41,41 @@ devel/json-c
 	This was to form the patch for a PR to get json-c-0.9 updated to
 	json-c-0.10, though the latest is json-c-0.11.
 
+print/cups-cloud-print
+
+	While researching options for replacing my old inkjet printer, and
+	the apparently obsession of vendors to do GDI and Windows only...
+	though some support Mac OS X and some might add some Linx support.
+
+	Since I already ran into this mistake with my laser printer, which
+	I hardly use now.  Though I run a small ubuntu VM on one of my
+	FreeBSD systems to make use of it.  It appears unlikely that I'll
+	have Windows again, and no idea when a Mac will become a reality.
+
+	One of the draws to the idea of working for a University was to
+	get discounted Apple hardware, but I've yet to get anything this way
+	in over 7 years.
+
+	I had seen printers with direct Google Cloud printing support, but
+	the capability disappeared from Chromium on FreeBSD some time ago.
+	I do have the capability to print to my printers at home, since I
+	own a ChromeBook.  Again it involves running chrome in that small
+	ubuntu VM.
+
+	So, I had gotten a version of this to build and run.  And, I
+	successfully printed a web page from my browser on FreeBSD, out to
+	Google, back to chrome running in VM on same computer, to printer
+	sitting next to said computer.  Though probably wouldn't be any
+	less weird if I did get a printer with direct cloud printing support.
+
+	The port probably needs a lot more work to get it to FreeBSD standards,
+	but this work staled on trying to figure out how MASTER_SITES=GH works.
+
+	Not sure I remember all what I did anymore, so thought I should
+	save my work somewhere before it got lost.
+	
+	http://www.niftiestsoftware.com/cups-cloud-print/
+
 patches
 =======
 mail/dovecot2
