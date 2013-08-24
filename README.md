@@ -104,19 +104,22 @@ sysutils/cfengine35
 
 	-------------------------------------------
 
-	Issue #3207 - configure fails to find libxml2kk
+	Issue #3207 - configure fails to find libxml2
 
 	configure doesn't find -lxml2, because it doesn't call
 		"xml2-config --libs" to get the LDFLAGS needed to find it.
 
 	-------------------------------------------
 
-	I had started to write edit_line action to promise lines in an xml file
-	but was having trouble with differing use of whitespace among the
-	systems existing systems.  Largely because I had added the lines in
-	by hand, but the xml file organization differs a bit on all 4 systems
-	probably due to each system starting with different initial versions
-	of the application.
+	But, then also reported for FreeBSD.
 
-	But, decided this would be useful for when I get around to building
-	that new server.
+	ports/180896
+
+	sysutils/cfengine35: can't use edit_xml because libxml2 not found
+
+	========================================================================
+
+	patch-3.5.1-3
+
+	Noticed that the new CFEngine Standard Library for 3.5.1 is missing,
+	so that's what 3.5.1-3 is.
