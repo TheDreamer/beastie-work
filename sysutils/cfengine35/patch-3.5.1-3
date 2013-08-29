@@ -19,7 +19,7 @@
 +SHA256 (cfengine-3.5.1-3.tar.gz) = eee2dfb254249c8a440331a09dd2575b30e42d06f49df57b33f91ca4a6af5edc
 +SIZE (cfengine-3.5.1-3.tar.gz) = 1524104
 --- pkg-plist.orig	2013-06-12 13:00:45.000000000 -0500
-+++ pkg-plist	2013-08-24 15:57:07.817240869 -0500
++++ pkg-plist	2013-08-29 07:00:22.926831787 -0500
 @@ -18,6 +18,31 @@
  share/cfengine/CoreBase/controls/cf_runagent.cf
  share/cfengine/CoreBase/controls/cf_monitord.cf
@@ -52,10 +52,12 @@
  share/cfengine/CoreBase/libraries/cfengine_stdlib.cf
  share/cfengine/CoreBase/services/init_msg.cf
  share/cfengine/CoreBase/update.cf
-@@ -292,6 +317,7 @@
+@@ -292,6 +317,9 @@
  @dirrm %%DOCSDIR%%/examples
  @dirrm %%DOCSDIR%%
  @dirrm share/cfengine/CoreBase/controls
++@dirrm share/cfengine/CoreBase/lib/3.5
++@dirrm share/cfengine/CoreBase/lib/3.6
 +@dirrm share/cfengine/CoreBase/lib
  @dirrm share/cfengine/CoreBase/libraries
  @dirrm share/cfengine/CoreBase/services
