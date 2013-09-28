@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!--
+/************************************************************************/
+/*                                                                      */
+/*      Account Colors  -  Thunderbird Extension  -  Compose Window     */
+/*                                                                      */
+/*      XUL for Compose Window overlay                                  */
+/*                                                                      */
+/*      Copyright (C) 2008-2012  by  DW-dev                             */
+/*                                                                      */
+/*      Last Edit  -  16 Jun 2012                                       */
+/*                                                                      */
+/************************************************************************/
+-->
+
+<?xml-stylesheet href="chrome://accountcolors/skin/accountcolors-composewindow.css" type="text/css"?>
+
+<overlay id="accountcolors-composewindow-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    
+    <window id="msgcomposeWindow">
+        
+        <script src="chrome://accountcolors/content/accountcolors-composewindow.js" type="application/x-javascript"/>
+        <script src="chrome://accountcolors/content/accountcolors-utilities.js" type="application/x-javascript"/>
+        
+<!--
+        <statusbar id="status-bar">
+            <statusbarpanel id="accountcolors-debug-info" class="statusbarpanel-iconic-text" width="300px;"/>
+        </statusbar>
+-->
+        
+    </window>
+    
+</overlay>
