@@ -1,0 +1,11 @@
+--- Makefile.orig	2013-09-20 13:35:44.000000000 -0500
++++ Makefile	2013-10-25 07:13:43.347543387 -0500
+@@ -64,7 +64,7 @@
+ 
+ USES=		gmake perl5
+ USE_GNOME=	gtk20 librsvg2
+-PERL5=		configure
++USE_PERL5=	configure
+ MAN1=		${PORTNAME}.1 scanadf-perl.1 scanimage-perl.1
+ PORT_VERBS=	${PORTNAME} Gscan2pdf
+ 
