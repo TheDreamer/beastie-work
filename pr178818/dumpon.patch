@@ -1,0 +1,16 @@
+--- dumpon.orig	2013-10-27 16:15:05.000000000 -0500
++++ dumpon	2013-11-06 07:44:38.137819839 -0600
+@@ -47,6 +47,13 @@
+ 		echo "No suitable dump device was found." 1>&2
+ 		return 1
+ 		;;
++	/dev/mirror/*)
++		mirror_balance=`gmirror list ${dumpdev#/dev/mirror/} | grep ^Balance:`
++		mirror_balance=${mirror_balance#Balance: }
++		gmirror configure -b prefer ${dumpdev#/dev/mirror/}
++		dumpon_try "${dumpdev}"
++		gmirror configure -b ${mirror_balance} ${dumpdev#/dev/mirror/}
++		;;
+ 	*)
+ 		dumpon_try "${dumpdev}"
+ 		;;

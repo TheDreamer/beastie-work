@@ -126,6 +126,15 @@ sysutils/cfengine35
 
 	ports/181509
 
+pr178818
+
+	docs/178818 
+		gmirror(8) says to use rc.eary which is no longer available
+
+	proposed fix is to automate this in the dumpon script, which had
+	one small flaw, which I corrected.  And, then tried to recall how to
+	include a patch that won't get munged by mail client....
+
 Other
 =====
 xpi/accountcolors
