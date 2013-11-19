@@ -1,0 +1,4 @@
+mmap.c & mmap.gemspec are the updated files from
+https://github.com/authorNari/ruby-mmap
+
+only mmap.c is patched into place.

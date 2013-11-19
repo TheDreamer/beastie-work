@@ -41,6 +41,25 @@ devel/json-c
 	This was to form the patch for a PR to get json-c-0.9 updated to
 	json-c-0.10, though the latest is json-c-0.11.
 
+devel/ruby-mmap
+
+	Been trying to figure out how to generate the .fw files for
+	sysutils/devcpu-data from the latest amd-ucode files.  Found a ruby
+	program that looked promising, but getting it to run was a challenge.
+	Especially since it wanted 'mmap'.
+
+	I got mmap to build after going through the source and figuring out
+	what was needed to get it to work with 1.9.  I was going to fork
+	ruby-mmap on github to record my work, when I found that numerous
+	other forks exist with similiar/better changes to mmap.c.  I took
+	what looked appeared to be the most recent and it showed that it to
+	be 0.2.7.
+
+	So I tweaked the Makefile to create PORTVERSION 0.2.7 from DISTVERSION
+	0.2.6 :)
+
+	Alas, it didn't extract anything.
+
 print/cups-cloud-print
 
 	While researching options for replacing my old inkjet printer, and
