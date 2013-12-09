@@ -10,32 +10,6 @@ Somewhere to save the FreeBSD ports that I'm fiddling with...
 
 ports
 =====
-www/p5-WWW-Shorten-Yourls
-
-	www/yourls exists in ports, but not this Perl module?
-
-sysutils/grive
-
-	I got grive-0.2.0 to build on FreeBSD, and thought about turning
-	it into a port.  But, I think I'm out of my depth on whether this
-	is even right.  Plus I don't think I want to be stuck maintain this.
-
-sysutils/grive-devel
-
-	I took a look at the current work on grive-0.3.0 on github, but it
-	needs at least 0.10 of devel/json-c and ports stops at 0.9.  I had
-	started work on making a patch to update the port, but sounds like
-	development is heading towards needing 0.11 now.
-
-	I then ran into it needing a new version of devel/boost-libs than
-	currently in ports.  Given the difficulty I've had in buidling as
-	a dependency of other ports, I don't feel like tackling this update.
-
-	Plus I still haven't figured out how to do distfiles from GitHub,
-	MASTER_SITES=GH
-
-	Otherwise, I might reveal my stab at print/cups-cloud-print.
-
 devel/json-c
 
 	This was to form the patch for a PR to get json-c-0.9 updated to
@@ -95,8 +69,57 @@ print/cups-cloud-print
 	
 	http://www.niftiestsoftware.com/cups-cloud-print/
 
+sysutils/grive
+
+	I got grive-0.2.0 to build on FreeBSD, and thought about turning
+	it into a port.  But, I think I'm out of my depth on whether this
+	is even right.  Plus I don't think I want to be stuck maintain this.
+
+sysutils/grive-devel
+
+	I took a look at the current work on grive-0.3.0 on github, but it
+	needs at least 0.10 of devel/json-c and ports stops at 0.9.  I had
+	started work on making a patch to update the port, but sounds like
+	development is heading towards needing 0.11 now.
+
+	I then ran into it needing a new version of devel/boost-libs than
+	currently in ports.  Given the difficulty I've had in buidling as
+	a dependency of other ports, I don't feel like tackling this update.
+
+	Plus I still haven't figured out how to do distfiles from GitHub,
+	MASTER_SITES=GH
+
+	Otherwise, I might reveal my stab at print/cups-cloud-print.
+
+www/p5-WWW-Shorten-Yourls
+
+	www/yourls exists in ports, but not this Perl module?
+
 patches
 =======
+databases/pecl-mysqlnd_qc
+
+	Keep seeing the advise to use memcache instead of query cache in
+	mysql, but it stumped me on how would I do this without requiring that
+	I change the applications (the big one being cacti.)
+
+	When I finally came across this extension, which sounded like it would
+	fit.  Except it didn't, because I use spine. :(
+
+	Anyways, while trying it out, I couldn't figure out how to get it to
+	use memcached.  Well, these are enabled at compile time, and the port
+	didn't ask if I wanted to enable MEMCACHE or sqlite storage handlers.
+	So fiddled with the Makefile to have it ask.
+
+	Wonder if I'll submit it?
+
+databases/pecl-mysqlnd_qc/patch-php_mysqlnd_qc.c
+
+	Going with mysqlnd_qc.cache_by_default, there needed to be away (to me)
+	to have it use MEMCACHE by default.  I started trying to add a new INI
+	option to do this, but doing development on a 'production' server is
+	bad, so I went with the qad way....
+
 mail/dovecot2
 
 	ports/175813: [patch] mail/dovecot2 doesn't detect libstemmer or
