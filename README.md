@@ -113,6 +113,8 @@ databases/pecl-mysqlnd_qc
 
 	Wonder if I'll submit it?
 
+	Decided to first remove reference to APC.
+
 databases/pecl-mysqlnd_qc/patch-php_mysqlnd_qc.c
 
 	Going with mysqlnd_qc.cache_by_default, there needed to be away (to me)

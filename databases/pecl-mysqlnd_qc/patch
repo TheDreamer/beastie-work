@@ -1,5 +1,5 @@
 --- Makefile.orig	2013-09-20 11:13:47.000000000 -0500
-+++ Makefile	2013-12-09 17:25:50.588120575 -0600
++++ Makefile	2013-12-09 18:10:13.209121215 -0600
 @@ -3,6 +3,7 @@
  
  PORTNAME=	mysqlnd_qc
@@ -8,17 +8,15 @@
  CATEGORIES=	databases
  MASTER_SITES=	http://pecl.php.net/get/
  PKGNAMEPREFIX=	pecl-
-@@ -16,5 +17,26 @@
+@@ -16,5 +17,18 @@
  USE_PHPEXT=	yes
  USE_PHPIZE=	yes
  
-+OPTIONS_DEFINE=	APC MEMCACHE SQLITE
++OPTIONS_DEFINE=	MEMCACHE SQLITE
 +
-+APC_DESC=	APC storage handler
 +MEMCACHE_DESC=	MEMCACHE storage handler
 +SQLITE_DESC=	SQLITE storage handler
 +
-+APC_USE=	PHP=apc
 +MEMCACHE_RUN_DEPEND=	${PHPBASE}/lib/php/$PHP_EXT_DIR}/memcached.so:${PORTSDIR}/databases/pecl-memcached
 +MEMCACHE_BUILD_DEPEND=	${PHPBASE}/lib/php/$PHP_EXT_DIR}/memcached.so:${PORTSDIR}/databases/pecl-memcached
 +SQLITE_USE=	PHP=sqlite3
@@ -26,12 +24,6 @@
 +MEMCACHE_CONFIGURE_ENABLE=	mysqlnd-qc-memcache
 +SQLITE_CONFIGURE_ENABLE=	mysqlnd-qc-sqlite
 +SQLITE_CONFIGURE_WITH=		sqlite-dir=${LOCALBASE}
-+
-+.include <bsd.port.options.mk>
-+
-+.if ${PORT_OPTIONS:MAPC}
-+BROKEN=	APC support requires both APC and MySQL Query Cache to be compiled statically
-+.endif
 +
  NO_STAGE=	yes
  .include <bsd.port.mk>
