@@ -139,6 +139,10 @@ mail/dovecot2
 		libexttextcat-1.0.so(.*)->
 			libexttextcat-2.0.so(.*)
 
+mail/davmail
+
+	Update to 4.4.0
+
 net/nxserver
 
 	PORTREVISION got bumped to 9, due to newer libaudiofile.  But, it
