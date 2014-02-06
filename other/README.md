@@ -2,17 +2,17 @@ OTHER
 =====
 xpi/accountcolors
 
-	I have a lot of accounts in Thunderbird, and have been looking for extensions to find certain accounts easier.  This one
-	seemed helpful, except that it wouldn't show all my accounts.
+	I have a lot of accounts in Thunderbird, and have been looking for extensions to find certain accounts easier.
+	This one seemed helpful, except that it wouldn't show all my accounts.
 
 	Probably is hard coded to some maximum number of accounts...
 
 	So, I decided to hack the extension to increase it.  After counting the number of accounts visible, I deduced the limit
 	to be 60.  I then counted the rest of my accounts and rounded up to 128. ;)
 
-	Replacing the right occurrences of 60 with 128 was easy.  The hard part was the options dialog.  Which was ugly, which I
-	added to more.  You would think there's a cleaner way to generate the rows, either staticly or dynamicly.  Oh well, it
-	does what I want it to now :)
+	Replacing the right occurrences of 60 with 128 was easy.  The hard part was the options dialog.  Which was ugly,
+	which I added to more.  You would think there's a cleaner way to generate the rows, either staticly or dynamicly.
+	Oh well, it does what I want it to now :)
 
 	****
 

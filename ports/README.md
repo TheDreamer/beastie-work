@@ -34,20 +34,20 @@ print/cups-cloud-print
 	some time ago.  I do have the capability to print to my printers at home, since I own a ChromeBook.  Again it involves
 	running chrome in that small ubuntu VM.
 
-	So, I had gotten a version of this to build and run.  And, I successfully printed a web page from my browser on FreeBSD,
-	out to Google, back to chrome running in VM on same computer, to printer sitting next to said computer.  Though probably
-	wouldn't be any less weird if I did get a printer with direct cloud printing support.
+	So, I had gotten a version of this to build and run.  And, I successfully printed a web page from my browser on
+	FreeBSD, out to Google, back to chrome running in VM on same computer, to printer sitting next to said computer.
+	Though probably wouldn't be any less weird if I did get a printer with direct cloud printing support.
 
-	The port probably needs a lot more work to get it to FreeBSD standards, but this work staled on trying to figure out how
-	MASTER_SITES=GH works.
+	The port probably needs a lot more work to get it to FreeBSD standards, but this work staled on trying to figure out
+	how MASTER_SITES=GH works.
 
 	Not sure I remember all what I did anymore, so thought I should save my work somewhere before it got lost.
 	
 	http://www.niftiestsoftware.com/cups-cloud-print/
 
 	2014-02-04 (first snow day of 2...so far): Was about to take another stab at getting it to to work, when I noticed that
-	an official port for it had appeared with timestamps of 2014-01-29.  Wonder if I want to switch to it.  Though my current
-	install was not installed by port, so that might cause problems.  Noticed that the Makefile operates on
+	an official port for it had appeared with timestamps of 2014-01-29.  Wonder if I want to switch to it.  Though my
+	current install was not installed by port, so that might cause problems.  Noticed that the Makefile operates on
 	/etc/cloudprint.conf (which is where my local install works on, but in files I had patched the appropriate files to use
 	/usr/local/etc....
 
@@ -59,8 +59,8 @@ sysutils/grive
 sysutils/grive-devel
 
 	I took a look at the current work on grive-0.3.0 on github, but it needs at least 0.10 of devel/json-c and ports stops
-	at 0.9.  I had started work on making a patch to update the port, but sounds like development is heading towards needing
-	0.11 now.
+	at 0.9.  I had started work on making a patch to update the port, but sounds like development is heading towards
+	needing 0.11 now.
 
 	I then ran into it needing a new version of devel/boost-libs than currently in ports.  Given the difficulty I've had in
 	buidling as a dependency of other ports, I don't feel like tackling this update.
