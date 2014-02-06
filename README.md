@@ -8,8 +8,8 @@ Somewhere to save the FreeBSD ports that I'm fiddling with...
 	2: If we were to leave things with you, my dear fellow,
 	   we'd be in a fine pickle wouldn't we?
 
-PORTS(ports/README.md)
+[PORTS](ports/README.md)
 
-PATCHES(patches/README.md)
+[PATCHES](patches/README.md)
 
-OTHER(other/README.md)
+[OTHER](other/README.md)
