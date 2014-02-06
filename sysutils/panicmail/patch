@@ -1,0 +1,198 @@
+--- Makefile.orig	2013-11-04 02:57:06.000000000 -0600
++++ Makefile	2014-02-06 13:30:06.382015231 -0600
+@@ -15,6 +15,8 @@
+ NO_BUILD=	yes
+ NO_INSTALL=	yes
+ 
++SUB_FILES=	pkg-message
++
+ PLIST_FILES=	etc/rc.d/panicmail \
+ 		etc/cperciva-panicmail.pem
+ 
+--- pkg-message.orig	2013-11-04 17:51:10.000000000 -0600
++++ pkg-message	1969-12-31 18:00:00.000000000 -0600
+@@ -1,10 +0,0 @@
+-To enable sending of panic reports, add
+-	dumpdev="AUTO"
+-	panicmail_enable="YES"
+-to your /etc/rc.conf.
+-
+-By default panic reports will be sent to root with instructions to forward
+-them if they do not contain any sensitive information.  To automatically
+-submit panic reports directly, add
+-	panicmail_autosubmit="YES"
+-to your /etc/rc.conf in addition.
+--- files/pkg-message.in.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/pkg-message.in	2014-02-06 12:21:56.870016856 -0600
+@@ -0,0 +1,13 @@
++To enable sending of panic reports, add
++	dumpdev="AUTO"
++	panicmail_enable="YES"
++to your /etc/rc.conf.
++
++By default panic reports will be sent to root with instructions to forward
++them if they do not contain any sensitive information.  To automatically
++submit panic reports directly, add
++	panicmail_autosubmit="YES"
++to your /etc/rc.conf in addition.
++
++Examine %%LOCALBASE%%/etc/rc.d/panicmail for additional /etc/rc.conf
++settings.
+--- files/patch-panicmail.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-panicmail	2014-02-06 13:45:12.533015907 -0600
+@@ -0,0 +1,155 @@
++--- panicmail.orig	2013-11-04 02:22:56.000000000 -0600
+++++ panicmail	2014-02-06 13:44:32.210017387 -0600
++@@ -39,19 +39,44 @@
++ #				emails instead of sending them to root for
++ #				review first.
++ #
+++# panicmail_autonotify (bool):	Set to "YES" by default.
+++#				Set it to "NO" to suppress copy to root fo automatically
+++#				submitted panic email.
+++#
++ # panicmail_sendto (str):	Set to
++ #				"FreeBSD Panic Reporting <cperciva+panicmail@freebsd.org>"
++ #				by default.
++ #				Change to your desired panic submission target.
++ #
+++# panicmail_sendfrom (str):	Set to
+++#				"root"
+++#				by default.
+++#				Change to your desired/valid Internet E-Mail
+++#				Address.
+++#
++ # panicmail_key (str):		Set to "/usr/local/etc/cperciva-panicmail.pem"
++ #				by default.
++ #				Change to the encryption key for your panic
++ #				submission target.
+++#
+++# panicmail_usecrashinfo (bool):
+++#				Set to "NO" by default.
+++#				Set to "YES" to use crashinfo to process crash.
+++#
+++# panicmail_usekernel (str):
+++#				Set to "" by default.
+++#				Uses `sysctl -n kern.bootfile`.
+++#				Change if debug kernel is available somewhere.
+++#
+++				
++ : ${panicmail_enable:="NO"}
++ : ${panicmail_autosubmit:="NO"}
+++: ${panicmail_autonotify:="YES"}
++ : ${panicmail_sendto:="FreeBSD Panic Reporting <cperciva+panicmail@freebsd.org>"}
+++: ${panicmail_sendfrom:="root"}
++ : ${panicmail_key:="/usr/local/etc/cperciva-panicmail.pem"}
+++: ${panicmail_usecrashinfo:="NO"}
+++: ${panicmail_usekernel:=""}
++ 
++ . /etc/rc.subr
++ 
++@@ -64,19 +89,55 @@
++ panicmail_gather()
++ {
++ 	local tmpfile
+++	local kernel
+++	local bootkern
++ 	tmpfile=`mktemp` || exit 1
++ 
++ 	# We want the dump header.
++ 	cat "${dumpdir}/info.$1" > "${dumpdir}/panicmail.$1"
++ 	echo >> "${dumpdir}/panicmail.$1"
++ 
++-	# And we want a backtrace (we should be able to pipe the commands
++-	# directly into kgdb, but that doesn't work with our /bin/sh):
++-	echo "Backtrace:" >> "${dumpdir}/panicmail.$1"
++-	echo bt > "${tmpfile}"
++-	echo quit >> "${tmpfile}"
++-	kgdb -q "`sysctl -n kern.bootfile`" "${dumpdir}/vmcore.$1" \
++-	    < "${tmpfile}" >> "${dumpdir}/panicmail.$1" 2> /dev/null
+++	if checkyesno panicmail_usecrashinfo; then
+++		# We'll use crashinfo to get backtrace and more
+++		echo "Backtrace (crashinfo):" >> "${dumpdir}/panicmail.$1"
+++
+++		if [ -z "${panicmail_usekernel}" ]; then
+++			kernel="`sysctl -n kern.bootfile`"
+++			# if <kernel>.symbols exists, we'll use that.
+++			# save <kernel> for 'kernel config'
+++			if [ -e "${kernel}.symbols" ]; then
+++				bootkern="${kernel}"
+++				kernel="${kernel}.symbols"
+++			fi
+++		else
+++			kernel="${panicmail_usekernel}"
+++		fi
+++		crashinfo -k "${kernel}" "${dumpdir}/vmcore.$1" > /dev/null 2>&1
+++		cat "${dumpdir}/core.txt.$1" >> "${dumpdir}/panicmail.$1"
+++
+++		# if we used <kernel>.symbols - kernel config step will fail
+++		if [ -e "${bootkern}" ]; then
+++			echo >> "${dumpdir}/panicmail.$1"
+++			echo "kernel config:" >> "${dumpdir}/panicmail.$1"
+++			config -x "${bootkern}" >> "${dumpdir}/panicmail.$1"
+++			echo >> "${dumpdir}/panicmail.$1"
+++		fi
+++
+++		# Remove core.txt.$1 since we're going to leave panicmail.$1
+++		rm "${dumpdir}/core.txt.$1"
+++
+++	else
+++		# And we want a backtrace (we should be able to pipe the
+++		# commands directly into kgdb, but that doesn't work with
+++		# our /bin/sh):
+++	
+++		echo "Backtrace:" >> "${dumpdir}/panicmail.$1"
+++		echo bt > "${tmpfile}"
+++		echo quit >> "${tmpfile}"
+++		kgdb -q "`sysctl -n kern.bootfile`" "${dumpdir}/vmcore.$1" \
+++		    < "${tmpfile}" >> "${dumpdir}/panicmail.$1" 2> /dev/null
+++
+++	fi
++ 	echo >> "${dumpdir}/panicmail.$1"
++ 
++ 	# Remove the temporary file.
++@@ -138,13 +199,33 @@
++ 
++ 	cat <<-EOF
++ 		To: ${panicmail_sendto}
++-		From: root
+++		From: ${panicmail_sendfrom}
++ 		Subject: Kernel panic
++ 
++ 	EOF
++ 	cat "${dumpdir}/panicmail.$1.enc"
++ }
++ 
+++# Construct an email destined for root in reference to panic submission.
+++panicmail_autoroot()
+++{
+++
+++	cat <<-EOF
+++		To: root
+++		From: ${panicmail_sendto}
+++		Subject: Kernel panic
+++
+++		A kernel panic has occurred on this system.  An encrypted
+++		panic report was automatically delivered to:
+++		  ${panicmail_sendto}.
+++
+++		The following information was contained in the auto-
+++		submitted encrypted panic report:
+++
+++	EOF
+++	lam -s "> " "${dumpdir}/panicmail.$1"
+++}
+++
++ panicmail_run()
++ {
++ 	local nr
++@@ -187,6 +268,9 @@
++ 	# Generate and send an email.
++ 	if checkyesno panicmail_autosubmit; then
++ 		panicmail_auto "${nr}" | sendmail -t
+++		if checkyesno panicmail_autonotify; then
+++			panicmail_autoroot "${nr}" | sendmail -t
+++		fi
++ 	else
++ 		panicmail_root "${nr}" | sendmail -t
++ 	fi

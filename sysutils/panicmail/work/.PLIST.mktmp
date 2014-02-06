@@ -1,0 +1,12 @@
+@owner root
+@group wheel
+etc/rc.d/panicmail
+etc/cperciva-panicmail.pem
+share/licenses/panicmail-1.0/catalog.mk
+share/licenses/panicmail-1.0/LICENSE
+share/licenses/panicmail-1.0/BSD
+@owner root
+@group wheel
+@cwd /usr/local
+@dirrm share/licenses/panicmail-1.0
+@unexec rmdir %D/share/licenses 2>/dev/null || true

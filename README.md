@@ -91,6 +91,37 @@ sysutils/grive-devel
 
 	Otherwise, I might reveal my stab at print/cups-cloud-print.
 
+sysutils/panicmail
+
+	Recently, I had yet another panic.  Couldn't remember how I had
+	examined the previous vmcore, while searching online on how again
+	I came across this port.
+
+	Almost immediately, I made some tweaks to it.  Like change the
+	From: address for autosubmit to use a proper email address rather
+	than my internal root account.
+
+	I forget if I ever got around to creating a genericstable config
+	for my FreeBSD sendmail servers, which have replaced my Ubuntu
+	postfix servers.  Though if I had, the address I would use in
+	place of root on my primary desktop would differ from the email
+	address I use for FreeBSD related correspondence.
+	
+	Initially, I made the tweaks by hand and then coded up a CFE3
+	promise to recreate it on my other FreeBSD servers.
+
+	Then, I started to set things up for possible PR submission to
+	send up my 'enhancements'.  But, as I was doing that, I thought
+	up other enhancements and it got a little out of hand.  Now,
+	I'm not sure I want to send it up....
+
+	new rc.conf(.local) entries (with defaults):
+
+	panicmail_autonotify="YES"
+	panicmail_sendfrom="root"
+	panicmail_usecrashinfo="NO"
+	panicmail_usekernel=""
+
 www/p5-WWW-Shorten-Yourls
 
 	www/yourls exists in ports, but not this Perl module?

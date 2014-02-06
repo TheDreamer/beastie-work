@@ -1,0 +1,5 @@
+rm -f patch
+diff -Nu Makefile.orig Makefile > patch
+diff -Nu pkg-message.orig pkg-message >> patch
+diff -Nu files/pkg-message.in.orig files/pkg-message.in >> patch
+diff -Nu files/patch-panicmail.orig files/patch-panicmail >> patch
