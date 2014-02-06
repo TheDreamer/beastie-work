@@ -45,7 +45,7 @@ net/nxserver
 	PORTREVISION got bumped to 9, due to newer libaudiofile.  But, it wouldn't build.  audiofile-config has been
 	removed, for pkgconf but nxserver (specifically nxesd's) configure doesn't know how to deal with this.  Started
 	trying to patch configure, when I went with setting AUDIOFILE_CONFIG="/usr/local/bin/pkgconf audiofile" and
-	passing _--disable-audiofiletest_ to configure.  It can still get the necessary lib flags and cflags using the first
+	passing '--disable-audiofiletest' to configure.  It can still get the necessary lib flags and cflags using the first
 	part, but the process of checking that 0.3.6 is greater than minimum version of 0.1.5 was easier solved by disabling
 	the test.
 
