@@ -1,5 +1,5 @@
 --- pkg_rmleaves.orig	2014-02-19 13:58:20.969015298 -0600
-+++ pkg_rmleaves	2014-02-19 13:57:29.478015196 -0600
++++ pkg_rmleaves	2014-02-19 14:24:48.175017122 -0600
 @@ -61,17 +61,17 @@
  # update leaf files
  checkLeafs() {
@@ -17,7 +17,7 @@
  			fi
  		done
 -	fi | sort > "$PKGFILE"
-+	fi | sort | sed -e 's/"/\\"/g' | sed -e 's/#/"/g' > "$PKGFILE"
++	fi | sort | sed -e 's/"/_/g' | sed -e 's/#/"/g' > "$PKGFILE"
  
  	if [ -f "$PREV" ]; then
  		diff --unchanged-line-format='' --old-line-format='' --new-line-format='%L' "$PREV" "$PKGFILE" > "$TMPFILE"

@@ -71,7 +71,7 @@ checkLeafs() {
 				echo "#$pkg# ## #off# #$desc#"
 			fi
 		done
-	fi | sort | sed -e 's/"/\\"/g' | sed -e 's/#/"/g' > "$PKGFILE"
+	fi | sort | sed -e 's/"/_/g' | sed -e 's/#/"/g' > "$PKGFILE"
 
 	if [ -f "$PREV" ]; then
 		diff --unchanged-line-format='' --old-line-format='' --new-line-format='%L' "$PREV" "$PKGFILE" > "$TMPFILE"
