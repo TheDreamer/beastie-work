@@ -104,6 +104,18 @@ sysutils/panicmail
 		panicmail_usecrashinfo="NO"
 		panicmail_usekernel=""
 
+ports-mgmt/pkg_rmleaves
+
+	Everytime that I've tried this program, it always fails with:
+
+	Dialog Error, try to resize your terminal to at least 80x24.
+
+	But, my terminal window is 80x24, and changing the size doesn't make
+	any difference.  Eventually, I looked deeper into the problem, and
+	its having trouble with package comments that contain quotation marks.
+
+	So wiped up an ugly kluge to deal with them, and now its working... ;)
+
 pr178818
 
 	docs/178818 
