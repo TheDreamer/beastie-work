@@ -1,0 +1,16 @@
+# Created by: Lawrence Chen <beastie@tardisi.com>
+# $FreeBSD$
+
+PORTNAME=	Net-DHCP-Watch
+PORTVERSION=	2.03
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	beastie@tardisi.com
+COMMENT=	A class for monitoring a remote DHCPD server
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

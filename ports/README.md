@@ -52,6 +52,14 @@ print/cups-cloud-print
 	/etc/cloudprint.conf (which is where my local install works on, but in files I had patched the appropriate files to
 	use /usr/local/etc....
 
+net/p5-Net-DHCP-Watch
+
+	Couldn't get check_dhcp to work on FreeBSD, so had nagios invoke it through nrpe on a Linux server.  But, I'm
+	running out of old Linux servers.
+
+	So, I switched to using a check_dhcp perl script, which among the required modules was this one.  I CPAN'd it
+	at first, but BSDPAN is not pkgng aware.  So, decided to whip up this port.
+
 sysutils/grive
 
 	I got grive-0.2.0 to build on FreeBSD, and thought about turning it into a port.  But, I think I'm out of my depth
