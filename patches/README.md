@@ -116,6 +116,18 @@ ports-mgmt/pkg_rmleaves
 
 	So wiped up an ugly kluge to deal with them, and now its working... ;)
 
+ports-mgmt/portrac
+
+	For the last few days its been saying that there are no ports needing
+	update.  Seems odd that nothing has been changing in for this long,
+	but there were lots of ports I know I hadn't updated at home that I
+	had to deal with on work computer.
+
+	Finally, took a peek inside and its not PKGNG aware :(
+
+	Patched it in a similar manner to how ports-mgmt/pkg_cutleaves handles
+	PKGNG.
+
 pr178818
 
 	docs/178818 
