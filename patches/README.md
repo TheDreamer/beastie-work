@@ -51,6 +51,8 @@ net/nxserver
 
 	Could have port system check version, but can't do that on a LIB_DEPENDS and went for simple.
 
+	PR: ports/183825
+
 sysutils/cfengine35
 
 	Kind of odd making a patch for FreeBSD when the problem is upstream.
@@ -116,6 +118,8 @@ ports-mgmt/pkg_rmleaves
 
 	So wiped up an ugly kluge to deal with them, and now its working... ;)
 
+	PR: ports/186904
+
 ports-mgmt/portrac
 
 	For the last few days its been saying that there are no ports needing
@@ -127,6 +131,8 @@ ports-mgmt/portrac
 
 	Patched it in a similar manner to how ports-mgmt/pkg_cutleaves handles
 	PKGNG.
+
+	PR: ports/186963
 
 pr178818
 
