@@ -13,6 +13,11 @@ databases/memcached
 
 	PR: ports/187337
 
+	Discovered that I couldn't get into my email when checking to see what number had been assigned.  Roundcube logs
+	have "DB Error: Failed to connect to memcached."  Also noticed that memcached is consuming 100% of CPU.
+
+	I backed out parts of the "Enforce libevent2" patch, to get things working again.
+
 databases/pecl-mysqlnd_qc
 
 	Keep seeing the advise to use memcache instead of query cache in mysql, but it stumped me on how would I do this
