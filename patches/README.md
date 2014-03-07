@@ -1,5 +1,18 @@
 PATCHES
 =======
+databases/memcached
+
+	It is becoming a peeve of ports that work fine, but PORTREVISION is bumped so that it will disrupted "portmaster -a"
+	or disrupt my system.  Especially when it causes portmaster to remove the working build and fail during the install
+	of the bumped port.  Especially, when the the bump is of questionable importance, though it might only be
+	'especially' since it broke something that wasn't really broken.  Had it not broken things but was an
+	enhancement....well, hard to say in this case.
+
+	Here's the patch I make the new port option work.  Both for my 'servers' where I have "OPTIONS_UNSET = DOCS" set
+	in /etc/make.conf, and on my desktop where I left it with its defaults.
+
+	PR: ports/187337
+
 databases/pecl-mysqlnd_qc
 
 	Keep seeing the advise to use memcache instead of query cache in mysql, but it stumped me on how would I do this

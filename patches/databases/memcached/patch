@@ -1,0 +1,41 @@
+--- Makefile.orig	2014-03-05 10:28:10.000000000 -0600
++++ Makefile	2014-03-06 18:20:49.658873553 -0600
+@@ -32,10 +32,11 @@
+ CONFIGURE_ARGS=	--with-libevent=${LOCALBASE}/lib/event2 --program-prefix= \
+ 		--disable-coverage
+ 
++MAN1=		memcached.1
++
+ PLIST_FILES=	bin/memcached \
+ 		bin/memcached-tool \
+-		include/memcached/protocol_binary.h \
+-		man/man1/memcached.1.gz
++		include/memcached/protocol_binary.h
+ PLIST_DIRS=	include/memcached
+ 
+ PORTDOCS=	protocol.txt readme.txt
+@@ -58,6 +59,10 @@
+ CONFIGURE_ARGS+=	--enable-64bit
+ .endif
+ 
++.if ${PORT_OPTIONS:MDOCS}
++PLIST_FILES+=	man/man1/memcached.1.gz
++.endif
++
+ .if ${PORT_OPTIONS:MDTRACE}
+ BROKEN=			DTRACE broken with gcc/clang - reported upstream
+ .endif
+@@ -70,11 +75,13 @@
+ 
+ post-install:
+ 	${INSTALL_SCRIPT} ${WRKSRC}/scripts/memcached-tool ${STAGEDIR}${PREFIX}/bin
++.if ${PORT_OPTIONS:MDOCS}
+ 	${INSTALL_MAN} ${WRKSRC}/doc/${MAN1} ${STAGEDIR}${MAN1PREFIX}/man/man1
+ 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+ .for i in ${PORTDOCS}
+ 	${INSTALL_DATA} ${WRKSRC}/doc/${i} ${STAGEDIR}${DOCSDIR}
+ .endfor
++.endif
+ 
+ regression-test: test
+ test: build
