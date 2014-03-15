@@ -40,6 +40,23 @@ databases/pecl-mysqlnd_qc/patch-php_mysqlnd_qc.c
 	I started trying to add a new INI option to do this, but doing development on a 'production' server is bad,
 	so I went with the QAD way....
 
+deskutils/gcalcli
+
+	Been trying to make use of the more advanced options of this, but haven't had much luck.  Went to see if there
+	was a newer version, and found that the project had moved to github and the latest tag is 2.4.2.  Seems ports
+	have of way of not getting updated if the site moves, and new releases aren't posted to the old site, etc.
+
+	I started with a quick update the port so that I can have the latest, which wasn't too hard since its a NO_BUILD
+	port.  Then I thought about sending it up, which resulted in more changes to things.  Like option knobs for the
+	3 optional dependencies.  The default matching the one that had been listed as required dependency for previous
+	package.
+
+	And, then added copying/installing of docs, which led to staging.
+
+	Haven't tried the options yet, but it did make one calendar that I could see in the previous version visible.
+	Under other calendars on Google, I have various shared public calendars and one privately shared (exchange) calendar.
+	Which was the main reason I was fiddling with gcalcli today.
+
 mail/dovecot2
 
 	ports/175813: [patch] mail/dovecot2 doesn't detect libstemmer or exttextcat
@@ -123,6 +140,48 @@ sysutils/panicmail
 		panicmail_sendfrom="root"
 		panicmail_usecrashinfo="NO"
 		panicmail_usekernel=""
+
+sysutils/pefs-kmod
+
+	Decided to give pefs a try.
+
+	After loading the module, I noticed in dmesg:
+
+		cryptosoft0: <software crypto> on motherboard
+
+	Later I wondered if I work machine had an i7 with AESNI. So, I tried loading that module.
+
+	This message appeared in dmesg:
+
+		aesni0: <AES-CBC,AES-XTS> on motherboard
+
+	But, then I noticed that AESNI support is disabled in the build....its turned on by a DEFINE.  Probably to have it
+	build on a wider range of FreeBSD versions it was disabled.  Though would be nice if it could be turned on for
+	people that want it and know they can, better if it could also tell if you can or can't have it.
+
+	So, I quickly added a knob to turn it on.
+
+	Now when I load pefs on my work machine, I get:
+
+		pefs: AESNI hardware acceleration enabled
+
+	in dmesg.
+
+	Now trying this at home (where I had only built it, but never got around to trying it), I first try loading aesni.
+	These two lines appeared in dmsesg:
+
+		cryptosoft0: <software crypto> on motherboard
+		aesni0: No AESNI support.
+
+	I then unloaded aesni, resulting in this line in dmesg:
+
+		cryptosoft0: detached
+
+	Rebuilt the port with AESNI enabled, and loaded int resulted in the same two messages with loading aesni.  Guess
+	that is expected, but wasn't known because I did things out of order at work.
+
+	No message from pefs.  What I ideally want is something that'll work for between home and work, and multiple
+	operating systems.  So, not sure this fulfills that need, though there is a need for it on work computer.
 
 ports-mgmt/pkg_rmleaves
 

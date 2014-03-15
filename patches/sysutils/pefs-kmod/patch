@@ -1,0 +1,14 @@
+--- Makefile.orig	2014-03-13 12:36:48.957873074 -0500
++++ Makefile	2014-03-13 12:35:21.828874302 -0500
+@@ -17,6 +17,11 @@
+ 
+ ONLY_FOR_ARCHS=	i386 amd64	# not tested on other archs
+ 
++OPTIONS_DEFINE=	AESNI
++AESNI_DESC=	Use AES accelerator on (some) Intel CPUs
++
++AESNI_MAKE_ENV=	PEFS_AESNI=yes
++
+ USES=		kmod uidfix
+ 
+ .include <bsd.port.mk>

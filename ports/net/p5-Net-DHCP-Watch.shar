@@ -1,0 +1,66 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh file".  Note, it may
+# create directories; files and directories will be owned by you and
+# have default permissions.
+#
+# This archive contains:
+#
+#	p5-Net-DHCP-Watch
+#	p5-Net-DHCP-Watch/Makefile
+#	p5-Net-DHCP-Watch/distinfo
+#	p5-Net-DHCP-Watch/pkg-descr
+#	p5-Net-DHCP-Watch/pkg-plist
+#
+echo c - p5-Net-DHCP-Watch
+mkdir -p p5-Net-DHCP-Watch > /dev/null 2>&1
+echo x - p5-Net-DHCP-Watch/Makefile
+sed 's/^X//' >p5-Net-DHCP-Watch/Makefile << 'bd3f23d0f4564cd7eb8a776c9b0c47e2'
+X# Created by: Lawrence Chen <beastie@tardisi.com>
+X# $FreeBSD$
+X
+XPORTNAME=	Net-DHCP-Watch
+XPORTVERSION=	2.03
+XCATEGORIES=	net perl5
+XMASTER_SITES=	CPAN
+XPKGNAMEPREFIX=	p5-
+X
+XMAINTAINER=	beastie@tardisi.com
+XCOMMENT=	A class for monitoring a remote DHCPD server
+X
+XLICENSE=	ART10 GPLv1
+XLICENSE_COMB=	dual
+X
+XUSES=		perl5
+XUSE_PERL5=	configure
+X
+X.include <bsd.port.mk>
+bd3f23d0f4564cd7eb8a776c9b0c47e2
+echo x - p5-Net-DHCP-Watch/distinfo
+sed 's/^X//' >p5-Net-DHCP-Watch/distinfo << '66d2ceda4de116972ab49ceccebba4b8'
+XSHA256 (Net-DHCP-Watch-2.03.tar.gz) = d4a33900ebefff21915ad958fb95fc0331d09505d4bcc144993c2adc8c0dd6b8
+XSIZE (Net-DHCP-Watch-2.03.tar.gz) = 8502
+66d2ceda4de116972ab49ceccebba4b8
+echo x - p5-Net-DHCP-Watch/pkg-descr
+sed 's/^X//' >p5-Net-DHCP-Watch/pkg-descr << 'da8b8998180a56cd159be8b075d0bf65'
+XNet::DHCP::Watch is a module to help monitor remote DHCP servers.
+XIt opens an udp socket to send and receive responses to and from a DHCP server.
+XIt stores the last connection status information.
+X
+XThis module can help to write some simple code to implement a reliable
+XDHCP service over complex or simple networks.
+X
+XWWW: http://search.cpan.org/dist/Net-DHCP-Watch/
+da8b8998180a56cd159be8b075d0bf65
+echo x - p5-Net-DHCP-Watch/pkg-plist
+sed 's/^X//' >p5-Net-DHCP-Watch/pkg-plist << '27a7631d24b07290759006877daba66f'
+X%%SITE_PERL%%/Net/DHCP/Watch.pm
+X%%SITE_PERL%%/%%PERL_ARCH%%/auto/Net/DHCP/Watch/.packlist
+X%%PERL5_MAN3%%/Net::DHCP::Watch.3.gz
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/Net/DHCP/Watch
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/Net/DHCP
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/Net
+X@dirrmtry %%SITE_PERL%%/Net/DHCP
+X@dirrmtry %%SITE_PERL%%/Net
+27a7631d24b07290759006877daba66f
+exit
+

@@ -1,0 +1,69 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh file".  Note, it may
+# create directories; files and directories will be owned by you and
+# have default permissions.
+#
+# This archive contains:
+#
+#	nagios-check_dhcp.pl/Makefile
+#	nagios-check_dhcp.pl/distinfo
+#	nagios-check_dhcp.pl/pkg-descr
+#
+echo x - nagios-check_dhcp.pl/Makefile
+sed 's/^X//' >nagios-check_dhcp.pl/Makefile << 'e2a34a74a2508de46db64adcec4c3e30'
+X# Created by: Lawrence Chen <beastie@tardisi.com>
+X# $FreeBSD$
+X
+XPORTNAME=	check_dhcp.pl
+XPORTVERSION=	0.1
+XCATEGORIES=	net-mgmt
+XMASTER_SITES=	http://exchange.nagios.org/components/com_mtree/attachment.php?link_id=1526&cf_id=24&dummy=/
+XPKGNAMEPREFIX=	nagios-
+XDISTNAME=	${PORTNAME}
+XEXTRACT_SUFX=
+X
+XMAINTAINER=	beastie@tardisi.com
+XCOMMENT=	check the availability of a given DHCP server using unicast delivery
+X
+XUSES=		perl5
+XUSE_PERL5=	run
+X
+XRUN_DEPENDS=	${LOCALBASE}/libexec/nagios/utils.pm:${PORTSDIR}/net-mgmt/nagios-plugins \
+X		p5-IO-Socket>=0:${PORTSDIR}/net/p5-IO-Interface \
+X		p5-Net-DHCP-Watch>=0:${PORTSDIR}/net/p5-Net-DHCP-Watch
+X
+XPLIST_DIRSTRY=	libexec/nagios
+XPLIST_FILES=	libexec/nagios/check_dhcp.pl
+XNO_BUILD=	yes
+XNO_WRKSUBDIR=	yes
+X
+Xpost-patch:
+X	@${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," ${WRKSRC}/${PORTNAME}
+X
+Xdo-extract:
+X	@${MKDIR} ${WRKDIR}
+X	@${CP} ${DISTDIR}/${PORTNAME}	${WRKDIR}/
+X
+Xdo-install:
+X	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/nagios
+X	${INSTALL_SCRIPT} ${WRKSRC}/check_dhcp.pl ${STAGEDIR}${PREFIX}/libexec/nagios/check_dhcp.pl
+X
+X.include <bsd.port.mk>
+X
+e2a34a74a2508de46db64adcec4c3e30
+echo x - nagios-check_dhcp.pl/distinfo
+sed 's/^X//' >nagios-check_dhcp.pl/distinfo << '84bce1d7a585b49925ce0671dbc9b9e4'
+XSHA256 (check_dhcp.pl) = 7aa6f26ae11f66e7b7a0100649a42fbd7179279a1bc2ff0305d633be59bcc87b
+XSIZE (check_dhcp.pl) = 4171
+84bce1d7a585b49925ce0671dbc9b9e4
+echo x - nagios-check_dhcp.pl/pkg-descr
+sed 's/^X//' >nagios-check_dhcp.pl/pkg-descr << 'f62e3b0865ebcc429a53842591d83be9'
+XThis plugin tests the availability of a given DHCP server using unicast
+Xdelivery.  This is necessary if the monitoring host is on a different subnet.
+XUsing broadcast and a DHCP relay would also prevent the check from probing
+Xindividual servers. 
+X
+XWWW: http://exchange.nagios.org/directory/Plugins/Network-Protocols/DHCP-and-BOOTP/Perl-check-dhcp/details
+f62e3b0865ebcc429a53842591d83be9
+exit
+

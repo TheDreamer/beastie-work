@@ -60,10 +60,27 @@ net/p5-Net-DHCP-Watch
 	So, I switched to using a check_dhcp perl script, which among the required modules was this one.  I CPAN'd it
 	at first, but BSDPAN is not pkgng aware.  So, decided to whip up this port.
 
+net-mgmt/nagios-check_dhcp.pl
+
+	Somewhere along the way a "portsnap update"(?) removed "net/p5-Net-DHCP-Watch" from my /usr/ports directory,
+	causing "portmaster -a" to abort.  Been getting kind of annoying lately with all the reasons it'll abort or
+	do the wrong thing now.
+
+	It also complains (and aborts) that I have packages installed that have recently been deleted from ports.  I
+	haven't yet investigated an alternative, it still works (wasn't that long ago that I submitted a patch for one
+	of the components.)  But, the company has stopped making it generally available to the public, though there's
+	a note about it working with certain open source projects.  Along with it being available to its paying customers.
+
+	Anyways, one way to fix this would be to hit send on my submission to make net/p5-Net-DHCP-Watch into a real
+	port.  But, since the reason for its existence is this nagios plugin.  I went to work on turning this into a
+	port as well.  Following other ports and reading stuff in /usr/ports/Mk, I did staging with this.
+
+	Will I hit send?
+
 sysutils/grive
 
 	I got grive-0.2.0 to build on FreeBSD, and thought about turning it into a port.  But, I think I'm out of my depth
-	on whether this is even right.  Plus I don't think I want to be stuck maintain this.
+	on whether this is even right.  Plus I don't think I want to be stuck maintaining this.
 
 sysutils/grive-devel
 
@@ -77,6 +94,14 @@ sysutils/grive-devel
 	Plus I still haven't figured out how to do distfiles from GitHub, MASTER_SITES=GH
 
 	Otherwise, I might reveal my stab at print/cups-cloud-print.
+
+	2014-03-09 I happened to be poking around on github for some reason, which I that there had been a response to a
+	year old issue for grive on making it compile on FreeBSD.  Had never looked through issues before, but there were
+	only two notifications for grive, and one had the word "FreeBSD" in it...so it stood out.  The added response
+	was the it builds fine from ports (net/grive).
+
+	Wonder how long that had been there, wonder if there's some way to find out when new ports are added?  Perhaps
+	something I could do at the same time as when I do my daily portsnap?
 
 www/p5-WWW-Shorten-Yourls
 
