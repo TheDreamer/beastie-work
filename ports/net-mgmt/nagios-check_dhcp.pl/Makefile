@@ -10,14 +10,14 @@ DISTNAME=	${PORTNAME}
 EXTRACT_SUFX=
 
 MAINTAINER=	beastie@tardisi.com
-COMMENT=	check the availability of a given DHCP server using unicast delivery
+COMMENT=	Check the availability of a DHCP server using unicast delivery
+
+RUN_DEPENDS=	${LOCALBASE}/libexec/nagios/utils.pm:${PORTSDIR}/net-mgmt/nagios-plugins \
+		p5-IO-Interface>=0:${PORTSDIR}/net/p5-IO-Interface \
+		p5-Net-DHCP-Watch>=0:${PORTSDIR}/net/p5-Net-DHCP-Watch
 
 USES=		perl5
 USE_PERL5=	run
-
-RUN_DEPENDS=	${LOCALBASE}/libexec/nagios/utils.pm:${PORTSDIR}/net-mgmt/nagios-plugins \
-		p5-IO-Socket>=0:${PORTSDIR}/net/p5-IO-Interface \
-		p5-Net-DHCP-Watch>=0:${PORTSDIR}/net/p5-Net-DHCP-Watch
 
 PLIST_DIRSTRY=	libexec/nagios
 PLIST_FILES=	libexec/nagios/check_dhcp.pl
@@ -36,4 +36,3 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/check_dhcp.pl ${STAGEDIR}${PREFIX}/libexec/nagios/check_dhcp.pl
 
 .include <bsd.port.mk>
-

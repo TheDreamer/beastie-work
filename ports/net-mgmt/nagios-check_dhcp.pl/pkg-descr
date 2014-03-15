@@ -2,5 +2,3 @@ This plugin tests the availability of a given DHCP server using unicast
 delivery.  This is necessary if the monitoring host is on a different subnet.
 Using broadcast and a DHCP relay would also prevent the check from probing
 individual servers. 
-
-WWW: http://exchange.nagios.org/directory/Plugins/Network-Protocols/DHCP-and-BOOTP/Perl-check-dhcp/details
