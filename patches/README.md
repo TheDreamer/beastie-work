@@ -1,5 +1,13 @@
 PATCHES
 =======
+archivers/quazip
+
+	This port got updated, but it wouldn't build.  After some investigation, it was obviously a problem of conflict
+	with installed port.  Specifically for libquazip.so. Instead of resorting to "make clean deinstall reinstall", I
+	made it hack the Makefile so to force it use the built one instead of the installed one.
+	
+	PR: ports/187735
+
 databases/memcached
 
 	It is becoming a peeve of ports that work fine, but PORTREVISION is bumped so that it will disrupted "portmaster -a"
@@ -56,6 +64,8 @@ deskutils/gcalcli
 	Haven't tried the options yet, but it did make one calendar that I could see in the previous version visible.
 	Under other calendars on Google, I have various shared public calendars and one privately shared (exchange) calendar.
 	Which was the main reason I was fiddling with gcalcli today.
+
+	PR: ports/187619
 
 mail/dovecot2
 
@@ -182,6 +192,8 @@ sysutils/pefs-kmod
 
 	No message from pefs.  What I ideally want is something that'll work for between home and work, and multiple
 	operating systems.  So, not sure this fulfills that need, though there is a need for it on work computer.
+
+	PR: ports/187620
 
 ports-mgmt/pkg_rmleaves
 

@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-03-17 10:54:22.000000000 -0500
++++ Makefile	2014-03-19 09:15:31.934872830 -0500
+@@ -15,4 +15,8 @@
+ USE_LDCONFIG=	yes
+ USE_QT4=	corelib moc_build qtestlib
+ 
++post-configure:
++	@${REINPLACE_CMD} -e "s,-L${WRKSRC}/qztest/../quazip/ -lquazip,${WRKSRC}/quazip/libquazip.so," \
++		${WRKSRC}/qztest/Makefile
++
+ .include <bsd.port.mk>

@@ -60,6 +60,8 @@ net/p5-Net-DHCP-Watch
 	So, I switched to using a check_dhcp perl script, which among the required modules was this one.  I CPAN'd it
 	at first, but BSDPAN is not pkgng aware.  So, decided to whip up this port.
 
+	PR: ports/187622
+
 net-mgmt/nagios-check_dhcp.pl
 
 	Somewhere along the way a "portsnap update"(?) removed "net/p5-Net-DHCP-Watch" from my /usr/ports directory,
@@ -76,6 +78,8 @@ net-mgmt/nagios-check_dhcp.pl
 	port as well.  Following other ports and reading stuff in /usr/ports/Mk, I did staging with this.
 
 	Will I hit send?
+
+	PR: ports/187623
 
 sysutils/grive
 
