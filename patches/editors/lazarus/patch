@@ -1,0 +1,13 @@
+--- Makefile.common.orig	2014-03-25 22:44:12.000000000 -0500
++++ Makefile.common	2014-03-26 11:07:41.648551717 -0500
+@@ -36,6 +36,10 @@
+ 		${SETENV} ${MAKE_ENV} ${GMAKE} LCL_PLATFORM=${LCL_INTERFACE}
+ 	@cd ${WRKDIR}/${PORTNAME}/components/lazutils && \
+ 		${SETENV} ${MAKE_ENV} ${GMAKE} LCL_PLATFORM=${LCL_INTERFACE}
++.if ${PKGNAMESUFFIX} == "-lcl-units"
++	@cd ${WRKDIR}/${PORTNAME}/lcl && \
++		${SETENV} ${MAKE_ENV} ${GMAKE} LCL_PLATFORM=${LCL_INTERFACE}
++.endif
+ 	@cd ${WRKDIR}/${PORTNAME}/components/lazcontrols && \
+ 		${SETENV} ${MAKE_ENV} ${GMAKE} LCL_PLATFORM=${LCL_INTERFACE}
+ 	@cd ${WRKDIR}/${PORTNAME}/components/ideintf && \

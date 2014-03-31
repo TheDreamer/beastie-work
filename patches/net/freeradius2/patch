@@ -1,0 +1,33 @@
+--- Makefile.orig	2014-03-29 10:26:34.000000000 -0500
++++ Makefile	2014-03-30 10:31:07.000000000 -0500
+@@ -16,7 +16,8 @@
+ 
+ LICENSE=	GPLv2
+ 
+-LIB_DEPENDS=	libgdbm.so:${PORTSDIR}/databases/gdbm
++LIB_DEPENDS=	libgdbm.so:${PORTSDIR}/databases/gdbm \
++		libexecinfo.so:${PORTSDIR}/devel/libexecinfo
+ 
+ LOGDIR?=	/var/log
+ KRB5_CONFIG?=	/usr/bin/krb5-config --libs
+@@ -31,7 +32,8 @@
+ USE_BZIP2=	yes
+ USE_OPENSSL=	yes
+ MAKE_ARGS+=	LDFLAGS="-L${LOCALBASE}/lib ${PTHREAD_LIBS}"
+-CFLAGS+=	-I${LOCALBASE}/include -L${LOCALBASE}/lib
++CPPFLAGS+=	-I${LOCALBASE}/include
++CFLAGS+=	-I${LOCALBASE}/include
+ MAKE_JOBS_UNSAFE=	yes
+ 
+ PLIST_SUB=	PORTVERSION=${DISTVERSION} LIBVER=0${PORTVERSION:C/\./0/g}
+@@ -386,6 +388,10 @@
+ 	@cd ${WRKSRC}/src/modules/rlm_perl && ${AUTOCONF} -I ${WRKSRC}
+ 	@cd ${WRKSRC}/src/modules/rlm_python && ${AUTOCONF} -I ${WRKSRC}
+ 
++post-configure:
++	@${REINPLACE_CMD} -e "s:(LDFLAGS):(LDFLAGS) -lexecinfo:" \
++		${WRKSRC}/src/lib/Makefile
++	
+ pre-install:
+ # Run pkg-install PRE-INSTALL
+ 	@${SETENV} PKG_PREFIX=${PREFIX} ${SH} ${PKGINSTALL} ${PKGNAME} \

@@ -67,6 +67,20 @@ deskutils/gcalcli
 
 	PR: ports/187619
 
+editors/lazarus
+
+	This build dependency got updated, as did the port that depended on it.  But, it wouldn't build.  When it was
+	doing eidtors/lazarus-lcl-units, steps were in need of lcl to have been built...but it wasn't going to build these
+	until last.
+
+	So, I patched it to make it build sooner.
+
+	PR: ports/187961
+
+	Turns out the problem was stray files left behind by the old version causing problems.  The maintainer says he
+	fixed the deinstall in this version, and a later rebuild/reinstall and then delete of this build depend worked
+	without my hack.
+	
 mail/dovecot2
 
 	ports/175813: [patch] mail/dovecot2 doesn't detect libstemmer or exttextcat
@@ -84,6 +98,13 @@ mail/dovecot2
 mail/davmail
 
 	Update to 4.4.0
+
+net/freeradius2
+
+	Updating to 2.2.4 was failing for me, turns out configure has an auto-activation on execinfo.h, except it wasn't
+	using it correctly for FreeBSD.  So, I made it an explicit library depend and made it link to the library.
+
+	PR: ports/188089
 
 net/nxserver
 
