@@ -148,6 +148,13 @@ sysutils/cfengine35
 
 	PR: ports/181509
 
+sysutils/memtest86+
+
+	Doesn't build if ISO option is selected, the distribution Makefile is
+	calling make but the port is using gmake.
+
+	Patch the Makefile to use gmake.
+
 sysutils/panicmail
 
 	Recently, I had yet another panic.  Couldn't remember how I had examined the previous vmcore, while searching online
