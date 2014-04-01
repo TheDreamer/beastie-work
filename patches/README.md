@@ -119,6 +119,19 @@ net/nxserver
 
 	PR: ports/183825
 
+security/gnutls3
+
+	Recently this port updated, and it wants security/openssl to be installed as well.  But, I don't want that.
+	So, I tracked down the port that had installed this port and removed it, and removed this and other leafs.
+
+	But, word is that this port might be replacing gnutls, which is a much bigger mess to purge.
+
+	So, I looked at why gnutls3 wanted openssl-1.x.  And, made it an option, preferring to build without it.
+
+	Its being pulled in by dns/unbound, which its default options cause it to require openssl from ports on <10.
+	And, this is to create libgnutls-dane, which adds DNSSEC verification support to DANE.  And, is needed for
+	the '--check' option with danetool3.
+
 sysutils/cfengine35
 
 	Kind of odd making a patch for FreeBSD when the problem is upstream.
@@ -154,6 +167,8 @@ sysutils/memtest86+
 	calling make but the port is using gmake.
 
 	Patch the Makefile to use gmake.
+
+	PR: ports/188149
 
 sysutils/panicmail
 
