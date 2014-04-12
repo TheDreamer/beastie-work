@@ -1,0 +1,11 @@
+--- prnt/hpijs/foomatic-rip-hplip.orig	2014-04-09 14:50:13.038097000 -0500
++++ prnt/hpijs/foomatic-rip-hplip	2014-04-09 15:00:12.759098808 -0500
+@@ -1653,7 +1653,7 @@
+ ## if nexessary.
+ 
+ my $dontparse = 0;
+-if ((!defined(@{$dat->{'args'}})) ||
++if ((!@{$dat->{'args'}}) ||
+     ($#{$dat->{'args'}} < 0)) {
+     # We don't have any options, so we do not need to parse the
+     # PostScript data

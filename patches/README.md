@@ -99,6 +99,11 @@ mail/davmail
 
 	Update to 4.4.0
 
+mail/evolution
+
+	Got updated to do staging, but now its missing files (shared libraries).  pkg-plist didn't include them.  So,
+	updated pkg-plist.
+
 net/freeradius2
 
 	Updating to 2.2.4 was failing for me, turns out configure has an auto-activation on execinfo.h, except it wasn't
@@ -244,9 +249,8 @@ ports-mgmt/pkg_rmleaves
 
 	Dialog Error, try to resize your terminal to at least 80x24.
 
-	But, my terminal window is 80x24, and changing the size doesn't make
-	any difference.  Eventually, I looked deeper into the problem, and
-	its having trouble with package comments that contain quotation marks.
+	But, my terminal window is 80x24, and changing the size doesn't make any difference.  Eventually, I looked deeper
+	into the problem, and its having trouble with package comments that contain quotation marks.
 
 	So wiped up an ugly kluge to deal with them, and now its working... ;)
 
@@ -254,10 +258,9 @@ ports-mgmt/pkg_rmleaves
 
 ports-mgmt/portrac
 
-	For the last few days its been saying that there are no ports needing
-	update.  Seems odd that nothing has been changing in for this long,
-	but there were lots of ports I know I hadn't updated at home that I
-	had to deal with on work computer.
+	For the last few days its been saying that there are no ports needing update.  Seems odd that nothing has been
+	changing in for this long, but there were lots of ports I know I hadn't updated at home that I had to deal with
+	on work computer.
 
 	Finally, took a peek inside and its not PKGNG aware :(
 
@@ -273,4 +276,20 @@ pr178818
 
 	proposed fix is to automate this in the dumpon script, which had one small flaw, which I corrected.  And, then tried
 	to recall how to include a patch that won't get munged by mail client....
+
+print/hplip
+
+	LIB_DEPENDS is testing for a library that is no longer part of print/cups-base to determine if is installed.
+	So, updated to look for a different library.  Update to 3.14.4 while I'm here.  And, patch the deprecation warning
+	emitted by foomatic-rip-hplip.
+
+	However, this leaves one remaining problem. All the PPD files appear to contain:
+
+		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
+		*cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip-hplip"
+
+	But, unlike foomatic-rip, foomatic-rip-hplip only handles text or postscript.
+	Removing the "application/vnd.cups-pdf" line, makes it so I can print again.
+
+		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
 

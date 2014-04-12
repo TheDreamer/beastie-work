@@ -1,0 +1,323 @@
+--- pkg-plist.orig	2014-04-11 11:49:55.000000000 -0500
++++ pkg-plist	2014-04-12 11:58:40.423099000 -0500
+@@ -1,5 +1,15 @@
+ bin/evolution
+ bin/evolution-settings
++etc/gconf/schemas/apps-evolution-attachment-reminder.schemas
++etc/gconf/schemas/apps-evolution-mail-notification.schemas
++etc/gconf/schemas/apps-evolution-mail-prompts-checkdefault.schemas
++etc/gconf/schemas/apps-evolution-template-placeholders.schemas
++etc/gconf/schemas/apps_evolution_addressbook.schemas
++etc/gconf/schemas/apps_evolution_calendar.schemas
++etc/gconf/schemas/apps_evolution_email_custom_header.schemas
++etc/gconf/schemas/apps_evolution_shell.schemas
++etc/gconf/schemas/bogo-junk-plugin.schemas
++etc/gconf/schemas/evolution-mail.schemas
+ etc/xdg/autostart/evolution-alarm-notify.desktop
+ include/evolution-%%VERSION%%/addressbook/gui/widgets/eab-config.h
+ include/evolution-%%VERSION%%/calendar/common/authentication.h
+@@ -101,17 +111,17 @@
+ include/evolution-%%VERSION%%/e-util/e-file-utils.h
+ include/evolution-%%VERSION%%/e-util/e-html-utils.h
+ include/evolution-%%VERSION%%/e-util/e-icon-factory.h
+-include/evolution-%%VERSION%%/e-util/e-io-activity.h
+ include/evolution-%%VERSION%%/e-util/e-import.h
++include/evolution-%%VERSION%%/e-util/e-io-activity.h
+ include/evolution-%%VERSION%%/e-util/e-logger.h
+ include/evolution-%%VERSION%%/e-util/e-marshal.h
+ include/evolution-%%VERSION%%/e-util/e-mktemp.h
+ include/evolution-%%VERSION%%/e-util/e-module.h
+ include/evolution-%%VERSION%%/e-util/e-non-intrusive-error-dialog.h
+-include/evolution-%%VERSION%%/e-util/e-poolv.h
+ include/evolution-%%VERSION%%/e-util/e-plugin-ui.h
+ include/evolution-%%VERSION%%/e-util/e-plugin-util.h
+ include/evolution-%%VERSION%%/e-util/e-plugin.h
++include/evolution-%%VERSION%%/e-util/e-poolv.h
+ include/evolution-%%VERSION%%/e-util/e-print.h
+ include/evolution-%%VERSION%%/e-util/e-profile-event.h
+ include/evolution-%%VERSION%%/e-util/e-selection.h
+@@ -327,9 +337,9 @@
+ include/evolution-%%VERSION%%/misc/e-signature-preview.h
+ include/evolution-%%VERSION%%/misc/e-signature-script-dialog.h
+ include/evolution-%%VERSION%%/misc/e-signature-tree-view.h
+-include/evolution-%%VERSION%%/misc/e-web-view.h
+-include/evolution-%%VERSION%%/misc/e-web-view-preview.h
+ include/evolution-%%VERSION%%/misc/e-url-entry.h
++include/evolution-%%VERSION%%/misc/e-web-view-preview.h
++include/evolution-%%VERSION%%/misc/e-web-view.h
+ include/evolution-%%VERSION%%/misc/ea-calendar-cell.h
+ include/evolution-%%VERSION%%/misc/ea-calendar-item.h
+ include/evolution-%%VERSION%%/misc/ea-cell-table.h
+@@ -351,13 +361,13 @@
+ include/evolution-%%VERSION%%/shell/es-event.h
+ include/evolution-%%VERSION%%/table/e-cell-checkbox.h
+ include/evolution-%%VERSION%%/table/e-cell-combo.h
+-include/evolution-%%VERSION%%/table/e-cell-date.h
+ include/evolution-%%VERSION%%/table/e-cell-date-edit.h
++include/evolution-%%VERSION%%/table/e-cell-date.h
+ include/evolution-%%VERSION%%/table/e-cell-hbox.h
+ include/evolution-%%VERSION%%/table/e-cell-number.h
++include/evolution-%%VERSION%%/table/e-cell-percent.h
+ include/evolution-%%VERSION%%/table/e-cell-pixbuf.h
+ include/evolution-%%VERSION%%/table/e-cell-popup.h
+-include/evolution-%%VERSION%%/table/e-cell-percent.h
+ include/evolution-%%VERSION%%/table/e-cell-size.h
+ include/evolution-%%VERSION%%/table/e-cell-text.h
+ include/evolution-%%VERSION%%/table/e-cell-toggle.h
+@@ -429,78 +439,102 @@
+ include/evolution-%%VERSION%%/text/e-text.h
+ include/evolution-%%VERSION%%/text/gal-a11y-e-text-factory.h
+ include/evolution-%%VERSION%%/text/gal-a11y-e-text.h
+-lib/evolution/%%VERSION%%/libeabutil.la
+-lib/evolution/%%VERSION%%/libeabutil.so
+-lib/evolution/%%VERSION%%/libeabutil.so.0
+ lib/evolution/%%VERSION%%/libart_lgpl.la
+ lib/evolution/%%VERSION%%/libart_lgpl.so
+ lib/evolution/%%VERSION%%/libart_lgpl.so.0
++lib/evolution/%%VERSION%%/libart_lgpl.so.0.0.0
+ lib/evolution/%%VERSION%%/libcomposer.la
+ lib/evolution/%%VERSION%%/libcomposer.so
+ lib/evolution/%%VERSION%%/libcomposer.so.0
++lib/evolution/%%VERSION%%/libcomposer.so.0.0.0
++lib/evolution/%%VERSION%%/libeabutil.la
++lib/evolution/%%VERSION%%/libeabutil.so
++lib/evolution/%%VERSION%%/libeabutil.so.0
++lib/evolution/%%VERSION%%/libeabutil.so.0.0.0
+ lib/evolution/%%VERSION%%/libecontacteditor.la
+ lib/evolution/%%VERSION%%/libecontacteditor.so
+ lib/evolution/%%VERSION%%/libecontacteditor.so.0
++lib/evolution/%%VERSION%%/libecontacteditor.so.0.0.0
+ lib/evolution/%%VERSION%%/libecontactlisteditor.la
+ lib/evolution/%%VERSION%%/libecontactlisteditor.so
+ lib/evolution/%%VERSION%%/libecontactlisteditor.so.0
++lib/evolution/%%VERSION%%/libecontactlisteditor.so.0.0.0
+ lib/evolution/%%VERSION%%/libemformat.la
+ lib/evolution/%%VERSION%%/libemformat.so
+ lib/evolution/%%VERSION%%/libemformat.so.0
++lib/evolution/%%VERSION%%/libemformat.so.0.0.0
+ lib/evolution/%%VERSION%%/libemiscwidgets.la
+ lib/evolution/%%VERSION%%/libemiscwidgets.so
+ lib/evolution/%%VERSION%%/libemiscwidgets.so.0
++lib/evolution/%%VERSION%%/libemiscwidgets.so.0.0.0
+ lib/evolution/%%VERSION%%/libeshell.la
+ lib/evolution/%%VERSION%%/libeshell.so
+ lib/evolution/%%VERSION%%/libeshell.so.0
++lib/evolution/%%VERSION%%/libeshell.so.0.0.0
+ lib/evolution/%%VERSION%%/libessmime.la
+ lib/evolution/%%VERSION%%/libessmime.so
+ lib/evolution/%%VERSION%%/libessmime.so.0
++lib/evolution/%%VERSION%%/libessmime.so.0.0.0
+ lib/evolution/%%VERSION%%/libetable.la
+ lib/evolution/%%VERSION%%/libetable.so
+ lib/evolution/%%VERSION%%/libetable.so.0
++lib/evolution/%%VERSION%%/libetable.so.0.0.0
+ lib/evolution/%%VERSION%%/libetext.la
+ lib/evolution/%%VERSION%%/libetext.so
+ lib/evolution/%%VERSION%%/libetext.so.0
++lib/evolution/%%VERSION%%/libetext.so.0.0.0
+ lib/evolution/%%VERSION%%/libetimezonedialog.la
+ lib/evolution/%%VERSION%%/libetimezonedialog.so
+ lib/evolution/%%VERSION%%/libetimezonedialog.so.0
++lib/evolution/%%VERSION%%/libetimezonedialog.so.0.0.0
+ lib/evolution/%%VERSION%%/libeutil.la
+ lib/evolution/%%VERSION%%/libeutil.so
+ lib/evolution/%%VERSION%%/libeutil.so.0
++lib/evolution/%%VERSION%%/libeutil.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-a11y.la
+ lib/evolution/%%VERSION%%/libevolution-a11y.so
+ lib/evolution/%%VERSION%%/libevolution-a11y.so.0
++lib/evolution/%%VERSION%%/libevolution-a11y.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-addressbook-importers.la
+ lib/evolution/%%VERSION%%/libevolution-addressbook-importers.so
+ lib/evolution/%%VERSION%%/libevolution-addressbook-importers.so.0
+-lib/evolution/%%VERSION%%/libevolution-calendar.la
+-lib/evolution/%%VERSION%%/libevolution-calendar.so
+-lib/evolution/%%VERSION%%/libevolution-calendar.so.0
++lib/evolution/%%VERSION%%/libevolution-addressbook-importers.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-calendar-importers.la
+ lib/evolution/%%VERSION%%/libevolution-calendar-importers.so
+ lib/evolution/%%VERSION%%/libevolution-calendar-importers.so.0
+-lib/evolution/%%VERSION%%/libevolution-mail.la
+-lib/evolution/%%VERSION%%/libevolution-mail.so
+-lib/evolution/%%VERSION%%/libevolution-mail.so.0
++lib/evolution/%%VERSION%%/libevolution-calendar-importers.so.0.0.0
++lib/evolution/%%VERSION%%/libevolution-calendar.la
++lib/evolution/%%VERSION%%/libevolution-calendar.so
++lib/evolution/%%VERSION%%/libevolution-calendar.so.0
++lib/evolution/%%VERSION%%/libevolution-calendar.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-mail-importers.la
+ lib/evolution/%%VERSION%%/libevolution-mail-importers.so
+ lib/evolution/%%VERSION%%/libevolution-mail-importers.so.0
++lib/evolution/%%VERSION%%/libevolution-mail-importers.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-mail-settings.la
+ lib/evolution/%%VERSION%%/libevolution-mail-settings.so
+ lib/evolution/%%VERSION%%/libevolution-mail-settings.so.0
++lib/evolution/%%VERSION%%/libevolution-mail-settings.so.0.0.0
++lib/evolution/%%VERSION%%/libevolution-mail.la
++lib/evolution/%%VERSION%%/libevolution-mail.so
++lib/evolution/%%VERSION%%/libevolution-mail.so.0
++lib/evolution/%%VERSION%%/libevolution-mail.so.0.0.0
+ lib/evolution/%%VERSION%%/libevolution-smime.la
+ lib/evolution/%%VERSION%%/libevolution-smime.so
+ lib/evolution/%%VERSION%%/libevolution-smime.so.0
++lib/evolution/%%VERSION%%/libevolution-smime.so.0.0.0
+ lib/evolution/%%VERSION%%/libfilter.la
+ lib/evolution/%%VERSION%%/libfilter.so
+ lib/evolution/%%VERSION%%/libfilter.so.0
++lib/evolution/%%VERSION%%/libfilter.so.0.0.0
+ lib/evolution/%%VERSION%%/libgnomecanvas.la
+ lib/evolution/%%VERSION%%/libgnomecanvas.so
+ lib/evolution/%%VERSION%%/libgnomecanvas.so.0
++lib/evolution/%%VERSION%%/libgnomecanvas.so.0.0.0
+ lib/evolution/%%VERSION%%/libmenus.la
+ lib/evolution/%%VERSION%%/libmenus.so
+ lib/evolution/%%VERSION%%/libmenus.so.0
++lib/evolution/%%VERSION%%/libmenus.so.0.0.0
+ lib/evolution/%%VERSION%%/modules/libevolution-module-addressbook.la
+ lib/evolution/%%VERSION%%/modules/libevolution-module-addressbook.so
+ lib/evolution/%%VERSION%%/modules/libevolution-module-calendar.la
+@@ -529,6 +563,8 @@
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-calendar-http.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-calendar-weather.la
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-calendar-weather.so
++lib/evolution/%%VERSION%%/plugins/liborg-gnome-dbx-import.la
++lib/evolution/%%VERSION%%/plugins/liborg-gnome-dbx-import.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-default-source.la
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-default-source.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-email-custom-header.la
+@@ -543,8 +579,6 @@
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-evolution-google.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-evolution-webdav.la
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-evolution-webdav.so
+-lib/evolution/%%VERSION%%/plugins/liborg-gnome-dbx-import.la
+-lib/evolution/%%VERSION%%/plugins/liborg-gnome-dbx-import.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-groupwise-features.la
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-groupwise-features.so
+ lib/evolution/%%VERSION%%/plugins/liborg-gnome-image-inline.la
+@@ -585,6 +619,7 @@
+ lib/evolution/%%VERSION%%/plugins/org-gnome-calendar-http.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-calendar-weather.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-compose-send-options.xml
++lib/evolution/%%VERSION%%/plugins/org-gnome-dbx-import.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-default-source.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-email-custom-header.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-evolution-attachment-reminder.eplug
+@@ -592,7 +627,6 @@
+ lib/evolution/%%VERSION%%/plugins/org-gnome-evolution-caldav.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-evolution-google.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-evolution-webdav.eplug
+-lib/evolution/%%VERSION%%/plugins/org-gnome-dbx-import.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-groupwise-features.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-image-inline.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-imap-features.eplug
+@@ -609,18 +643,19 @@
+ lib/evolution/%%VERSION%%/plugins/org-gnome-subject-thread.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-templates.eplug
+ lib/evolution/%%VERSION%%/plugins/org-gnome-vcard-inline.eplug
++libdata/ldconfig/evolution
+ libdata/pkgconfig/evolution-calendar.pc
+ libdata/pkgconfig/evolution-mail.pc
+ libdata/pkgconfig/evolution-plugin.pc
+ libdata/pkgconfig/evolution-shell.pc
+ libexec/evolution/%%VERSION%%/csv2vcard
+-libexec/evolution/%%VERSION%%/evolution-alarm-notify
+ libexec/evolution/%%VERSION%%/evolution-addressbook-clean
+ libexec/evolution/%%VERSION%%/evolution-addressbook-export
++libexec/evolution/%%VERSION%%/evolution-alarm-notify
+ libexec/evolution/%%VERSION%%/evolution-backup
+ libexec/evolution/%%VERSION%%/killev
+-share/applications/evolution.desktop
+ share/applications/evolution-settings.desktop
++share/applications/evolution.desktop
+ share/doc/eshell/EExtensible.html
+ share/doc/eshell/EExtension.html
+ share/doc/eshell/EModule.html
+@@ -660,9 +695,9 @@
+ share/doc/eshell/eshell-Shell-Utilities.html
+ share/doc/eshell/eshell-Text-to-HTML-Conversion.html
+ share/doc/eshell/eshell-User-Alert-Handling.html
++share/doc/eshell/eshell-e-signature-utils.html
+ share/doc/eshell/eshell.devhelp
+ share/doc/eshell/eshell.devhelp2
+-share/doc/eshell/eshell-e-signature-utils.html
+ share/doc/eshell/home.png
+ share/doc/eshell/index.html
+ share/doc/eshell/index.sgml
+@@ -738,11 +773,6 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/go-today.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/mail-copy.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/mail-move.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-day.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-list.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-month.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-week.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-workweek.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_bell.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_contact-list.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_insert-note.png
+@@ -771,6 +801,11 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_todo.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_video-conferencing.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/stock_view-details.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-day.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-list.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-month.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-week.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/actions/view-calendar-workweek.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/apps/contact-editor.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/apps/im-aim.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/16x16/apps/im-icq.png
+@@ -810,6 +845,7 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/22x22/places/mail-outbox.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/22x22/places/mail-sent.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/go-today.png
++%%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/query-free-busy.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_contact-list.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_insert-note.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_insert-rule.png
+@@ -834,7 +870,6 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_timezone.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_todo.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/stock_video-conferencing.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/query-free-busy.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/view-calendar-day.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/view-calendar-list.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/24x24/actions/view-calendar-month.png
+@@ -859,12 +894,6 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/32x32/actions/view-calendar-week.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/32x32/actions/view-calendar-workweek.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/32x32/apps/contact-editor.png
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-aim.svg
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-icq.svg
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-jabber.svg
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-msn.svg
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-nov.svg
+-%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-yahoo.svg
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/32x32/status/offline.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/32x32/status/online.png
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/48x48/actions/stock_alarm.png
+@@ -892,6 +921,12 @@
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/actions/view-calendar-month.svg
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/actions/view-calendar-week.svg
+ %%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/actions/view-calendar-workweek.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-aim.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-icq.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-jabber.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-msn.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-nov.svg
++%%DATADIR%%/%%VERSION%%/icons/hicolor/scalable/apps/im-yahoo.svg
+ %%DATADIR%%/%%VERSION%%/images/minus.png
+ %%DATADIR%%/%%VERSION%%/images/plus.png
+ %%DATADIR%%/%%VERSION%%/images/world_map-960.png
+@@ -2133,10 +2168,10 @@
+ share/locale/de/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/dz/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/el/LC_MESSAGES/evolution-%%VERSION%%.mo
++share/locale/en@shaw/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/en_AU/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/en_CA/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/en_GB/LC_MESSAGES/evolution-%%VERSION%%.mo
+-share/locale/en@shaw/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/es/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/et/LC_MESSAGES/evolution-%%VERSION%%.mo
+ share/locale/eu/LC_MESSAGES/evolution-%%VERSION%%.mo

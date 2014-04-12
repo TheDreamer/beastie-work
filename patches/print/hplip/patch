@@ -1,0 +1,41 @@
+--- Makefile.orig	2014-01-23 02:39:00.000000000 -0600
++++ Makefile	2014-04-09 14:47:40.659096000 -0500
+@@ -2,7 +2,7 @@
+ # $FreeBSD: head/print/hplip/Makefile 340808 2014-01-23 08:39:00Z makc $
+ 
+ PORTNAME=	hplip
+-PORTVERSION=	3.14.1
++PORTVERSION=	3.14.4
+ CATEGORIES=	print
+ MASTER_SITES=	SF
+ 
+@@ -10,7 +10,7 @@
+ COMMENT=	Drivers and utilities for HP Printers and All-in-One devices
+ 
+ LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
+-		libcupsdriver.so:${PORTSDIR}/print/cups-base \
++		libcupsppdc.so:${PORTSDIR}/print/cups-base \
+ 		libcups.so:${PORTSDIR}/print/cups-client \
+ 		libcupsimage.so:${PORTSDIR}/print/cups-image \
+ 		libdbus-1.so:${PORTSDIR}/devel/dbus
+--- distinfo.orig	2014-01-23 02:39:00.000000000 -0600
++++ distinfo	2014-04-09 14:48:43.514097000 -0500
+@@ -1,2 +1,2 @@
+-SHA256 (hplip-3.14.1.tar.gz) = 5c1e79d4426c00c3eb7ec9b689c430ea3d132e23849c08ae3dc58cd8d3d0eb14
+-SIZE (hplip-3.14.1.tar.gz) = 21116532
++SHA256 (hplip-3.14.4.tar.gz) = ce50c2e0ebc0f469599500257d291ca170c6559a99c8eb312f89be881c2110c9
++SIZE (hplip-3.14.4.tar.gz) = 21414140
+--- files/patch-prnt_hpijs_foomatic-rip-hplip.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-prnt_hpijs_foomatic-rip-hplip	2014-04-09 15:01:53.362097359 -0500
+@@ -0,0 +1,11 @@
++--- prnt/hpijs/foomatic-rip-hplip.orig	2014-04-09 14:50:13.038097000 -0500
+++++ prnt/hpijs/foomatic-rip-hplip	2014-04-09 15:00:12.759098808 -0500
++@@ -1653,7 +1653,7 @@
++ ## if nexessary.
++ 
++ my $dontparse = 0;
++-if ((!defined(@{$dat->{'args'}})) ||
+++if ((!@{$dat->{'args'}}) ||
++     ($#{$dat->{'args'}} < 0)) {
++     # We don't have any options, so we do not need to parse the
++     # PostScript data
