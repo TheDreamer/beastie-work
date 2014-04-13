@@ -288,7 +288,7 @@ print/hplip
 		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
 		*cupsFilter: "application/vnd.cups-pdf 0 foomatic-rip-hplip"
 
-	But, unlike foomatic-rip, foomatic-rip-hplip only handles text or postscript.
+	But, unlike foomatic-rip (apparently), foomatic-rip-hplip only handles text or postscript.
 	Removing the "application/vnd.cups-pdf" line, makes it so I can print again.
 
 		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
