@@ -110,3 +110,5 @@ sysutils/grive-devel
 www/p5-WWW-Shorten-Yourls
 
 	www/yourls exists in ports, but not this Perl module?
+
+	PR: ports/180547

@@ -104,6 +104,8 @@ mail/evolution
 	Got updated to do staging, but now its missing files (shared libraries).  pkg-plist didn't include them.  So,
 	updated pkg-plist.
 
+	PR: ports/188525
+
 net/boinc-client
 
 	When I first started running boinc on FreeBSD, I discovered to my delight that VirtualBox was detected and usable
@@ -129,6 +131,8 @@ net/boinc-client
 	version of the code.
 
 	Strange how I had failed to notice for so long....
+
+	PR: ports/188710
 
 net/freeradius2
 
@@ -162,6 +166,8 @@ security/gnutls3
 	Its being pulled in by dns/unbound, which its default options cause it to require openssl from ports on <10.
 	And, this is to create libgnutls-dane, which adds DNSSEC verification support to DANE.  And, is needed for
 	the '--check' option with danetool3.
+
+	PR: ports/188184
 
 sysutils/cfengine35
 
