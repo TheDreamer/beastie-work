@@ -1,0 +1,82 @@
+--- Makefile.orig	2014-03-31 14:13:04.000000000 -0500
++++ Makefile	2014-04-19 20:56:46.773929521 -0500
+@@ -3,7 +3,7 @@
+ 
+ PORTNAME=	cfengine
+ PORTVERSION=	3.5.3
+-PORTREVISION=	3
++PORTREVISION=	4
+ CATEGORIES=	sysutils
+ MASTER_SITES=	http://cfengine.com/source-code/download?file=
+ 
+@@ -42,13 +42,28 @@
+ 
+ LIB_DEPENDS+=	libpcre.so:${PORTSDIR}/devel/pcre
+ 
+-OPTIONS_DEFINE=	PGSQL MYSQL LIBVIRT
++OPTIONS_DEFINE=	PGSQL MYSQL LIBVIRT LIBXML2
+ OPTIONS_SINGLE=	DB
+ OPTIONS_SINGLE_DB=	TOKYOCABINET QDBM
++OPTIONS_RADIO=	STAT
++OPTIONS_RADIO_STAT=	STATIC PARTIAL
++
+ TOKYOCABINET_DESC=	Enable TokyoCabinet database backend
+ QDBM_DESC=	Enable QDBM database backend
++LIBXML2_DESC=	Enable edit_xml bundle
++
++STAT_DESC=	Build static cf-agent/cf-promises?
++PARTIAL_DESC=	Build with static libpromises(/libxml2)
++ 
+ OPTIONS_DEFAULT=TOKYOCABINET
+ 
++LIBXML2_CONFIGURE_ON=	--with-libxml2=${LOCALBASE}
++LIBXML2_CONFIGURE_OFF=	--without-libxml2
++LIBXML2_LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2
++
++STATIC_CONFIGURE_ON=	--enable-static
++PARTIAL_CONFIGURE_ON=	--enable-static
++
+ .include <bsd.port.pre.mk>
+ 
+ .if ${PORT_OPTIONS:MTOKYOCABINET}
+@@ -79,4 +94,40 @@
+ LIB_DEPENDS+=		libvirt.so:${PORTSDIR}/devel/libvirt
+ .endif
+ 
++.if ${PORT_OPTIONS:MPARTIAL}
++post-configure:
++	@${REINPLACE_CMD} \
++		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -static-libtool-libs|' \
++		${WRKSRC}/cf-agent/Makefile
++	@${REINPLACE_CMD} \
++		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -static-libtool-libs|' \
++		${WRKSRC}/cf-promises/Makefile
++.if ${PORT_OPTIONS:MLIBXML2}
++	@${REINPLACE_CMD} \
++		-e "s|-lxml2|`xml2-config --libtool-libs`|" \
++		${WRKSRC}/cf-agent/Makefile
++	@${REINPLACE_CMD} \
++		-e "s|-lxml2|`xml2-config --libtool-libs`|" \
++		${WRKSRC}/cf-promises/Makefile
++.endif
++.endif
++
++.if ${PORT_OPTIONS:MSTATIC}
++post-configure:
++	@${REINPLACE_CMD} \
++		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -all-static|' \
++		${WRKSRC}/cf-agent/Makefile
++	@${REINPLACE_CMD} \
++		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -all-static|' \
++		${WRKSRC}/cf-promises/Makefile
++.if ${PORT_OPTIONS:MTOKYOCABINET}
++	@${REINPLACE_CMD} \
++		-e "s|-ltokyocabinet|`pkg-config tokyocabinet --static --libs`|" \
++		${WRKSRC}/cf-agent/Makefile
++	@${REINPLACE_CMD} \
++		-e "s|-ltokyocabinet|`pkg-config tokyocabinet --static --libs`|" \
++		${WRKSRC}/cf-promises/Makefile
++.endif
++.endif
++
+ .include <bsd.port.post.mk>

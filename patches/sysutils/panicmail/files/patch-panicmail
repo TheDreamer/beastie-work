@@ -1,11 +1,11 @@
 --- panicmail.orig	2013-11-04 02:22:56.000000000 -0600
-+++ panicmail	2014-02-06 13:44:32.210017387 -0600
++++ panicmail	2014-04-21 13:53:02.957931421 -0500
 @@ -39,19 +39,44 @@
  #				emails instead of sending them to root for
  #				review first.
  #
 +# panicmail_autonotify (bool):	Set to "YES" by default.
-+#				Set it to "NO" to suppress copy to root fo automatically
++#				Set it to "NO" to suppress copy to root for automatically
 +#				submitted panic email.
 +#
  # panicmail_sendto (str):	Set to
@@ -45,7 +45,7 @@
  
  . /etc/rc.subr
  
-@@ -64,19 +89,55 @@
+@@ -64,19 +89,41 @@
  panicmail_gather()
  {
  	local tmpfile
@@ -70,25 +70,11 @@
 +
 +		if [ -z "${panicmail_usekernel}" ]; then
 +			kernel="`sysctl -n kern.bootfile`"
-+			# if <kernel>.symbols exists, we'll use that.
-+			# save <kernel> for 'kernel config'
-+			if [ -e "${kernel}.symbols" ]; then
-+				bootkern="${kernel}"
-+				kernel="${kernel}.symbols"
-+			fi
 +		else
 +			kernel="${panicmail_usekernel}"
 +		fi
 +		crashinfo -k "${kernel}" "${dumpdir}/vmcore.$1" > /dev/null 2>&1
 +		cat "${dumpdir}/core.txt.$1" >> "${dumpdir}/panicmail.$1"
-+
-+		# if we used <kernel>.symbols - kernel config step will fail
-+		if [ -e "${bootkern}" ]; then
-+			echo >> "${dumpdir}/panicmail.$1"
-+			echo "kernel config:" >> "${dumpdir}/panicmail.$1"
-+			config -x "${bootkern}" >> "${dumpdir}/panicmail.$1"
-+			echo >> "${dumpdir}/panicmail.$1"
-+		fi
 +
 +		# Remove core.txt.$1 since we're going to leave panicmail.$1
 +		rm "${dumpdir}/core.txt.$1"
@@ -108,7 +94,7 @@
  	echo >> "${dumpdir}/panicmail.$1"
  
  	# Remove the temporary file.
-@@ -138,13 +199,33 @@
+@@ -138,13 +185,33 @@
  
  	cat <<-EOF
  		To: ${panicmail_sendto}
@@ -143,7 +129,7 @@
  panicmail_run()
  {
  	local nr
-@@ -187,6 +268,9 @@
+@@ -187,6 +254,9 @@
  	# Generate and send an email.
  	if checkyesno panicmail_autosubmit; then
  		panicmail_auto "${nr}" | sendmail -t

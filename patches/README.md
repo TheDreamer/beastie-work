@@ -171,6 +171,33 @@ security/gnutls3
 
 sysutils/cfengine35
 
+	Recently in /usr/ports/UPDATING:
+
+	The library version for textproc/libxml2 was brought in line with what the upstream expects.  Causing a problem for
+	cfengine.
+
+	Using "portmaster -r libxml2" would've missed updating this port as it doesn't list it as a depend, but uses it.
+	Though I updated it, because I ran into the args too long problem...so I used pkg_libchk method.
+
+	This however broke all my cfengine installs, as the copy in /var/cfengine/bin is updated by cfengine.  cf-execd
+	is running unaffected by this, but it is unable to call cf-agent as its missing libxml2.so.5 (as it has become
+	libxml2.so.2.)
+
+	This made me recall the contortions a co-worker seemed to go through in making static executables for cfengine2.
+	Fortunately, we didn't run into any problems between the different Sun architectures like I had encountered once
+	in a previous life.
+
+	After much effort, I came up with a couple of solutions.  The full static or partly static cf-agent.  Where the
+	partly static cf-agent has just libxml2 and libpromises linked in statically.  I wasn't able to get tokyocabinet
+	to link into partly static, since it doesn't have a libtool file.
+
+	While I was working on this, I figured out the FreeBSD issue with libxml2.  Its an auto-activiation in the
+	upstream configure script, while the proper way is to have knob.  So, I added one.
+
+	PR: ports/180896
+
+sysutils/cfengine35/old
+
 	Kind of odd making a patch for FreeBSD when the problem is upstream.
 	
 	So, opted to report it upstream, but in the meantime I rebuild cfengine using this patch.
@@ -230,6 +257,12 @@ sysutils/panicmail
 		panicmail_sendfrom="root"
 		panicmail_usecrashinfo="NO"
 		panicmail_usekernel=""
+
+        2014-04-13: After updating to 9.2-RELEASE-p4, which has a kernel.symbols file.  Wonder why -p3 didn't.  And, not
+	rebuilding a GENERIC debug kernel, decided I needed to fix the logic for using kernel.symbols.
+
+	Decided to do the nasty, and patch /usr/sbin/crashinfo to use kernel.symbols with kgdb (if available, or
+	specified.)
 
 sysutils/pefs-kmod
 
@@ -324,4 +357,10 @@ print/hplip
 	Removing the "application/vnd.cups-pdf" line, makes it so I can print again.
 
 		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
+
+x11-server/xorg-nestserver
+
+	Options wouldn't stick, causing portmaster to ask for them over and over again.  A quick patch to fix.
+
+	PR: ports/188848
 

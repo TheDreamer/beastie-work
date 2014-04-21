@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-04-16 13:28:47.000000000 -0500
++++ Makefile	2014-04-21 08:43:39.793929398 -0500
+@@ -22,8 +22,6 @@
+ SLAVE_PORT=	yes
+ PLIST_FILES=	bin/Xnest man/man1/Xnest.1.gz
+ 
+-.include <bsd.port.options.mk>
+-
+ do-install:
+ 	${INSTALL_PROGRAM} ${WRKSRC}/hw/xnest/Xnest ${STAGEDIR}${PREFIX}/bin/
+ .if defined(WITH_NEW_XORG)

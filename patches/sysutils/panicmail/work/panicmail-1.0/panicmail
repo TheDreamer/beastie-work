@@ -40,7 +40,7 @@
 #				review first.
 #
 # panicmail_autonotify (bool):	Set to "YES" by default.
-#				Set it to "NO" to suppress copy to root fo automatically
+#				Set it to "NO" to suppress copy to root for automatically
 #				submitted panic email.
 #
 # panicmail_sendto (str):	Set to
@@ -103,25 +103,11 @@ panicmail_gather()
 
 		if [ -z "${panicmail_usekernel}" ]; then
 			kernel="`sysctl -n kern.bootfile`"
-			# if <kernel>.symbols exists, we'll use that.
-			# save <kernel> for 'kernel config'
-			if [ -e "${kernel}.symbols" ]; then
-				bootkern="${kernel}"
-				kernel="${kernel}.symbols"
-			fi
 		else
 			kernel="${panicmail_usekernel}"
 		fi
 		crashinfo -k "${kernel}" "${dumpdir}/vmcore.$1" > /dev/null 2>&1
 		cat "${dumpdir}/core.txt.$1" >> "${dumpdir}/panicmail.$1"
-
-		# if we used <kernel>.symbols - kernel config step will fail
-		if [ -e "${bootkern}" ]; then
-			echo >> "${dumpdir}/panicmail.$1"
-			echo "kernel config:" >> "${dumpdir}/panicmail.$1"
-			config -x "${bootkern}" >> "${dumpdir}/panicmail.$1"
-			echo >> "${dumpdir}/panicmail.$1"
-		fi
 
 		# Remove core.txt.$1 since we're going to leave panicmail.$1
 		rm "${dumpdir}/core.txt.$1"
