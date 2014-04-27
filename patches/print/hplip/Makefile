@@ -1,5 +1,5 @@
 # Created by: amistry@am-productions.biz
-# $FreeBSD: head/print/hplip/Makefile 340808 2014-01-23 08:39:00Z makc $
+# $FreeBSD: head/print/hplip/Makefile 351524 2014-04-18 09:35:12Z makc $
 
 PORTNAME=	hplip
 PORTVERSION=	3.14.4
@@ -10,7 +10,7 @@ MAINTAINER=	makc@FreeBSD.org
 COMMENT=	Drivers and utilities for HP Printers and All-in-One devices
 
 LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
-		libcupsppdc.so:${PORTSDIR}/print/cups-base \
+		libcupsmime.so:${PORTSDIR}/print/cups-base \
 		libcups.so:${PORTSDIR}/print/cups-client \
 		libcupsimage.so:${PORTSDIR}/print/cups-image \
 		libdbus-1.so:${PORTSDIR}/devel/dbus
@@ -30,6 +30,7 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--enable-foomatic-ppd-install \
 		--enable-foomatic-rip-hplip-install \
 		--enable-hpijs-install \
+		--enable-cups-ppd-install \
 		--with-cupsbackenddir=${PREFIX}/libexec/cups/backend \
 		--with-cupsfilterdir=${PREFIX}/libexec/cups/filter \
 		--with-icondir=${DESKTOPDIR} \
@@ -152,6 +153,18 @@ post-patch:
 	${REINPLACE_CMD} -e '/[[:space:]]install-docDATA/ s|install-docDATA||' \
 		${WRKSRC}/Makefile.in
 .endif
+# fix hpijs PPDs
+	${SED} -e "s,%%WRKSRC%%,${WRKSRC}," \
+		-e "s,%%RM%%,${RM}," \
+		-e "s,%%GZCAT%%,${GZCAT}," \
+		-e "s,%%GREP%%,${GREP}," \
+		-e "s,%%EXPR%%,${EXPR}," \
+		-e "s,%%CAT%%,${CAT}," \
+		-e "s,%%SED%%,${SED}," \
+		-e "s,%%GZIP_CMD%%,${GZIP_CMD}," \
+		-e "s,%%MV%%,${MV}," \
+		${.CURDIR}/files/ppdfix.sh.in > ${WRKDIR}/ppdfix.sh
+	${SH} ${WRKDIR}/ppdfix.sh
 
 post-install:
 .if ${PORT_OPTIONS:MQT}

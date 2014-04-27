@@ -358,6 +358,16 @@ print/hplip
 
 		*cupsFilter: "application/vnd.cups-postscript 100 foomatic-rip-hplip"
 
+	2014-04-27: So, I had created a script to address the above problem, but got distracted with work/life, and when
+	I finally took a look at putting it all together, I find that this port has been updated to 3.14.4 and the
+	installing of hpcups PPDs is enabled.  This makes raster printers out of everything, which is a lot better than
+	the hpijs.  Since they take into account quirks of duplexing.  (there's a different Letter page size for when
+	using autoduplexing.)
+
+	But, it didn't apply the other two patches that I did, so I rerolled it for submission.
+
+	PR: ports/189056
+
 x11-server/xorg-nestserver
 
 	Options wouldn't stick, causing portmaster to ask for them over and over again.  A quick patch to fix.

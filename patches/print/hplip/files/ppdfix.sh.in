@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# $FreeBSD$
+#
+# In cups-1.6, support for printers capable of directly consuming PDF was
+# added.  And, the hpijs PPDs were generated for cups-1.5, claiming to 
+# support the direct consumption of PDF.
+#
+# While foomatic-rip, which can handle PDF, PS or text, foomatic-rip-hplip
+# can only handle PS or text.
+#
+# This script uncompresses each hpijs PPD file, removes the line that sends
+# PDF to foomatic-rip-hplip, and updates the file size line at the end of
+# the file and recompresses it.
+#
+%%RM%% -f /tmp/output.$$ /tmp/newppd.$$
+for ppd in %%WRKSRC%%/ppd/hpijs/*; do
+	%%GZCAT%% ${ppd} | %%GREP%% -v vnd.cups-pdf > /tmp/output.$$
+	NEWSIZE=`%%EXPR%% $(%%CAT%% /tmp/output.$$ | wc -c)`
+	%%SED%% -e '/^*% End of/s/ [0-9][0-9][0-9][0-9][0-9] bytes/ %%NEWSIZE%% bytes/' -e "s/%%NEWSIZE%%/${NEWSIZE}/" /tmp/output.$$ | %%GZIP_CMD%% -c > /tmp/newppd.$$
+	%%MV%% ${ppd} ${ppd}.bak
+	%%MV%% /tmp/newppd.$$ ${ppd}
+done
+%%RM%% -f /tmp/output.$$

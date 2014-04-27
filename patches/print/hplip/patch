@@ -1,30 +1,24 @@
---- Makefile.orig	2014-01-23 02:39:00.000000000 -0600
-+++ Makefile	2014-04-09 14:47:40.659096000 -0500
-@@ -2,7 +2,7 @@
- # $FreeBSD: head/print/hplip/Makefile 340808 2014-01-23 08:39:00Z makc $
+--- Makefile.orig	2014-04-27 10:20:42.993926678 -0500
++++ Makefile	2014-04-27 12:02:27.109926718 -0500
+@@ -153,6 +153,18 @@
+ 	${REINPLACE_CMD} -e '/[[:space:]]install-docDATA/ s|install-docDATA||' \
+ 		${WRKSRC}/Makefile.in
+ .endif
++# fix hpijs PPDs
++	${SED} -e "s,%%WRKSRC%%,${WRKSRC}," \
++		-e "s,%%RM%%,${RM}," \
++		-e "s,%%GZCAT%%,${GZCAT}," \
++		-e "s,%%GREP%%,${GREP}," \
++		-e "s,%%EXPR%%,${EXPR}," \
++		-e "s,%%CAT%%,${CAT}," \
++		-e "s,%%SED%%,${SED}," \
++		-e "s,%%GZIP_CMD%%,${GZIP_CMD}," \
++		-e "s,%%MV%%,${MV}," \
++		${.CURDIR}/files/ppdfix.sh.in > ${WRKDIR}/ppdfix.sh
++	${SH} ${WRKDIR}/ppdfix.sh
  
- PORTNAME=	hplip
--PORTVERSION=	3.14.1
-+PORTVERSION=	3.14.4
- CATEGORIES=	print
- MASTER_SITES=	SF
- 
-@@ -10,7 +10,7 @@
- COMMENT=	Drivers and utilities for HP Printers and All-in-One devices
- 
- LIB_DEPENDS=	libjpeg.so:${PORTSDIR}/graphics/jpeg \
--		libcupsdriver.so:${PORTSDIR}/print/cups-base \
-+		libcupsppdc.so:${PORTSDIR}/print/cups-base \
- 		libcups.so:${PORTSDIR}/print/cups-client \
- 		libcupsimage.so:${PORTSDIR}/print/cups-image \
- 		libdbus-1.so:${PORTSDIR}/devel/dbus
---- distinfo.orig	2014-01-23 02:39:00.000000000 -0600
-+++ distinfo	2014-04-09 14:48:43.514097000 -0500
-@@ -1,2 +1,2 @@
--SHA256 (hplip-3.14.1.tar.gz) = 5c1e79d4426c00c3eb7ec9b689c430ea3d132e23849c08ae3dc58cd8d3d0eb14
--SIZE (hplip-3.14.1.tar.gz) = 21116532
-+SHA256 (hplip-3.14.4.tar.gz) = ce50c2e0ebc0f469599500257d291ca170c6559a99c8eb312f89be881c2110c9
-+SIZE (hplip-3.14.4.tar.gz) = 21414140
+ post-install:
+ .if ${PORT_OPTIONS:MQT}
 --- files/patch-prnt_hpijs_foomatic-rip-hplip.orig	1969-12-31 18:00:00.000000000 -0600
 +++ files/patch-prnt_hpijs_foomatic-rip-hplip	2014-04-09 15:01:53.362097359 -0500
 @@ -0,0 +1,11 @@
@@ -39,3 +33,30 @@
 +     ($#{$dat->{'args'}} < 0)) {
 +     # We don't have any options, so we do not need to parse the
 +     # PostScript data
+--- files/ppdfix.sh.in.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/ppdfix.sh.in	2014-04-27 12:00:20.499926950 -0500
+@@ -0,0 +1,24 @@
++#!/bin/sh
++#
++# $FreeBSD$
++#
++# In cups-1.6, support for printers capable of directly consuming PDF was
++# added.  And, the hpijs PPDs were generated for cups-1.5, claiming to 
++# support the direct consumption of PDF.
++#
++# While foomatic-rip, which can handle PDF, PS or text, foomatic-rip-hplip
++# can only handle PS or text.
++#
++# This script uncompresses each hpijs PPD file, removes the line that sends
++# PDF to foomatic-rip-hplip, and updates the file size line at the end of
++# the file and recompresses it.
++#
++%%RM%% -f /tmp/output.$$ /tmp/newppd.$$
++for ppd in %%WRKSRC%%/ppd/hpijs/*; do
++	%%GZCAT%% ${ppd} | %%GREP%% -v vnd.cups-pdf > /tmp/output.$$
++	NEWSIZE=`%%EXPR%% $(%%CAT%% /tmp/output.$$ | wc -c)`
++	%%SED%% -e '/^*% End of/s/ [0-9][0-9][0-9][0-9][0-9] bytes/ %%NEWSIZE%% bytes/' -e "s/%%NEWSIZE%%/${NEWSIZE}/" /tmp/output.$$ | %%GZIP_CMD%% -c > /tmp/newppd.$$
++	%%MV%% ${ppd} ${ppd}.bak
++	%%MV%% /tmp/newppd.$$ ${ppd}
++done
++%%RM%% -f /tmp/output.$$
