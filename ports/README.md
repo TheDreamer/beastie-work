@@ -69,13 +69,14 @@ net-mgmt/nagios-check_dhcp.pl
 	do the wrong thing now.
 
 	It also complains (and aborts) that I have packages installed that have recently been deleted from ports.  I
-	haven't yet investigated an alternative, it still works (wasn't that long ago that I submitted a patch for one
-	of the components.)  But, the company has stopped making it generally available to the public, though there's
-	a note about it working with certain open source projects.  Along with it being available to its paying customers.
+	haven't yet investigated an alternative to net/freenx and net/nxserver, it still works (wasn't that long ago that I
+	submitted a patch for one of the components.)  But, the company has stopped making it generally available to the
+	public, though there's a note about it working with certain open source projects.  Along with it being available to
+	its paying customers.
 
-	Anyways, one way to fix this would be to hit send on my submission to make net/p5-Net-DHCP-Watch into a real
-	port.  But, since the reason for its existence is this nagios plugin.  I went to work on turning this into a
-	port as well.  Following other ports and reading stuff in /usr/ports/Mk, I did staging with this.
+	Anyways back to this port, one way to fix this would be to hit send on my submission to make net/p5-Net-DHCP-Watch
+	into a real port.  But, since the reason for its existence is this nagios plugin.  I went to work on turning this
+	into a port as well.  Following other ports and reading stuff in /usr/ports/Mk, I did staging with this.
 
 	Will I hit send?
 
