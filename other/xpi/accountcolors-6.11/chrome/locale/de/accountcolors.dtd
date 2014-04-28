@@ -1,0 +1,66 @@
+<!-- Options Dialog Box -->
+<!ENTITY accountcolors.options "Account Colors - Einstellungen">
+<!ENTITY accountcolors.accountcolors "Konten-/Identitätsfarben">
+<!ENTITY accountcolors.folderpane "Ordnerleiste">
+<!ENTITY accountcolors.threadpane "Themenleiste">
+<!ENTITY accountcolors.messagepane "Nachrichtenleiste/Tab/Fenster">
+<!ENTITY accountcolors.composewindow "Verfassen-Fenster">
+<!ENTITY accountcolors.account.account "Konto">
+<!ENTITY accountcolors.account.identity "Identität">
+<!ENTITY accountcolors.account.font "Text">
+<!ENTITY accountcolors.account.bkgd "Hintergrund">
+<!ENTITY accountcolors.folder.setfontstyle "Konten-Schriftstil:">
+<!ENTITY accountcolors.folder.setfontsize "Konten-Schriftgröße:">
+<!ENTITY accountcolors.folder.colorfont "Konten-Text kolorieren">
+<!ENTITY accountcolors.folder.colorbkgd "Konten-Hintergrund kolorieren">
+<!ENTITY accountcolors.folder.colorfldfont "Ordner-Text kolorieren">
+<!ENTITY accountcolors.folder.colorfldbkgd "Ordner-Hintergrund kolorieren">
+<!ENTITY accountcolors.folder.boldnewmail "Bold on Accounts/Inboxes with New Mail">
+<!ENTITY accountcolors.folder.undernewmail "Underline on Accounts/Inboxes with New Mail">
+<!ENTITY accountcolors.folder.noboldunread "Keine Fettschrift für Ordner mit ungelesenen Nachrichten">
+<!ENTITY accountcolors.folder.showlines "Linien in der Baumansicht anzeigen">
+<!ENTITY accountcolors.folder.darkerbar "Darker Unfocused Select Bar">
+<!ENTITY accountcolors.folder.incspacing "Zeilenabstand je nach Konten-Schriftgröße anpassen (selbst wenn keine Größe angegeben wurde)">
+<!ENTITY accountcolors.folder.defaultbkgd "Für Weiß wird die Standard-Hintergrundfarbe von Thunderbird beibehalten">
+<!ENTITY accountcolors.thread.setfontstyle "Betreffzeilen-Schriftstil:">
+<!ENTITY accountcolors.thread.setfontsize "Betreffzeilen-Schriftgröße:">
+<!ENTITY accountcolors.thread.setfromstyle "Von-Zeilen-Schriftstil:">
+<!ENTITY accountcolors.thread.setfromsize "Von-Zeilen-Schriftgröße:">
+<!ENTITY accountcolors.thread.colorfont "Betreffzeilen-Text kolorieren">
+<!ENTITY accountcolors.thread.colorbkgd "Zeilen-Hintergrund kolorieren">
+<!ENTITY accountcolors.thread.colorfrom "Von-Zeilen-Text kolorieren">
+<!ENTITY accountcolors.thread.colorother "Text von Datum/Größe/Konto/Priorität kolorieren">
+<!ENTITY accountcolors.thread.boldsubject "Betreffzeile in Fettschrift bei ungelesenen Nachrichten">
+<!ENTITY accountcolors.thread.boldfrom "Von-Zeile in Fettschrift bei ungelesenen Nachrichten">
+<!ENTITY accountcolors.thread.hidestripes "Zeilenlinien ausblenden">
+<!ENTITY accountcolors.thread.showstripes "Zeilenlinien einblenden">
+<!ENTITY accountcolors.thread.darkerbar "Darker Unfocused Select Bar">
+<!ENTITY accountcolors.thread.incspacing "Increase Row Spacing based on Subject/From Font Sizes &#160; (even if Subject/From Font Sizes not ticked)">
+<!ENTITY accountcolors.thread.hdraccount "Farben je nach Konten-Nachrichtenkopf (statt Konten-Ordner)">
+<!ENTITY accountcolors.message.setfontstyle "Betreffzeilen-Schriftstil:">
+<!ENTITY accountcolors.message.setfontsize "Betreffzeilen-Schriftgröße:">
+<!ENTITY accountcolors.message.colorfont "Betreffzeilen-Text kolorieren">
+<!ENTITY accountcolors.message.colorbkgd "Nachrichtenkopf-Hintergrund kolorieren">
+<!ENTITY accountcolors.message.hdraccount "Farben je nach Konten-Nachrichtenkopf (statt Konten-Ordner)">
+<!ENTITY accountcolors.message.defaultbkgd "Für Weiß wird die Standard-Hintergrundfarbe von Thunderbird beibehalten">
+<!ENTITY accountcolors.compose.setfontstyle "Betreffzeilen-Schriftstil:">
+<!ENTITY accountcolors.compose.setfontsize "Betreffzeilen-Schriftgröße:">
+<!ENTITY accountcolors.compose.setidfontstyle "Identitäts-Schriftstil:">
+<!ENTITY accountcolors.compose.setidfontsize "Identitäts-Schriftgröße:">
+<!ENTITY accountcolors.compose.colorfont "Betreffzeilen-Text kolorieren">
+<!ENTITY accountcolors.compose.colorbkgd "Nachrichtenkopf-Hintergrund kolorieren">
+<!ENTITY accountcolors.compose.colorfrom "Von-Identität kolorieren (Absender)">
+<!ENTITY accountcolors.compose.colormenu "Von-Menühintergrund kolorieren (Absender)">
+<!ENTITY accountcolors.compose.defaultbkgd "Für Weiß wird die Standard-Hintergrundfarbe von Thunderbird beibehalten">
+<!ENTITY accountcolors.picker.fonttitle "Farbauswahl-Text">
+<!ENTITY accountcolors.picker.bkgdtitle "Farbauswahl-Hintergrund">
+<!ENTITY accountcolors.picker.sample "Vorschau">
+<!ENTITY accountcolors.picker.red "R:">
+<!ENTITY accountcolors.picker.green "G:">
+<!ENTITY accountcolors.picker.blue "B:">
+<!ENTITY accountcolors.picker.hue "H:">
+<!ENTITY accountcolors.picker.saturation "S:">
+<!ENTITY accountcolors.picker.value "V:">
+<!ENTITY accountcolors.picker.autobkgd "Hintergrundfarbe automatisch wählen">
+<!ENTITY accountcolors.picker.okay "OK">
+<!ENTITY accountcolors.picker.cancel "Abbrechen">

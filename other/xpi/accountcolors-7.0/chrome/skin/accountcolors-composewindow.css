@@ -1,0 +1,49 @@
+/************************************************************************/
+/*                                                                      */
+/*      Account Colors  -  Thunderbird Extension  -  Compose Window     */
+/*                                                                      */
+/*      CSS for Compose Window overlay                                  */
+/*                                                                      */
+/*      Copyright (C) 2008-2014  by  DW-dev                             */
+/*                                                                      */
+/*      Last Edit  -  19 Feb 2014                                       */
+/*                                                                      */
+/************************************************************************/
+
+#msgIdentity .menulist-label-box { padding: 1px 0px 2px 3px; border: 1px solid #D0D0D0; }
+
+@media all and (-moz-windows-theme:aero)
+{
+    #msgIdentity .menulist-label-box { padding: 1px 0px 1px 3px; border: 1px solid #D0D0D0; border-radius: 3px; }
+}
+
+#msgIdentity menuseparator
+{
+    -moz-appearance: none;
+    padding: 0px;
+    border-top: 1px solid #D7D7D7;
+}
+
+#msgIdentity menuitem[_moz-menuactive="true"]
+{
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+    background-image: -moz-linear-gradient(rgba(51,153,255,0.05), rgba(51,153,255,0.15));
+}
+
+#msgIdentity menuitem:hover
+{
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+    background-image: -moz-linear-gradient(rgba(51,153,255,0.05), rgba(51,153,255,0.15));
+}
+
+#msgSubject:hover
+{
+    border: 1px solid #7EB4EA !important;
+}
+
+#msgSubject[focused]
+{
+    border: 1px solid #569DE5 !important;
+}

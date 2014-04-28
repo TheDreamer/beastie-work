@@ -1,0 +1,71 @@
+<!-- Main Menu -->
+<!ENTITY accountcolors.options "Account Colors Options...">
+<!ENTITY accountcolors.options.ak "p">
+<!-- Options Dialog Box -->
+<!ENTITY accountcolors.optionstitle "Opciones de Colores de Cuentas">
+<!ENTITY accountcolors.applyprefs "Apply">
+<!ENTITY accountcolors.accountcolors "Colores de Cuenta/Remitente">
+<!ENTITY accountcolors.folderpane "Panel de Carpeta">
+<!ENTITY accountcolors.threadpane "Panel de Tarea">
+<!ENTITY accountcolors.messagepane "Panel/Pestaña/Ventana de Mensaje">
+<!ENTITY accountcolors.composewindow "Ventana Compuesta">
+<!ENTITY accountcolors.account.account "Cuenta">
+<!ENTITY accountcolors.account.identity "Identidad">
+<!ENTITY accountcolors.account.font "Fuente">
+<!ENTITY accountcolors.account.bkgd "Bkgd">
+<!ENTITY accountcolors.folder.setfontstyle "Estilo de Fuente de la Cuenta">
+<!ENTITY accountcolors.folder.setfontsize "Tamaño de Fuente de la Cuenta">
+<!ENTITY accountcolors.folder.colorfont "Color de Fuente de la Cuenta">
+<!ENTITY accountcolors.folder.colorbkgd "Color de Fondo de la Cuenta">
+<!ENTITY accountcolors.folder.colorfldfont "Color de Fuente de Carpetas">
+<!ENTITY accountcolors.folder.colorfldbkgd "Color de Fondo de Carpetas">
+<!ENTITY accountcolors.folder.boldnewmail "Bold on Accounts/Inboxes with New Mail">
+<!ENTITY accountcolors.folder.undernewmail "Underline on Accounts/Inboxes with New Mail">
+<!ENTITY accountcolors.folder.noboldunread "Sin Negrita en Carpetas con Mensajes no Leídos">
+<!ENTITY accountcolors.folder.showlines "Mostrar Líneas de Árboles">
+<!ENTITY accountcolors.folder.darkerbar "Darker Unfocused Select Bar">
+<!ENTITY accountcolors.folder.incspacing "Incrementar espaciado de líneas en el tamaño de fuente de la cuenta (incluso si el tamaño de la cuenta no se ha marcado)">
+<!ENTITY accountcolors.folder.defaultbkgd "Retain Thunderbird default background color if White selected">
+<!ENTITY accountcolors.thread.setfontstyle "Estilo de Fuente del Asunto">
+<!ENTITY accountcolors.thread.setfontsize "Tamaño de Fuente del Asunto">
+<!ENTITY accountcolors.thread.setfromstyle "Estilo de fuente del formulario">
+<!ENTITY accountcolors.thread.setfromsize "Tamaño de fuente del formulario">
+<!ENTITY accountcolors.thread.colorfont "Color de Fuente del Asunto">
+<!ENTITY accountcolors.thread.colorbkgd "Color de Fondo de Fila">
+<!ENTITY accountcolors.thread.colorfrom "Color de la fuente del formulario">
+<!ENTITY accountcolors.thread.colorother "Color de las fuentes Fecha/Tamaño/Cuenta/Prioridad">
+<!ENTITY accountcolors.thread.boldsubject "Remitente en Negrita en los mensajes no leídos">
+<!ENTITY accountcolors.thread.boldfrom "Negrita desde Mensajes No Leídos">
+<!ENTITY accountcolors.thread.hidestripes "Ocultar Líneas">
+<!ENTITY accountcolors.thread.showstripes "Mostrar Líneas">
+<!ENTITY accountcolors.thread.darkerbar "Darker Unfocused Select Bar">
+<!ENTITY accountcolors.thread.incspacing "Increase Row Spacing based on Subject/From Font Sizes &#160; (even if Subject/From Font Sizes not ticked)">
+<!ENTITY accountcolors.thread.hdraccount "Color basado en la Cabecera de la cuenta del mensaje (en lugar de la carpeta de la cuenta)">
+<!ENTITY accountcolors.message.setfontstyle "Estilo de Fuente de Asunto">
+<!ENTITY accountcolors.message.setfontsize "Tamaño de Fuente de Asunto">
+<!ENTITY accountcolors.message.colorfont "Color de Fuente de Asunto">
+<!ENTITY accountcolors.message.colorbkgd "Color de Fondo de Cabecera">
+<!ENTITY accountcolors.message.hdraccount "Color basado en la cabecera de cuenta de mensaje (en lugar de carpeta de la cuenta)">
+<!ENTITY accountcolors.message.defaultbkgd "Retain Thunderbird default background color if White selected">
+<!ENTITY accountcolors.compose.setfontstyle "Estilo de fuente del Asunto">
+<!ENTITY accountcolors.compose.setfontsize "Tamaño de Fuente del Asunto">
+<!ENTITY accountcolors.compose.setidfontstyle "Estilo de Fuente de Remitente">
+<!ENTITY accountcolors.compose.setidfontsize "Tamaño de Fuente del Remitente">
+<!ENTITY accountcolors.compose.colorfont "Color de la fuente del sujeto">
+<!ENTITY accountcolors.compose.colorbkgd "Color de fondo de Cabecera">
+<!ENTITY accountcolors.compose.colorfieldbkgd "Color Header Field Backgrounds">
+<!ENTITY accountcolors.compose.colorfromfont "Color From Font">
+<!ENTITY accountcolors.compose.colorfrombkgd "Color From Background">
+<!ENTITY accountcolors.compose.defaultbkgd "Retain Thunderbird default background color if White selected">
+<!ENTITY accountcolors.picker.fonttitle "Selector de color de fuente">
+<!ENTITY accountcolors.picker.bkgdtitle "Selector de color de fondo">
+<!ENTITY accountcolors.picker.sample "Ejemplo">
+<!ENTITY accountcolors.picker.red "R:">
+<!ENTITY accountcolors.picker.green "G:">
+<!ENTITY accountcolors.picker.blue "B:">
+<!ENTITY accountcolors.picker.hue "H:">
+<!ENTITY accountcolors.picker.saturation "S:">
+<!ENTITY accountcolors.picker.value "V:">
+<!ENTITY accountcolors.picker.autobkgd "Color de fondo automático">
+<!ENTITY accountcolors.picker.okay "Aceptar">
+<!ENTITY accountcolors.picker.cancel "Cancelar">

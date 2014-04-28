@@ -1,0 +1,583 @@
+--- chrome/content/accountcolors-3panewindow.js.orig	2014-02-19 09:12:00.000000000 -0600
++++ chrome/content/accountcolors-3panewindow.js	2014-02-21 09:41:12.658015989 -0600
+@@ -210,7 +210,7 @@
+         
+         accounts = accountColors3Pane.accountManager.accounts;
+         
+-        for (acc = 0; acc < accountColorsUtilities.getLength(accounts) && index < 60; acc++)
++        for (acc = 0; acc < accountColorsUtilities.getLength(accounts) && index < 128; acc++)
+         {
+             account = accountColorsUtilities.getAccount(accounts,acc);
+             
+@@ -229,7 +229,7 @@
+             }
+             else
+             {
+-                for (id = 0; id < accountColorsUtilities.getLength(identities) && index < 60; id++)
++                for (id = 0; id < accountColorsUtilities.getLength(identities) && index < 128; id++)
+                 {
+                     identity = accountColorsUtilities.getIdentity(identities,id);
+                     
+--- chrome/content/accountcolors-options.js.orig	2014-02-19 09:12:00.000000000 -0600
++++ chrome/content/accountcolors-options.js	2014-02-21 09:42:43.847016045 -0600
+@@ -59,7 +59,7 @@
+         
+         accounts = accountColorsOptions.accountManager.accounts;
+         
+-        for (acc = 0; acc < accountColorsUtilities.getLength(accounts) && index < 60; acc++)
++        for (acc = 0; acc < accountColorsUtilities.getLength(accounts) && index < 128; acc++)
+         {
+             account = accountColorsUtilities.getAccount(accounts,acc);
+             
+@@ -134,7 +134,7 @@
+             }
+             else
+             {    
+-                for (id = 0; id < accountColorsUtilities.getLength(identities) && index < 60; id++)
++                for (id = 0; id < accountColorsUtilities.getLength(identities) && index < 128; id++)
+                 {
+                     identity = accountColorsUtilities.getIdentity(identities,id);
+                     
+@@ -885,7 +885,7 @@
+         
+         /* Account/Identity Colors */
+         
+-        for (index = 0; index < 60; index++)
++        for (index = 0; index < 128; index++)
+         {
+             if (document.getElementById("accountcolors-accountidbox"+index).hidden == false)
+             {
+@@ -992,7 +992,7 @@
+         }
+         
+         if (document.getElementById("accountcolors-accountidbox"+index).getAttribute("ac-accountidtype") == "accountid")
+-            for (i = index+1; i < 60 && document.getElementById("accountcolors-accountidbox"+i).getAttribute("ac-accountidtype") == "id"; i++)
++            for (i = index+1; i < 128 && document.getElementById("accountcolors-accountidbox"+i).getAttribute("ac-accountidtype") == "id"; i++)
+             {
+                 accountColorsOptions.pickerSetColor("accountcolors-fontpicker"+i,accountColorsOptions.pickerGetColor("accountcolors-fontpicker"+index));
+                 accountColorsOptions.pickerSetColor("accountcolors-bkgdpicker"+i,accountColorsOptions.pickerGetColor("accountcolors-bkgdpicker"+index));
+@@ -1016,7 +1016,7 @@
+             document.getElementById("accountcolors-identityname"+index).style.backgroundColor = accountColorsOptions.pickerGetColor("accountcolors-bkgdpicker"+index);
+         }
+         
+-        for (i = index+1; i < 60 && document.getElementById("accountcolors-accountidbox"+i).getAttribute("ac-accountidtype") == "id"; i++)
++        for (i = index+1; i < 128 && document.getElementById("accountcolors-accountidbox"+i).getAttribute("ac-accountidtype") == "id"; i++)
+         {
+             accountColorsOptions.pickerSetColor("accountcolors-bkgdpicker"+i,accountColorsOptions.pickerGetColor("accountcolors-bkgdpicker"+index));
+             
+--- chrome/content/accountcolors-options.xul.orig	2014-02-19 09:12:00.000000000 -0600
++++ chrome/content/accountcolors-options.xul	2014-02-21 09:43:06.265014842 -0600
+@@ -481,6 +481,482 @@
+                         <button id="accountcolors-bkgdpicker59" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
+                     </hbox>
+                     
++                    <hbox id="accountcolors-accountidbox60" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname60" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname60" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker60" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker60" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox61" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname61" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname61" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker61" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker61" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox62" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname62" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname62" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker62" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker62" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox63" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname63" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname63" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker63" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker63" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox64" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname64" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname64" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker64" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker64" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox65" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname65" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname65" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker65" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker65" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox66" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname66" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname66" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker66" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker66" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox67" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname67" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname67" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker67" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker67" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox68" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname68" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname68" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker68" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker68" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox69" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname69" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname69" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker69" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker69" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox70" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname70" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname70" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker70" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker70" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox71" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname71" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname71" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker71" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker71" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox72" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname72" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname72" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker72" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker72" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox73" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname73" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname73" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker73" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker73" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox74" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname74" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname74" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker74" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker74" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox75" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname75" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname75" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker75" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker75" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox76" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname76" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname76" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker76" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker76" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox77" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname77" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname77" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker77" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker77" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox78" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname78" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname78" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker78" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker78" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox79" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname79" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname79" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker79" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker79" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox80" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname80" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname80" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker80" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker80" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox81" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname81" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname81" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker81" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker81" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox82" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname82" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname82" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker82" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker82" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox83" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname83" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname83" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker83" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker83" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox84" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname84" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname84" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker84" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker84" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox85" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname85" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname85" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker85" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker85" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox86" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname86" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname86" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker86" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker86" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox87" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname87" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname87" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker87" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker87" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox88" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname88" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname88" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker88" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker88" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox89" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname89" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname89" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker89" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker89" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox90" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname90" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname90" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker90" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker90" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox91" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname91" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname91" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker91" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker91" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox92" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname92" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname92" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker92" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker92" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox93" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname93" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname93" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker93" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker93" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox94" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname94" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname94" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker94" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker94" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox95" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname95" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname95" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker95" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker95" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox96" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname96" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname96" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker96" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker96" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox97" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname97" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname97" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker97" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker97" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox98" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname98" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname98" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker98" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker98" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox99" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname99" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname99" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker99" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker99" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox100" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname100" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname100" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker100" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker100" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox101" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname101" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname101" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker101" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker101" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox102" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname102" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname102" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker102" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker102" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox103" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname103" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname103" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker103" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker103" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox104" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname104" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname104" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker104" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker104" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox105" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname105" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname105" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker105" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker105" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox106" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname106" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname106" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker106" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker106" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox107" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname107" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname107" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker107" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker107" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox108" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname108" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname108" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker108" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker108" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox109" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname109" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname109" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker109" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker109" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox110" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname110" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname110" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker110" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker110" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox111" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname111" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname111" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker111" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker111" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox112" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname112" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname112" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker112" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker112" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox113" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname113" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname113" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker113" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker113" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox114" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname114" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname114" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker114" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker114" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox115" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname115" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname115" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker115" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker115" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox116" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname116" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname116" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker116" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker116" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox117" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname117" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname117" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker117" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker117" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox118" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname118" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname118" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker118" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker118" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox119" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname119" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname119" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker119" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker119" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox120" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname120" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname120" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker120" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker120" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox121" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname121" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname121" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker121" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker121" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox122" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname122" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname122" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker122" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker122" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox123" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname123" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname123" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker123" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker123" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox124" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname124" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname124" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker124" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker124" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox125" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname125" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname125" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker125" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker125" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox126" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname126" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname126" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker126" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker126" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
++                    <hbox id="accountcolors-accountidbox127" class="accountcolors-accountidbox" hidden="true">
++                        <label id="accountcolors-accountname127" class="accountcolors-accountname" crop="end"/>
++                        <label id="accountcolors-identityname127" class="accountcolors-identityname" crop="end"/>
++                        <button id="accountcolors-fontpicker127" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                        <button id="accountcolors-bkgdpicker127" class="accountcolors-picker" oncommand="accountColorsOptions.pickerOpen(this);"/>
++                    </hbox>
++                    
+                 </vbox>
+                 
+             </tabpanel>
+--- chrome/content/accountcolors-utilities.js.orig	2013-03-19 21:00:02.000000000 -0500
++++ chrome/content/accountcolors-utilities.js	2014-02-21 09:43:23.520015174 -0600
+@@ -24,7 +24,7 @@
+     {
+         var fontcolor;
+         
+-        if (accountColorsUtilities.findAccountId(accountidkey) < 60)
++        if (accountColorsUtilities.findAccountId(accountidkey) < 128)
+         {
+             try
+             {
+@@ -47,7 +47,7 @@
+     {
+         var bkgdcolor;
+         
+-        if (accountColorsUtilities.findAccountId(accountidkey) < 60)
++        if (accountColorsUtilities.findAccountId(accountidkey) < 128)
+         {
+             try
+             {
+--- install.rdf.orig	2014-02-19 09:12:00.000000000 -0600
++++ install.rdf	2014-02-21 09:43:55.899016036 -0600
+@@ -20,7 +20,7 @@
+         
+         <em:id>accountcolors@DW-dev</em:id>
+         <em:type>2</em:type>
+-        <em:version>7.0</em:version>
++        <em:version>7.0.1</em:version>
+         <em:name>Account Colors</em:name>
+         <em:description>Associates colors with account names and identities. Applies colors to folder tree, message list and message headers accordingly.</em:description>
+         <em:creator>DW-dev</em:creator>

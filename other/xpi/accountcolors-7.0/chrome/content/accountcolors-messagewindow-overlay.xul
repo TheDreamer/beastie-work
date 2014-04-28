@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!--
+/************************************************************************/
+/*                                                                      */
+/*      Account Colors  -  Thunderbird Extension  -  Message Window     */
+/*                                                                      */
+/*      XUL for Message Window overlay                                  */
+/*                                                                      */
+/*      Copyright (C) 2008-2014  by  DW-dev                             */
+/*                                                                      */
+/*      Last Edit  -  19 Feb 2014                                       */
+/*                                                                      */
+/************************************************************************/
+-->  
+
+<?xml-stylesheet href="chrome://accountcolors/skin/accountcolors-messagewindow.css" type="text/css"?>
+
+<overlay id="accountcolors-messagewindow-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    
+    <script src="chrome://accountcolors/content/accountcolors-messagewindow.js" type="application/x-javascript"/>
+    <script src="chrome://accountcolors/content/accountcolors-utilities.js" type="application/x-javascript"/>
+    
+    <window id="messengerWindow">
+<!--
+        <statusbar id="status-bar">
+            <statusbarpanel id="accountcolors-debug-info" class="statusbarpanel-iconic-text" width="300px;"/>
+        </statusbar>
+-->
+    </window>
+    
+</overlay>
