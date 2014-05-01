@@ -61,6 +61,8 @@ savecore_start()
 		mirror_balance=`gmirror list ${dumpdev#/dev/mirror/} | grep ^Balance:`
 		mirror_balance=${mirror_balance#Balance: }
 		gmirror configure -b prefer ${dumpdev#/dev/mirror/}
+		dev="${dumpdev}"
+		;;
 	*)
 		dev="${dumpdev}"
 		;;

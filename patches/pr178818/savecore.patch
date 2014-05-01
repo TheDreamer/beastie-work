@@ -1,6 +1,6 @@
 --- savecore.orig	2014-04-29 14:01:01.927926553 -0500
-+++ savecore	2014-04-29 14:01:18.011928417 -0500
-@@ -57,6 +57,10 @@
++++ savecore	2014-05-01 05:21:18.007391999 -0500
+@@ -57,6 +57,12 @@
  	[Aa][Uu][Tt][Oo])
  		dev=
  		;;
@@ -8,10 +8,12 @@
 +		mirror_balance=`gmirror list ${dumpdev#/dev/mirror/} | grep ^Balance:`
 +		mirror_balance=${mirror_balance#Balance: }
 +		gmirror configure -b prefer ${dumpdev#/dev/mirror/}
++		dev="${dumpdev}"
++		;;
  	*)
  		dev="${dumpdev}"
  		;;
-@@ -70,6 +74,10 @@
+@@ -70,6 +76,10 @@
  	else
  		check_startmsgs && echo 'No core dumps found.'
  	fi
