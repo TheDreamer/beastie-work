@@ -374,3 +374,15 @@ x11-server/xorg-nestserver
 
 	PR: ports/188848
 
+www/nginx
+
+	The port was updated from 1.4.7 to 1.6.0, but a number of 3rd party modules were disabled rather than the maintainer
+	tracking down updates for them.
+
+	I use TCP_PROXY, so I was impacted.  I tracked down a fork of this 3rd party module that had been updated to work
+	with nginx-1.6.0.
+
+	After extremely minimal test (it compiled ;) on dev, I deployed it to my 'production' servers.  Though the application
+	that needs it hasn't gone into production yet...but will hopefully later today.
+
+	PR: ports/189393

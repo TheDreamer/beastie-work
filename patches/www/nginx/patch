@@ -1,0 +1,42 @@
+--- Makefile.orig	2014-05-04 11:41:16.000000000 -0500
++++ Makefile	2014-05-05 21:02:34.140567289 -0500
+@@ -748,12 +748,11 @@
+ .endif
+ 
+ .if ${PORT_OPTIONS:MTCP_PROXY}
+-IGNORE=	TCP_PROXY: update require
+-NGINX_TCP_PROXY_VERSION=	0.26
+-GIT_TCP_PROXY_VERSION=	0-gb83e5a6
+-MASTER_SITES+=	https://github.com/yaoweibin/nginx_tcp_proxy_module/tarball/v${NGINX_TCP_PROXY_VERSION}/:tcp_proxy
+-DISTFILES+=	yaoweibin-nginx_tcp_proxy_module-v${NGINX_TCP_PROXY_VERSION}-${GIT_TCP_PROXY_VERSION}.tar.gz:tcp_proxy
+-CONFIGURE_ARGS+=--add-module=${WRKDIR}/yaoweibin-nginx_tcp_proxy_module-${GIT_TCP_PROXY_VERSION:S/^0-g//}
++NGINX_TCP_PROXY_VERSION=	0.4.4
++GIT_TCP_PROXY_VERSION=	28-ga8704ed
++MASTER_SITES+=	https://github.com/irr/nginx_tcp_proxy_module/tarball/v${NGINX_TCP_PROXY_VERSION}-${GIT_TCP_PROXY_VERSION}/:tcp_proxy
++DISTFILES+=	irr-nginx_tcp_proxy_module-v${NGINX_TCP_PROXY_VERSION}-${GIT_TCP_PROXY_VERSION}.tar.gz:tcp_proxy
++CONFIGURE_ARGS+=--add-module=${WRKDIR}/irr-nginx_tcp_proxy_module-${GIT_TCP_PROXY_VERSION:S/^28-g//}
+ .endif
+ 
+ .if ${PORT_OPTIONS:MUDPLOG}
+@@ -949,7 +948,7 @@
+ .if ${PORT_OPTIONS:MTCP_PROXY}
+ 	( cd ${WRKSRC} && \
+ 		${PATCH} -p1 < \
+-			${WRKDIR}/yaoweibin-nginx_tcp_proxy_module-${GIT_TCP_PROXY_VERSION:S/^0-g//}/tcp.patch )
++			${WRKDIR}/irr-nginx_tcp_proxy_module-${GIT_TCP_PROXY_VERSION:S/^28-g//}/tcp-1.6.0.patch )
+ .endif
+ .if ${PORT_OPTIONS:MICONV}
+ 	@${REINPLACE_CMD} \
+--- distinfo.orig	2014-05-04 11:41:16.000000000 -0500
++++ distinfo	2014-05-05 21:02:42.799566480 -0500
+@@ -98,8 +98,8 @@
+ SIZE (agentzh-srcache-nginx-module-v0.25-0-gf25fe90.tar.gz) = 57291
+ SHA256 (ngx_supervisord-1.4.tar.gz) = 0954a4efb1b955692acf523e169221146d6aa93ad1643c9f2482f75a1fbf9e3b
+ SIZE (ngx_supervisord-1.4.tar.gz) = 19351
+-SHA256 (yaoweibin-nginx_tcp_proxy_module-v0.26-0-gb83e5a6.tar.gz) = 4d843b8d0511b269382938ba5546f902ec24dbfa76c12f6bd6961d7aaaf3866a
+-SIZE (yaoweibin-nginx_tcp_proxy_module-v0.26-0-gb83e5a6.tar.gz) = 127346
++SHA256 (irr-nginx_tcp_proxy_module-v0.4.4-28-ga8704ed.tar.gz) = 5480951fcb35b35cc254024ff2b190a60bb8fc3a53c4167deb91321ebd8a02dd
++SIZE (irr-nginx_tcp_proxy_module-v0.4.4-28-ga8704ed.tar.gz) = 157377
+ SHA256 (nginx_udplog_module-1.0.0.tar.gz) = e0c0bfa524c3a675ad6c08b916d08e57ef45f9818cb8a0d848c2c83785c6e659
+ SIZE (nginx_udplog_module-1.0.0.tar.gz) = 6284
+ SHA256 (gabor-nginx-x-rid-header-0daa3cc.tar.gz) = 136239b8f9ab2fbefb2aabc6897d3f12cc8063ce817901f9b8a624e12fbc6035
