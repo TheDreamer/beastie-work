@@ -1,0 +1,28 @@
+--- Makefile.orig	2014-05-11 00:11:40.665236000 -0500
++++ Makefile	2014-05-18 07:54:07.234894000 -0500
+@@ -40,11 +40,11 @@
+ ASPELL_LIB_DEPENDS=		libaspell.so:${PORTSDIR}/textproc/aspell
+ ASPELL_CONFIGURE_WITH=		aspell
+ 
+-CHM_RUN_DEPENDS=		pychm:${PORTSDIR}/textproc/pychm
++CHM_RUN_DEPENDS=		${PYTHON_SITELIBDIR}/chm/chm.py:${PORTSDIR}/textproc/pychm
+ 
+ DJVU_RUN_DEPENDS=		djvutxt:${PORTSDIR}/graphics/djvulibre
+ 
+-KONQUEROR_RUN_DEPENDS=		kwebkitpart:${PORTSDIR}/www/kwebkitpart
++KONQUEROR_RUN_DEPENDS=		${KDE4_PREFIX}/lib/kde4/kwebkitpart.so:${PORTSDIR}/www/kwebkitpart
+ 
+ LATEX_RUN_DEPENDS=		detex:${PORTSDIR}/print/detex \
+ 				dvips:${PORTSDIR}/print/dvips
+--- pkg-plist.orig	2013-11-06 04:47:22.000000000 -0600
++++ pkg-plist	2014-05-18 08:31:00.480894000 -0500
+@@ -2,9 +2,7 @@
+ bin/recollindex
+ bin/recollq
+ %%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/__init__.py
+-%%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/__init__.pyc
+ %%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/rclconfig.py
+-%%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/rclconfig.pyc
+ %%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/rclextract.so
+ %%PYTHON%%%%PYTHON_SITELIBDIR%%/recoll/recoll.so
+ lib/recoll/librecoll.so.%%VERSION%%

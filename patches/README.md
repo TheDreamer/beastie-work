@@ -8,6 +8,54 @@ archivers/quazip
 	
 	PR: ports/187735
 
+conf
+
+	These are patches I've made to /etc/periodic/daily/100.clean-disks and /etc/periodic/security/100.chksetuid
+
+	1. The patch to /etc/periodic/daily/100.clean-disks is to have it skip fuserfs filesystems.  Namely my .gvfs
+	directory which periodic doesn't have permission to look in.
+
+	   While that's the only fuserfs filesystem on my systems, this may change when I get around to trying to set up an
+	encrypted filesystem.
+
+	2. The patch to /etc/periodic/daily/100.chksetuid is to make it handle mountpoints that contain spaces.
+
+	   Namely I had made '"~/VirtualBox VMs"' a separate ZFS dataset from '/home'.  This was so that I could play with
+	different settings to try to improve my VirtualBox performance with the images, or to see if the settings I was
+	using on '/home' were impacting my VMs.   The big difference was probably 'dedup', which I was using on most
+	datasets in this zpool.  And, it was helpful in that I had various recovery attempts of my old Zen (Windows 7)
+	disk in the zpool.  Where the zpool was created using the old Zen drives.  Though unfortunately there wasn't a
+	useful way to reveal what had been deduped so to consider as a keeper, plus it would really impact performance
+	as the pool filed up and/or accumulated snapshots.  I have since turned off dedup on everything...and the ratio
+	has dropped from ~1.5?x to ~1.04x...still need to whittle away more, since the big purge was in trying to get
+	the poolsize below 90% (since things were really slow while it was over, even crashed it a few times while try
+	to delete large directories.  Rough thing was that pool usage didn't drop much at first since the two largest
+	directories I was removing files were from the two remaining recovery attempts of Zen.  And, they'll have
+	dups that matched the files that making up its successor running in VirtualBox.
+
+	   Virtualized Zen has been much more stable...though its slower as only a single CPU VM.  There's currently two
+	Virtual Zen's...the main difference has been eliminated between the two, so I'll probably nuke one as it falls
+	behind the one I use routinely (but I've been looking at opensource alternatives to the commercial apps that I
+	use routinely on here.)  The more current used to be a multi-CPU one, initially 2, but recently found reference
+	showing that 2 is worse than 1, while 4 was better.  However, it didn't appear to be the case for me...in fact
+	I think it was even slower than 2.  So, this instance is now a single as well.  I had made lots of changes to
+	the multi-CPU version in trying to get performance up, a lot of which would probably help the single CPU case...
+	no benchmark to confirm....since the ones I tried lead to BSOD.
+
+	   Hmmm, just realized that the BackupPC problem I was having hadn't been updated to reflect that this directory
+	is on a separate filesystem from '/home'.  Performance would probably not be as good allowing it to backup both
+	filesystems at the same time, but making them mutually exclusive would cut down on the nagios alerts when one of
+	the backups fails and remains that way for more than day because its blocked by the other.  My BackupPC is
+	set up to create/destroy zfs snapshots (named backuppc) in its pre/post commands.  The create snapshot script
+	destroy's any existing snapshot by this name when its called.  There's a pre/post lock to avoid different backup
+	jobs that would create snapshots of the same dataset to only backup portitions of it.  (IE: the directory that is
+	mapped into Virtual Zen to be "My Documents", "My Music", "My Pictures", and "My Videos", is handled separately
+	from the rest of '/home'.)  Though coming up with a way to allow 2 instead of only 1 backup job for this zpool
+	might still be something for the future...with this case being the one that'll require special work.
+
+
+	Not sure if I'll submit....one or both of these patches.
+
 databases/memcached
 
 	It is becoming a peeve of ports that work fine, but PORTREVISION is bumped so that it will disrupted "portmaster -a"
@@ -67,6 +115,22 @@ deskutils/gcalcli
 
 	PR: ports/187619
 
+deskutils/recoll
+
+	On May 7, 2014, this port was updated for version 1.19.13 (previous was 1.19.10.)  I didn't get around to trying
+	to update until around May 18.  Where there were problems with it trying to install port dependencies that were
+	already install.  Fixing the *_DEPENDS lines to look for files that exist in the port fixes that.  Next there were
+	problems in pkg-plist, which hadn't been updated to reflect STAGING.  Namely the *.pyc files aren't present when
+	staged, but pkg-plist listed the *.pyc files.  Removing them got it working.
+
+	Interestingly, in researching the background of this, I found that on May 24, 2014 the port was marked BROKEN
+	due to the issues with *.pyc.  Strange way to fix a bug.
+
+	Sidenote: for what I wanted to use this for, it hasn't been doing so well.  So, it might be ditching its use
+	on my computers eventually....
+
+	PR: ports/??????
+
 editors/lazarus
 
 	This build dependency got updated, as did the port that depended on it.  But, it wouldn't build.  When it was
@@ -105,6 +169,29 @@ mail/evolution
 	updated pkg-plist.
 
 	PR: ports/188525
+
+math/octave
+math/octave-forge
+
+	Was looking for a way to process DICOM files on FreeBSD, and got pointed at this.  It would build, as the Makefiles
+	were missing numerous build dependencies.
+
+	So, as I worked through them, I updated the Makefiles so that ports will bring in the build dependencies
+	automatically.
+
+	PR: ports/??????
+
+math/orpie
+
+	Was searching around on how to do something with orpie, when I noticed that on 04/11/2014 there had been a new
+	version (1.5.2).
+
+	It is described mainly for compatbility with OCaml 3.11+, my system is using 4.01.0, so might be useful.
+
+	What's interesting is that 1.5.1 came out 2007-09-13, where the first change after it was 2007-09-17.  The changes
+	for compability with OCaml 3.11 was on 2010-03-06, and the update catches a division by zero.
+
+	PR: ports/??????
 
 net/boinc-client
 

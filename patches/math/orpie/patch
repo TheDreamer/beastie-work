@@ -1,0 +1,19 @@
+--- Makefile.orig	2014-05-26 07:28:33.000000000 -0500
++++ Makefile	2014-05-26 11:45:55.088187547 -0500
+@@ -2,8 +2,7 @@
+ # $FreeBSD: head/math/orpie/Makefile 355316 2014-05-26 12:28:33Z miwi $
+ 
+ PORTNAME=	orpie
+-PORTVERSION=	1.5.1
+-PORTREVISION=	6
++PORTVERSION=	1.5.2
+ CATEGORIES+=	math
+ MASTER_SITES=	http://pessimization.com/software/orpie/
+ 
+--- distinfo.orig	2014-01-22 09:30:13.000000000 -0600
++++ distinfo	2014-05-26 11:06:15.334188000 -0500
+@@ -1,2 +1,2 @@
+-SHA256 (orpie-1.5.1.tar.gz) = f68ee37a5351c1dd32a68edae253a22a913fc2124bace1f6cf19cc2d422100cd
+-SIZE (orpie-1.5.1.tar.gz) = 370851
++SHA256 (orpie-1.5.2.tar.gz) = de557fc7f608c6cb1f44a965d3ae07fc6baf2b02a0d7994b89d6a0e0d87d3d6d
++SIZE (orpie-1.5.2.tar.gz) = 379583

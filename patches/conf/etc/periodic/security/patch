@@ -1,0 +1,11 @@
+--- 100.chksetuid.orig	2014-05-07 21:36:07.840567067 -0500
++++ 100.chksetuid	2014-05-07 22:36:27.136567170 -0500
+@@ -43,7 +43,7 @@
+     [Yy][Ee][Ss])
+ 	echo ""
+ 	echo 'Checking setuid files and devices:'
+-	MP=`mount -t ufs,zfs | awk '$0 !~ /no(suid|exec)/ { print $3 }'`
++	MP=`mount -t ufs,zfs | awk -F'(' '$0 !~ /no(suid|exec)/ { print $1 }' | cut -d' ' -f 3- | sed -e 's/[ ]*$//' -e 's/ /?/g'`
+ 	find -sx $MP /dev/null -type f \
+ 	    \( -perm -u+x -or -perm -g+x -or -perm -o+x \) \
+ 	    \( -perm -u+s -or -perm -g+s \) -exec ls -liTd \{\} \+ |

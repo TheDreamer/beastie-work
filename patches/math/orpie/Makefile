@@ -1,0 +1,24 @@
+# Created by: Dylan Simon <dylan@dylex.net>
+# $FreeBSD: head/math/orpie/Makefile 355316 2014-05-26 12:28:33Z miwi $
+
+PORTNAME=	orpie
+PORTVERSION=	1.5.2
+CATEGORIES+=	math
+MASTER_SITES=	http://pessimization.com/software/orpie/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	A fullscreen RPN calculator for the console
+
+BUILD_DEPENDS=	ocamlc:${PORTSDIR}/lang/ocaml
+LIB_DEPENDS=	gsl:${PORTSDIR}/math/gsl
+
+GNU_CONFIGURE=	yes
+USES=		gmake
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+PLIST_FILES=	bin/orpie bin/orpie-curses-keys etc/orpierc \
+		man/man1/orpie.1.gz man/man1/orpie-curses-keys.1.gz \
+		man/man5/orpierc.5.gz
+
+.include <bsd.port.mk>

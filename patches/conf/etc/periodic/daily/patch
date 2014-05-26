@@ -1,0 +1,11 @@
+--- 100.clean-disks.orig	2014-05-07 23:33:33.323567562 -0500
++++ 100.clean-disks	2014-05-07 23:33:49.187567471 -0500
+@@ -41,7 +41,7 @@
+ 		    print=;;
+ 	    esac
+ 
+-	    rc=$(find / \( ! -fstype local -o -fstype rdonly \) -prune -o \
++	    rc=$(find / \( ! -fstype local -o -fstype rdonly -o -fstype fusefs \) -prune -o \
+ 		\( $args \) -atime +$daily_clean_disks_days \
+ 		-execdir rm -df {} \; $print | tee /dev/stderr | wc -l)
+ 	    [ -z "$print" ] && rc=0

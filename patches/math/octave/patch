@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-05-10 16:54:54.000000000 -0500
++++ Makefile	2014-05-16 21:34:22.421894908 -0500
+@@ -41,7 +41,7 @@
+ GNU_CONFIGURE=	yes
+ USE_JAVA=	yes
+ JAVA_VERSION=	1.7+
+-USE_QT4=	gui network
++USE_QT4=	gui network uic_build moc_build rcc_build
+ 
+ OCTAVE_VERSION=	${PORTVERSION}
+ GNU_HOST=	${ARCH}-portbld-freebsd${OSREL}
