@@ -52,6 +52,7 @@ savecore_prestart()
 savecore_start()
 {
 	local dev
+	local mirror_balance
 
 	case "${dumpdev}" in
 	[Aa][Uu][Tt][Oo])

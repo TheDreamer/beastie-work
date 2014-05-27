@@ -1,6 +1,12 @@
 --- savecore.orig	2014-04-29 14:01:01.927926553 -0500
-+++ savecore	2014-05-01 05:21:18.007391999 -0500
-@@ -57,6 +57,12 @@
++++ savecore	2014-05-27 16:50:58.374187973 -0500
+@@ -52,11 +52,18 @@
+ savecore_start()
+ {
+ 	local dev
++	local mirror_balance
+ 
+ 	case "${dumpdev}" in
  	[Aa][Uu][Tt][Oo])
  		dev=
  		;;
@@ -13,7 +19,7 @@
  	*)
  		dev="${dumpdev}"
  		;;
-@@ -70,6 +76,10 @@
+@@ -70,6 +77,10 @@
  	else
  		check_startmsgs && echo 'No core dumps found.'
  	fi
