@@ -150,8 +150,8 @@ devel/gdcm
 
 	The first attempt to update this port failed because it OPJ_UINT32 wasn't defined, found it in
 	`/usr/local/include/openjpeg-2.1/openjpeg.h` while not in `/usr/local/include/openjpeg.h` (_1.5.2_).  So I thought
-	its wanting the new openjpeg...so patch the Makefile to depend on it, and add `-I${LOCALBASE}/include/openjpeg-2.1`
-	to `CFLAGS+=` before the `-I${LOCALBASE}/include`, and update LIB_DEPENDS.
+	its wanting the new openjpeg...so patch the Makefile by add `-I${LOCALBASE}/include/openjpeg-2.1` to `CFLAGS+=`
+	before the `-I${LOCALBASE}/include`, and update LIB_DEPENDS.
 
 	It got further until it complained that there was no declaration for opj_get_reversible(), which is present in
 	the openjpeg.h for the bundled 2.0.0 version (though it is strangely the only declaration without a comment block
