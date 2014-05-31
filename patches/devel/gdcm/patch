@@ -1,0 +1,43 @@
+--- files/patch-CMakeLists.txt.orig	2014-01-22 11:40:44.000000000 -0600
++++ files/patch-CMakeLists.txt	2014-05-31 12:47:12.108187000 -0500
+@@ -1,11 +1,20 @@
+---- CMakeLists.txt.orig	2012-01-02 12:11:48.000000000 +0100
+-+++ CMakeLists.txt	2012-01-02 12:13:50.000000000 +0100
+-@@ -45,7 +45,7 @@
+-   "${GDCM_MAJOR_VERSION}.${GDCM_MINOR_VERSION}")
+- SET(GDCM_LIBRARY_PROPERTIES ${GDCM_LIBRARY_PROPERTIES}
++--- CMakeLists.txt.orig	2014-04-03 02:33:49.000000000 -0500
+++++ CMakeLists.txt	2014-05-31 12:46:17.849190033 -0500
++@@ -48,7 +48,7 @@
++ endif()
++ set(GDCM_LIBRARY_PROPERTIES ${GDCM_LIBRARY_PROPERTIES}
+    VERSION "${GDCM_VERSION}"
+ -  SOVERSION "${GDCM_API_VERSION}"
+ +  SOVERSION "${GDCM_MAJOR_VERSION}"
+  )
+- #SET(GDCM_EXECUTABLE_PROPERTIES ${GDCM_EXECUTABLE_PROPERTIES}
++ #set(GDCM_EXECUTABLE_PROPERTIES ${GDCM_EXECUTABLE_PROPERTIES}
+  #  VERSION "${GDCM_MAJOR_VERSION}.${GDCM_MINOR_VERSION}"
++@@ -373,7 +373,7 @@
++   # find_package(OpenJPEG 2.0 REQUIRED)
++   # oh well we should handle both 1.0 and 2.0 anyway...
++   find_package(OpenJPEG REQUIRED)
++-  set(GDCM_OPENJPEG_LIBRARIES ${OPENJPEG_LIBRARIES})
+++  set(GDCM_OPENJPEG_LIBRARIES /usr/local/lib/libopenjpeg.so)
++ else()
++   set(GDCM_OPENJPEG_LIBRARIES gdcmopenjpeg)
++   option(GDCM_USE_OPENJPEG_V2 "Use openjpeg v2 version (advanced users only)." OFF)
+--- files/patch-Source-Common_gdcmConfigure.h.in.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-Source-Common_gdcmConfigure.h.in	2014-05-31 12:29:36.560186527 -0500
+@@ -0,0 +1,11 @@
++--- Source/Common/gdcmConfigure.h.in.orig	2014-04-03 02:33:49.000000000 -0500
+++++ Source/Common/gdcmConfigure.h.in	2014-05-31 12:24:20.540187129 -0500
++@@ -70,7 +70,7 @@
++ #define OPENJPEG_MAJOR_VERSION 1
++ #endif // GDCM_USE_OPENJPEG_V2
++ #else
++-#define OPENJPEG_MAJOR_VERSION @OPENJPEG_MAJOR_VERSION@
+++#define OPENJPEG_MAJOR_VERSION 1
++ #endif //GDCM_USE_SYSTEM_OPENJPEG
++ 
++ #ifndef OPENJPEG_MAJOR_VERSION

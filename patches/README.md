@@ -131,6 +131,47 @@ deskutils/recoll
 
 	PR: ports/??????
 
+devel/gdcm
+
+	graphics/openjpeg was recently updated to v1.5.2 and then v2.1, with v1.5.2 moved to graphics/openjpeg15, for
+	the few ports that have trouble with 2.1.
+
+	This is one of those ports.
+
+	Problem is that both openjpeg and openjpeg15 can exist together on FreeBSD...with most ports that work with v2.1
+	depending on that, and the ports that don't having openjpeg15.  This part is a good thing.  But, cmake can't me
+	asked to find out if a specific version of something is installed and how to include/link to that version.  So,
+	it sees that 2.1 is installed and returns that.
+
+	now gdcm claims to support OPENJPEG_MAJOR_VERSION of 1 and 2.  It comes with source for 1.4.0 and 2.0.0.  Though
+	the default is to use the v1 version, there's an advanced define that can be used to select the v2 version.
+	Alternatively, which is what FreeBSD does, is the knob to have it use SYSTEM OPENJPEG (which is actually another
+	port ;)
+
+	The first attempt to update this port failed because it OPJ_UINT32 wasn't defined, found it in
+	`/usr/local/include/openjpeg-2.1/openjpeg.h` while not in `/usr/local/include/openjpeg.h` (_1.5.2_).  So I thought
+	its wanting the new openjpeg...so patch the Makefile to depend on it, and add `-I${LOCALBASE}/include/openjpeg-2.1`
+	to `CFLAGS+=` before the `-I${LOCALBASE}/include`, and update LIB_DEPENDS.
+
+	It got further until it complained that there was no declaration for opj_get_reversible(), which is present in
+	the openjpeg.h for the bundled 2.0.0 version (though it is strangely the only declaration without a comment block
+	before it.)  Because, tried searching through the nearly 2800 svn revisions to the openjpeg project (gave up have
+	worked backward to revision 954)...to not find where it came into existence and then disappeared.
+
+	Though I had already concluded that the code didn't support v2.1, in fact there was mention of ABI incompatibilities
+	just before this release.  Though I was this that got me trying to see if I could find where this function was
+	part of that reason...
+
+	So, it was how do I force it to use the graphics/openjpeg15 port?  Decided I would go with forcing it early in
+	the process with two patches in files (one new, one changed) and `post-patch:` entry in the Makefile.
+
+	The patch forces the openjpeg library to be `%%LOCALBASE%%/lib/libopenjpeg.so`, and Makefile replaces
+	`%%LOCALBASE%%` with the value from `${LOCALBASE}`.  Wonder if there's a way to do things this way with CFE, since
+	have current where it copies files (and abuses single file copy nirvana)...but have a specific host where doing
+	expand_template is desired.
+
+	PR: ports/<pending while things are read-only>
+
 editors/lazarus
 
 	This build dependency got updated, as did the port that depended on it.  But, it wouldn't build.  When it was

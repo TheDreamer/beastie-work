@@ -1,0 +1,4 @@
+rm -f patch
+diff -Nu files/patch-CMakeLists.txt.orig files/patch-CMakeLists.txt > patch
+diff -Nu files/patch-Source-Common_gdcmConfigure.h.in.orig files/patch-Source-Common_gdcmConfigure.h.in >> patch
+diff -Nu Makefile.orig Makefile >> patch

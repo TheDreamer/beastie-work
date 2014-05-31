@@ -1,0 +1,11 @@
+--- Source/Common/gdcmConfigure.h.in.orig	2014-04-03 02:33:49.000000000 -0500
++++ Source/Common/gdcmConfigure.h.in	2014-05-31 12:24:20.540187129 -0500
+@@ -70,7 +70,7 @@
+ #define OPENJPEG_MAJOR_VERSION 1
+ #endif // GDCM_USE_OPENJPEG_V2
+ #else
+-#define OPENJPEG_MAJOR_VERSION @OPENJPEG_MAJOR_VERSION@
++#define OPENJPEG_MAJOR_VERSION 1
+ #endif //GDCM_USE_SYSTEM_OPENJPEG
+ 
+ #ifndef OPENJPEG_MAJOR_VERSION
