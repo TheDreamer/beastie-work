@@ -5,7 +5,7 @@ PORTNAME=	cfengine
 PORTVERSION=	3.5.3
 PORTREVISION=	4
 CATEGORIES=	sysutils
-MASTER_SITES=	http://cfengine.com/source-code/download?file=
+MASTER_SITES=	https://s3.amazonaws.com/cfengine.package-repos/tarballs/
 
 MAINTAINER=	cy@FreeBSD.org
 #		gjb@FreeBSD.org is also committer for this port
@@ -24,6 +24,7 @@ CONFLICTS=	cfengine-[234]*
 
 USE_RC_SUBR=	cf-execd cf-serverd cf-monitord
 
+USES=		libtool
 USE_LDCONFIG=	yes
 USE_OPENSSL=	yes
 GNU_CONFIGURE=	yes
@@ -42,26 +43,17 @@ CONFIGURE_ARGS=	--docdir=${DOCSDIR} \
 
 LIB_DEPENDS+=	libpcre.so:${PORTSDIR}/devel/pcre
 
-OPTIONS_DEFINE=	PGSQL MYSQL LIBVIRT LIBXML2
+OPTIONS_DEFINE=	PGSQL MYSQL LIBXML2 LIBVIRT PARTIAL
 OPTIONS_SINGLE=	DB
 OPTIONS_SINGLE_DB=	TOKYOCABINET QDBM
-OPTIONS_RADIO=	STAT
-OPTIONS_RADIO_STAT=	STATIC PARTIAL
-
 TOKYOCABINET_DESC=	Enable TokyoCabinet database backend
 QDBM_DESC=	Enable QDBM database backend
 LIBXML2_DESC=	Enable edit_xml bundle
-
-STAT_DESC=	Build static cf-agent/cf-promises?
 PARTIAL_DESC=	Build with static libpromises(/libxml2)
- 
 OPTIONS_DEFAULT=TOKYOCABINET
-
 LIBXML2_CONFIGURE_ON=	--with-libxml2=${LOCALBASE}
 LIBXML2_CONFIGURE_OFF=	--without-libxml2
 LIBXML2_LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2
-
-STATIC_CONFIGURE_ON=	--enable-static
 PARTIAL_CONFIGURE_ON=	--enable-static
 
 .include <bsd.port.pre.mk>
@@ -100,32 +92,14 @@ post-configure:
 		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -static-libtool-libs|' \
 		${WRKSRC}/cf-agent/Makefile
 	@${REINPLACE_CMD} \
-		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -static-libtool-libs|' \
+		-e 's|^LDADD =|LDADD = -static-libtool-libs|' \
 		${WRKSRC}/cf-promises/Makefile
 .if ${PORT_OPTIONS:MLIBXML2}
 	@${REINPLACE_CMD} \
-		-e "s|-lxml2|`xml2-config --libtool-libs`|" \
+		-e "s|-lxml2|`xml2-config --libtool-libs` -lz -llzma ${LOCALBASE}/lib/libiconv.la -lm|" \
 		${WRKSRC}/cf-agent/Makefile
 	@${REINPLACE_CMD} \
-		-e "s|-lxml2|`xml2-config --libtool-libs`|" \
-		${WRKSRC}/cf-promises/Makefile
-.endif
-.endif
-
-.if ${PORT_OPTIONS:MSTATIC}
-post-configure:
-	@${REINPLACE_CMD} \
-		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -all-static|' \
-		${WRKSRC}/cf-agent/Makefile
-	@${REINPLACE_CMD} \
-		-e 's|^AM_LDFLAGS =|AM_LDFLAGS = -all-static|' \
-		${WRKSRC}/cf-promises/Makefile
-.if ${PORT_OPTIONS:MTOKYOCABINET}
-	@${REINPLACE_CMD} \
-		-e "s|-ltokyocabinet|`pkg-config tokyocabinet --static --libs`|" \
-		${WRKSRC}/cf-agent/Makefile
-	@${REINPLACE_CMD} \
-		-e "s|-ltokyocabinet|`pkg-config tokyocabinet --static --libs`|" \
+		-e "s|-lxml2|`xml2-config --libtool-libs` -lz -llzma ${LOCALBASE}/lib/libiconv.la -lm|" \
 		${WRKSRC}/cf-promises/Makefile
 .endif
 .endif

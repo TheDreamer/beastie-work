@@ -324,6 +324,25 @@ sysutils/cfengine35
 
 	PR: ports/180896
 
+	Because I had bumped the PORTREVISION to 4, I missed the real PORTREVISION == 4, which included a change in how
+	libtool files are saved on FreeBSD.  Namely that it strips out the dependency library information for the library,
+	suggesting that without such info, the files are now useless so eventually they should just go away.  But,
+	while the dependency information isn't necessary when linking against the shared library...since the shared
+	library contains the information on what its dependency shared libraries are.  This doesn't work if you're trying
+	to link something static.  And, it was libtool options '--static-libtool-libs' and '--all-static' that were the
+	basis for the PARTIAL or full STATIC builds of cf-agent/cf-promises that I had added in.
+
+	Not wanting to track down all the lost dependency information, I removed the full STATIC build option.  And,
+	updated the PARTIAL option to include all the dependency libraries to libxml2.a.  Not sure which are unique to
+	libxml2.a and which aren't.  The main one that got me was the libiconv.la is listed, so that libtool will add
+	/usr/local/lib/libiconv.a into the static linking of libtool libs.
+
+	This problem came up because I was trying to add another FreeBSD system to my CFEngine 3.5.x environment.
+
+	Since I was kind of annoyed about this bizzare secret change to FreeBSD right before I was about to head off to
+	KUMC...I fired off a PR calling this calluous change a major bug.  There have been a lot of changes lately that
+	makes me question if FreeBSD(-STABLE) is really the way to go for building stable production servers anymore.
+
 sysutils/cfengine35/old
 
 	Kind of odd making a patch for FreeBSD when the problem is upstream.
@@ -352,6 +371,29 @@ sysutils/cfengine35/old
 	Noticed that the new CFEngine Standard Library for 3.5.1 is missing, so that's what 3.5.1-3 is.
 
 	PR: ports/181509
+
+sysutils/devcpu-data
+
+	I've been working on updating this port for while, but had been stubling on how to decode AMD microcode files.  At
+	the time, I was trying to update the port to use Intel `microcode-20130906.tgz` and `amd-ucode-latest.tar.bz2` with
+	internal file dates of 20130925.
+
+	So, I was happy to see that this port got updated and included the tool that handles both Intel and AMD microcode
+	files.
+
+	However, I was disappointed that the microcode files don't appear to be any newer than before.  It was using
+	Intel `microcode-20130222.tgz` and AMD `amd-ucode-2012-09-10.tgz`.  I don't actually have any FreeBSD systems
+	using AMD processors, but wanted to incorporate the latest amd-ucodes for completeness.
+
+	On Debian, the _latest_ files are the same in the source archive for `amd64-microcode-2.20131007.1+really20130710.1`
+	and the files have a date stamp of 20130907.  While all the files at www.amd64.org/microcode have a date stamp of
+	20130927.
+
+	In checking the Intel site, found that the latest microcode file is 20140430.
+
+	Wonder what the newer revision for my CPU brings?
+
+	PR: ports/190712
 
 sysutils/memtest86+
 
