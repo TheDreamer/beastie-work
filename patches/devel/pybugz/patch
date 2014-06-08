@@ -1,0 +1,35 @@
+--- Makefile.orig	2014-02-22 04:50:28.000000000 -0600
++++ Makefile	2014-06-08 17:18:45.275978000 -0500
+@@ -1,10 +1,8 @@
+ # $FreeBSD: head/devel/pybugz/Makefile 345623 2014-02-22 10:50:28Z mva $
+ 
+ PORTNAME=	pybugz
+-PORTVERSION=	0.9.3
+-PORTREVISION=	2
++PORTVERSION=	0.10.1
+ CATEGORIES=	devel
+-MASTER_SITES=	http://www.bayofrum.net/dist/${PORTNAME}/
+ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+ 
+ MAINTAINER=	crees@FreeBSD.org
+@@ -12,7 +10,12 @@
+ 
+ LICENSE=	GPLv2
+ 
+-WRKSRC=		${WRKDIR}/${PORTNAME}
++USE_GITHUB=	yes
++GH_ACCOUNT=	williamh
++GH_PROJECT=	${PORTNAME}
++GH_TAGNAME=	${PORTVERSION}
++GH_COMMIT=	74a57cb
++
+ USE_PYTHON=	2
+ USE_PYDISTUTILS=yes
+ PYDISTUTILS_AUTOPLIST=	yes
+--- distinfo.orig	2014-01-22 09:30:13.000000000 -0600
++++ distinfo	2014-06-08 17:14:32.491918000 -0500
+@@ -1,2 +1,2 @@
+-SHA256 (pybugz-0.9.3.tar.gz) = cc572ac66f372fe222e5e6e390c295b6fde1b72debdd1d9fa23c67b1d218daa7
+-SIZE (pybugz-0.9.3.tar.gz) = 232381
++SHA256 (pybugz-0.10.1.tar.gz) = e8bd14e11b4c244767216dffcfa1bf5b4058d296638c6509f43dd84be8156cec
++SIZE (pybugz-0.10.1.tar.gz) = 23142

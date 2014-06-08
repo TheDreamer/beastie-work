@@ -1,0 +1,23 @@
+# $FreeBSD: head/devel/pybugz/Makefile 345623 2014-02-22 10:50:28Z mva $
+
+PORTNAME=	pybugz
+PORTVERSION=	0.10.1
+CATEGORIES=	devel
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	crees@FreeBSD.org
+COMMENT=	Command line tools for interacting with Bugzilla
+
+LICENSE=	GPLv2
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	williamh
+GH_PROJECT=	${PORTNAME}
+GH_TAGNAME=	${PORTVERSION}
+GH_COMMIT=	74a57cb
+
+USE_PYTHON=	2
+USE_PYDISTUTILS=yes
+PYDISTUTILS_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

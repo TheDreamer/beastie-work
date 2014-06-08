@@ -129,7 +129,7 @@ deskutils/recoll
 	Sidenote: for what I wanted to use this for, it hasn't been doing so well.  So, it might be ditching its use
 	on my computers eventually....
 
-	PR: ports/??????
+	PR: ports/190295
 
 devel/gdcm
 
@@ -170,8 +170,27 @@ devel/gdcm
 	have current where it copies files (and abuses single file copy nirvana)...but have a specific host where doing
 	expand_template is desired.
 
-	PR: ports/<pending while things are read-only>
+	PR: ports/190476
 
+devel/pybugz
+
+	In the announcement of FreeBSD switching from GNATS to Bugzilla, there was reference to this port.  And, in the
+	source and help was reference to ~/.bugzrc.  Except the ports version doesn't contain any code to use a configfile.
+
+	So, I looked to see what the latest on github is, and then worked on updating the port to fetch the latest from
+	github and see if that worked better.
+
+	Well, it took some fiddling around to figure out that setting one or more status conditions is mandatory for
+	search to return any results.  Now if there were a way to search for ALL except resolved or what all the status
+	codes for that are.
+
+	But, before I got to trying to figure out 'post', I found in the search results that somebody else had submitted
+	a patch to update to 0.10.1.  They had slightly different GH_* parameters, to actually get a GH_COMMIT that
+	matched what was found on github for the tag.  While I used parameters similar to a previous patch I had done and
+	it extracted to a different GH_COMMIT string.  But, I compared the files and found that other than the 7 character
+	COMMIT string, they were identical.  Same date stamps too.  Don't know why it did that.
+
+        PR: ports/190795
 editors/lazarus
 
 	This build dependency got updated, as did the port that depended on it.  But, it wouldn't build.  When it was
