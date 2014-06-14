@@ -172,6 +172,19 @@ devel/gdcm
 
 	PR: ports/190476
 
+devel/git
+
+	So, as I went to record what I had done to sysutils/screen this morning, there was no `'git'` command to be found.
+	Darn it....must have failed the upgrade without telling me and leaving me with no git.  Kind of annoying that
+	if late in the reinstall something goes wrong, it leaves you with nothing.  Portmaster should have an automatic
+	rollback.  Though ports should know the finished build is going to fail the install, and not let portmaster
+	uninstall the old package and then install the new package while will fail to register.
+
+	Though pkgng will lock the database (sometimes for hours?) while other things are using it, and cause all sorts
+	of mayhem.
+
+	PR: 191032
+	
 devel/pybugz
 
 	In the announcement of FreeBSD switching from GNATS to Bugzilla, there was reference to this port.  And, in the
@@ -497,6 +510,30 @@ sysutils/pefs-kmod
 	operating systems.  So, not sure this fulfills that need, though there is a need for it on work computer.
 
 	PR: ports/187620
+
+sysutils/screen
+
+	This morning a PORTREVISION came out, bring this port to 4.2.1_2.  The commit description was
+	_"Make screen 4.0 compatible, prefer fifo over sockets."_  And, the PR referenced was 191017, which was
+	_"systuils/screen: 4.3 will not load 4.0 sessions due to default socket usage"_
+
+	But, in making this change, it has made screen 4.2 incompatible.  And, I already endured the pain when screen-4.2.1
+	came out back on April 30th.  Why do I care about 4.0 sessions now, especially as there had been two kernel
+	updates between updating to screen-4.2.1 and screen-4.2.1_2.  Was on FreeBSD-RELEASE-p5 when screen-4.2.1 appeared,
+	now on FreeBSD-RELEASE-p7.  (Actually I'm at FreeBSD-RELEASE-p8, but there was no kernel update for ...and I had
+	delayed updating my core servers that it picked up -p8 when I thought I was finally getting around to apply -p7.
+
+	But apply -p8 to my workstation should be okay without a reboot.  Don't think freebsd-update has ever said that
+	a reboot is required, though ones that involve new kernels usually suggest that I should.
+
+	So, I opened today's PR via the Bugzilla web interface.  Probably better, since using send-pr I had been Cc: to an
+	internal address of the external address that I put in as `'Reply-to:'`.  Where I didn't expect for it to remain
+	as part of the bugs contact list, don't recall seeing any such messages from GNATS...but its doing it with
+	bugzilla.
+
+	I did later hack my send-pr to Bcc: to my internal address.
+
+	PR: 191029
 
 ports-mgmt/pkg_rmleaves
 

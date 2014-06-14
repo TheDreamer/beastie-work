@@ -1,0 +1,30 @@
+--- Makefile.orig	2014-06-13 23:07:56.000000000 -0500
++++ Makefile	2014-06-14 07:29:46.888490000 -0500
+@@ -20,13 +20,14 @@
+ 
+ LICENSE=	GPLv3
+ 
+-OPTIONS_DEFINE=	INFO MAN NETHACK XTERM_256 SHOWENC
++OPTIONS_DEFINE=	INFO MAN NETHACK XTERM_256 SHOWENC FIFO
+ OPTIONS_DEFAULT=	INFO MAN NETHACK XTERM_256
+ INFO_DESC=		Build and install info documentation
+ MAN_DESC=		Build and install man pages
+ NETHACK_DESC=		Enable nethack-style messages
+ XTERM_256_DESC=		Enable support for 256 colour xterm
+ SHOWENC_DESC=		Show encoding on the status line
++FIFO_DESC=		Backward compatible with screen 4.0 sessions
+ 
+ OPTIONS_SUB=
+ 
+@@ -70,9 +71,11 @@
+ 	@${RM} ${WRKSRC}/doc/screen.info*
+ 	@${REINPLACE_CMD} -e 's|/dev/ptmx|/nonexistent|' ${WRKSRC}/configure
+ 
++.if ${PORT_OPTIONS:MFIFO}
+ # Bug 191017
+ post-configure:
+ 	@${ECHO_CMD} '#define NAMEDPIPE 1' >> ${WRKSRC}/config.h
++.endif
+ 
+ post-install:
+ 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}

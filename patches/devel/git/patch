@@ -1,0 +1,36 @@
+--- pkg-plist.orig	2014-06-10 15:05:11.000000000 -0500
++++ pkg-plist	2014-06-14 12:03:43.479949996 -0500
+@@ -753,7 +753,7 @@
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-sha1-array.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-sigchain.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-sigchain.txt
+-%%HTMLDOCS%%%%DOCSDIR%%/technical/api-hash.html
++%%HTMLDOCS%%%%DOCSDIR%%/technical/api-hashmap.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-merge.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-merge.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-setup.html
+@@ -777,7 +777,7 @@
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/pack-protocol.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/pack-protocol.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-index.txt
+-%%HTMLDOCS%%%%DOCSDIR%%/technical/api-hash.txt
++%%HTMLDOCS%%%%DOCSDIR%%/technical/api-hashmap.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-directory-listing.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-diff.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-in-core-index.txt
+@@ -805,6 +805,7 @@
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-builtin.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-string-list.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-xdiff-interface.html
++%%HTMLDOCS%%%%DOCSDIR%%/technical/bitmap-format.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/shallow.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/shallow.html
+ %%HTMLDOCS%%%%DOCSDIR%%/technical/api-config.html
+@@ -1176,7 +1177,6 @@
+ %%HTMLDOCS%%%%DOCSDIR%%/RelNotes/1.9.1.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/RelNotes/1.9.2.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/RelNotes/1.9.3.txt
+-%%HTMLDOCS%%%%DOCSDIR%%/RelNotes/1.9.4.txt
+ %%HTMLDOCS%%%%DOCSDIR%%/RelNotes/2.0.0.txt
+ %%GITWEB%%%%EXAMPLESDIR%%/gitweb/gitweb.cgi
+ %%GITWEB%%%%EXAMPLESDIR%%/gitweb/static/gitweb.js
