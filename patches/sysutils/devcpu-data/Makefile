@@ -1,13 +1,13 @@
 # Created by: stas
-# $FreeBSD: head/sysutils/devcpu-data/Makefile 356511 2014-06-04 16:45:36Z bapt $
+# $FreeBSD: head/sysutils/devcpu-data/Makefile 357929 2014-06-15 21:29:38Z wg $
 
 PORTNAME=	data
-PORTVERSION=	1.0
+PORTVERSION=	1.2
 CATEGORIES=	sysutils
-MASTER_SITES=	http://downloadmirror.intel.com/23829/eng/:intel \
+MASTER_SITES=	http://downloadmirror.intel.com/23984/eng/:intel \
 		http://www.amd64.org/microcode/:amd
 PKGNAMEPREFIX=	devcpu-
-DISTFILES=	microcode-20140430.tgz:intel amd-ucode-latest.tar.bz2:amd
+DISTFILES=	microcode-20140624.tgz:intel amd-ucode-latest.tar.bz2:amd
 
 MAINTAINER=	clarkjc@runbox.com
 COMMENT=	Intel and AMD CPUs microcode updates

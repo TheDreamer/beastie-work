@@ -428,6 +428,11 @@ sysutils/devcpu-data
 
 	PR: ports/190712
 
+	While doing some cleanup of old CFEngine policy to update this package after installation, I spotted a newer
+	Intel microcode release of 2014-06-24.  So, I updated this port to that file.
+
+	PR: ports/191411
+
 sysutils/memtest86+
 
 	Doesn't build if ISO option is selected, the distribution Makefile is
