@@ -1,0 +1,18 @@
+--- Makefile.orig	2004-07-19 00:19:55.000000000 -0500
++++ Makefile	2014-06-28 12:12:21.620114627 -0500
+@@ -34,10 +34,15 @@
+ SHLIB_MINOR=	0
+ 
+ NOPROFILE=	yes
++NO_PROFILE=	yes
+ 
+ DPADD=		${LIBM}
+ LDADD=		-lm
+ 
++.if (${MACHINE_CPUARCH} == "amd64")
++CFLAGS+=	-fno-omit-frame-pointer
++.endif
++
+ #WARNS?=	4
+ 
+ #stacktraverse.c: gen.py

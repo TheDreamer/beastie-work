@@ -185,6 +185,32 @@ devel/git
 
 	PR: 191032
 	
+devel/libexecinfo
+
+	So, I have not had a working chromium on FreeBSD since 33.0.1750.152_1.  And, this has been really annoying.  I
+	had tried compiling everything it depended on, which only made the problem worse.  But, everything seemed to point
+	to libexecinfo as the problem dependency.
+
+	I would keep rebuilding this every now and then, but it didn't do anything.  But, one day I glanced at its Makefile,
+	before rebuilding it yet again.  Where I noticed that it seemed to be missing a compiler flag.
+
+	The port makefile is using CFLAGS_amd64 to add `-fno-omit-frame-pointer`, but in watching the build output, this
+	flag was no where to be seen.
+
+	I played around with 'make -dv' and other options, but could not figure out why it was getting lost when it goes
+	to doing the actual build.
+
+	It appears to be because the port's Makefile uses the system make process and `/usr/share/mk/bsd.lib.mk`, that it
+	does it own processing to determine what CFLAGS to use.  Which, doesn't know anything about `CFLAGS_${ARCH}`.
+
+	So, I added a patch to the port's Makefile to check `MACHINE_CPUARCH` to add this flag.  And, now it shows up.
+
+	Right after I installed this port, I tried to start chrome....and it worked!
+
+	Now to use chromium-35.0.1916.153_1 to enter a bug.
+
+	PR: 191465
+
 devel/pybugz
 
 	In the announcement of FreeBSD switching from GNATS to Bugzilla, there was reference to this port.  And, in the

@@ -1,0 +1,24 @@
+--- files/patch-Makefile.orig	2013-02-05 09:28:42.000000000 -0600
++++ files/patch-Makefile	2014-06-28 12:14:10.827659000 -0500
+@@ -1,6 +1,6 @@
+---- Makefile.orgi	2013-02-05 23:13:54.375834807 +0800
+-+++ Makefile	2013-02-05 23:14:13.106833334 +0800
+-@@ -34,6 +34,7 @@
++--- Makefile.orig	2004-07-19 00:19:55.000000000 -0500
+++++ Makefile	2014-06-28 12:12:21.620114627 -0500
++@@ -34,10 +34,15 @@
+  SHLIB_MINOR=	0
+  
+  NOPROFILE=	yes
+@@ -8,3 +8,11 @@
+  
+  DPADD=		${LIBM}
+  LDADD=		-lm
++ 
+++.if (${MACHINE_CPUARCH} == "amd64")
+++CFLAGS+=	-fno-omit-frame-pointer
+++.endif
+++
++ #WARNS?=	4
++ 
++ #stacktraverse.c: gen.py
