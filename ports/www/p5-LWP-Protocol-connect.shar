@@ -1,0 +1,78 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh file".  Note, it may
+# create directories; files and directories will be owned by you and
+# have default permissions.
+#
+# This archive contains:
+#
+#	p5-LWP-Protocol-connect
+#	p5-LWP-Protocol-connect/pkg-descr
+#	p5-LWP-Protocol-connect/Makefile
+#	p5-LWP-Protocol-connect/distinfo
+#	p5-LWP-Protocol-connect/pkg-plist
+#
+echo c - p5-LWP-Protocol-connect
+mkdir -p p5-LWP-Protocol-connect > /dev/null 2>&1
+echo x - p5-LWP-Protocol-connect/pkg-descr
+sed 's/^X//' >p5-LWP-Protocol-connect/pkg-descr << '2cf92cecca2271cc6ba3949363c82c75'
+XThe LWP::Protocol::connect module provides support for using https
+Xover a proxy via the HTTP/Connect method.
+X
+XWWW: http://search.cpan.org/dist/LWP-Protocol-connect/
+2cf92cecca2271cc6ba3949363c82c75
+echo x - p5-LWP-Protocol-connect/Makefile
+sed 's/^X//' >p5-LWP-Protocol-connect/Makefile << '1a38a5cebf68128d73efb78f479f0efa'
+X# Created by: Lawrence Chen <beastie@tardisi.com>
+X# $FreeBSD$
+X
+XPORTNAME=	LWP-Protocol-connect
+XPORTVERSION=	6.09
+XCATEGORIES=	www perl5
+XMASTER_SITES=	CPAN
+XPKGNAMEPREFIX=	p5-
+X
+XMAINTAINER=	beastie@tardisi.com
+XCOMMENT=	Provides HTTP/CONNECT proxy support for LWP::UserAgent
+X
+XLICENSE=	ART10 GPLv1
+XLICENSE_COMB=	dual
+X
+XBUILD_DEPENDS=	p5-HTTP-Message>=0:${PORTSDIR}/www/p5-HTTP-Message \
+X		p5-IO-Socket-SSL>=0:${PORTSDIR}/security/p5-IO-Socket-SSL \
+X		p5-libwww>=0:${PORTSDIR}/www/p5-libwww \
+X		p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https \
+X		p5-URI>=0:${PORTSDIR}/net/p5-URI \
+X		p5-Net-HTTP>=6:${PORTSDIR}/net/p5-Net-HTTP
+XRUN_DEPENDS:=	${BUILD_DEPENDS}
+X
+XUSE_PERL5=	configure
+XUSES=		perl5
+X
+X.include <bsd.port.mk>
+1a38a5cebf68128d73efb78f479f0efa
+echo x - p5-LWP-Protocol-connect/distinfo
+sed 's/^X//' >p5-LWP-Protocol-connect/distinfo << '8b3226591dda8fcd1209fe73150ac27c'
+XSHA256 (LWP-Protocol-connect-6.09.tar.gz) = 9f252394775e23aa42c3176611e5930638ab528d5190110b4731aa5b0bf35a15
+XSIZE (LWP-Protocol-connect-6.09.tar.gz) = 15208
+8b3226591dda8fcd1209fe73150ac27c
+echo x - p5-LWP-Protocol-connect/pkg-plist
+sed 's/^X//' >p5-LWP-Protocol-connect/pkg-plist << 'c99ff5adea8f7a23bf4306195af362d4'
+X%%PERL5_MAN3%%/LWP::Protocol::connect.3.gz
+X%%SITE_PERL%%/LWP/Protocol/connect.pm
+X%%SITE_PERL%%/LWP/Protocol/connect/Socket/Base.pm
+X%%SITE_PERL%%/LWP/Protocol/http/connect.pm
+X%%SITE_PERL%%/LWP/Protocol/http/connect/Socket.pm
+X%%SITE_PERL%%/LWP/Protocol/https/connect.pm
+X%%SITE_PERL%%/LWP/Protocol/https/connect/Socket.pm
+X%%SITE_PERL%%/URI/connect.pm
+X%%SITE_PERL%%/%%PERL_ARCH%%/auto/LWP/Protocol/connect/.packlist
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/connect/Socket
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/connect
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/http/connect
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/http
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/https/connect
+X@dirrmtry %%SITE_PERL%%/LWP/Protocol/https
+X@dirrmtry %%SITE_PERL%%/%%PERL_ARCH%%/auto/LWP/Protocol/connect
+c99ff5adea8f7a23bf4306195af362d4
+exit
+
