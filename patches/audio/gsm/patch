@@ -1,0 +1,14 @@
+--- pkg-plist.orig	2014-07-01 04:23:05.000000000 -0500
++++ pkg-plist	2014-07-19 12:38:52.185531398 -0500
+@@ -1,10 +1,10 @@
+ bin/tcat
+ bin/toast
+-bin/untoast
+ @exec ln -sf %f %B/tcat
+ @exec ln -sf %f %B/untoast
+ @rmtry bin/tcat
+ @rmtry bin/untoast
++bin/untoast
+ include/gsm.h
+ lib/libgsm.a
+ lib/libgsm.so

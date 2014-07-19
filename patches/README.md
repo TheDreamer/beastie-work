@@ -8,6 +8,26 @@ archivers/quazip
 	
 	PR: ports/187735
 
+audio/gsm
+
+	Got a strange error, while troubleshooting something else likely unrelated, about /usr/local/bin/tcat and
+	/usr/local/bin/untoast.
+
+	Examining the files, I found:
+
+		lrwxr-xr-x    1 root      wheel            5  2 Jul 21:27 tcat@ -> untoast
+		lrwxr-xr-x    1 root      wheel            5  2 Jul 21:27 untoast@ -> untoast
+
+	Yeah, that doesn't look right.
+
+	Rebuilt/reinstalled port, didn't help...
+
+	But, the files under **STAGEDIR** are correct....
+
+	Aha, pkg-plist is causing them to be wrong.
+
+	PR: 191971
+
 conf
 
 	These are patches I've made to /etc/periodic/daily/100.clean-disks and /etc/periodic/security/100.chksetuid
