@@ -1,0 +1,8 @@
+rm -f patch
+diff -Nu Makefile.orig Makefile > patch
+diff -Nu distinfo.orig distinfo >> patch
+diff -Nu pkg-descr.orig pkg-descr >> patch
+diff -Nu files/patch-CMakeLists.txt.orig files/patch-CMakeLists.txt >> patch
+diff -Nu files/patch-configure.ac.orig files/patch-configure.ac >> patch
+diff -Nu files/patch-help_Makefile.am.orig files/patch-help_Makefile.am >> patch
+diff -Nu files/patch-src_Makefile.am.orig files/patch-src_Makefile.am >> patch

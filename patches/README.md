@@ -265,6 +265,18 @@ editors/lazarus
 	fixed the deinstall in this version, and a later rebuild/reinstall and then delete of this build depend worked
 	without my hack.
 	
+irc/irssi-otr
+
+	irc/bitlbee was updated to need irc/libotr (4.0.0) while irc/irssi-otr still depends on irc/libotr3.  With
+	irc/libotr and irc/libotr3 conflicting, its hard to use both together.
+
+	After some investigation, it appears irssi-otr moved to github and was tagged v1.0.0 on Feb 12, 2014.  It contains
+	changes to make use of libotr 4.0.x.
+
+	After many attempts, I got portmaster to build and install it.
+
+	PR: 192026
+
 mail/dovecot2
 
 	ports/175813: [patch] mail/dovecot2 doesn't detect libstemmer or exttextcat

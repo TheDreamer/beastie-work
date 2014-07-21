@@ -1,0 +1,121 @@
+--- Makefile.orig	2014-06-13 02:36:27.000000000 -0500
++++ Makefile	2014-07-21 17:16:43.000000000 -0500
+@@ -2,30 +2,37 @@
+ # $FreeBSD: head/irc/irssi-otr/Makefile 357654 2014-06-13 07:36:27Z olgeni $
+ 
+ PORTNAME=	irssi-otr
+-PORTVERSION=	0.3
+-PORTREVISION=	9
++PORTVERSION=	1.0.0
+ CATEGORIES=	irc
+-MASTER_SITES=	ftp://download.tuxfamily.org/${MASTER_SITE_SUBDIR}/
+-MASTER_SITE_SUBDIR=	irssiotr
++MASTER_SITES=	GH
+ 
+ MAINTAINER=	ashish@FreeBSD.org
+ COMMENT=	Plugin for irssi for Off-the-Record (OTR) messaging
+ 
+ BUILD_DEPENDS=	${LOCALBASE}/include/irssi/src/common.h:${PORTSDIR}/irc/irssi \
+ 		${LOCALBASE}/bin/libgcrypt-config:${PORTSDIR}/security/libgcrypt
+-LIB_DEPENDS=	libotr.so.2:${PORTSDIR}/security/libotr3 \
++LIB_DEPENDS=	libotr.so:${PORTSDIR}/security/libotr \
+ 		libgcrypt.so:${PORTSDIR}/security/libgcrypt
+ RUN_DEPENDS=	irssi:${PORTSDIR}/irc/irssi
+ 
+ LICENSE=	GPLv2
+-LICENSE_FILE=	${WRKSRC}/LICENSE
+ 
+-USES=		cmake pkgconfig
++USES=		pkgconfig
+ USE_LDCONFIG=	yes
+ USE_GNOME=	glib20
++USE_GITHUB=	yes
++GH_ACCOUNT=	cryptodotis
++GH_PROJECT=	${PORTNAME}
++GH_COMMIT=	f4ecd19
++GH_TAGNAME=	v${PORTVERSION}
++
++USE_AUTOTOOLS=	autoconf aclocal libtoolize automake
++ACLOCAL_ARGS=	-I config
++AUTOMAKE_ARGS=	--add-missing --no-force
++
++CONFIGURE_ARGS=	--prefix=${LOCALBASE} --with-libotr-inc-prefix=${LOCALBASE}/include
+ 
+ PLIST_FILES=	lib/irssi/modules/libotr.so \
+-		%%DOCSDIR%%/LICENSE %%DOCSDIR%%/README
+-PLIST_DIRS=	%%DOCSDIR%%
++		share/irssi/help/otr
+ 
+ .include <bsd.port.mk>
+--- distinfo.orig	2014-01-22 09:30:13.000000000 -0600
++++ distinfo	2014-07-21 07:40:23.000000000 -0500
+@@ -1,2 +1,2 @@
+-SHA256 (irssi-otr-0.3.tar.gz) = 816cb13794c0efa33ee1618a4e926b3f1c3587c675ad3cc44b4f8de3b1b2c60e
+-SIZE (irssi-otr-0.3.tar.gz) = 33514
++SHA256 (irssi-otr-1.0.0.tar.gz) = e9ab8f170b83b7bfb6d693e39fdbe59e4b98749253ec30988e41e9dc4fb21cd7
++SIZE (irssi-otr-1.0.0.tar.gz) = 39494
+--- pkg-descr.orig	2014-01-22 09:44:51.000000000 -0600
++++ pkg-descr	2014-07-21 07:37:58.000000000 -0500
+@@ -1,4 +1,4 @@
+ irssi-otr provides Off-the-Record Messaging (OTR) support for
+ the irssi Internet Relay Chat (IRC) client.
+ 
+-WWW:	http://irssi-otr.tuxfamily.org/
++WWW:	https://github.com/cryptodotis/irssi-otr
+--- files/patch-CMakeLists.txt.orig	2014-01-22 11:40:44.000000000 -0600
++++ files/patch-CMakeLists.txt	1969-12-31 18:00:00.000000000 -0600
+@@ -1,14 +0,0 @@
+-
+-$FreeBSD: head/irc/irssi-otr/files/patch-CMakeLists.txt 340725 2014-01-22 17:40:44Z mat $
+-
+---- CMakeLists.txt.orig
+-+++ CMakeLists.txt
+-@@ -231,7 +231,7 @@
+- 
+- IF(HAVE_IRSSI)
+-   ADD_LIBRARY(irssiotr SHARED irssi_otr.c otr_util.c otr_ops.c otr_key.c ${PROJECT_BINARY_DIR}/otr-formats.c)
+--  TARGET_LINK_LIBRARIES(irssiotr ${GLIB_LIBRARIES} ${LIBOTR_LIBRARIES})
+-+  TARGET_LINK_LIBRARIES(irssiotr ${GLIB_LDFLAGS} ${LIBOTR_LIBRARIES})
+-   SET_TARGET_PROPERTIES(irssiotr PROPERTIES 
+-     COMPILE_FLAGS -DTARGET_IRSSI
+-     OUTPUT_NAME "otr"
+--- files/patch-configure.ac.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-configure.ac	2014-07-21 17:08:54.000000000 -0500
+@@ -0,0 +1,11 @@
++--- configure.ac.orig	2014-02-12 18:50:45.000000000 -0600
+++++ configure.ac	2014-07-21 17:07:58.763319403 -0500
++@@ -71,7 +71,7 @@
++ 
++ # Hardcoded here since irssi only searches in $HOME/.irssi/modules or this path
++ # which is unfortunate...
++-IRSSI_MODULE_DIR="/usr/lib/irssi/modules"
+++IRSSI_MODULE_DIR="/usr/local/lib/irssi/modules"
++ AC_SUBST(IRSSI_MODULE_DIR)
++ 
++ AC_CONFIG_FILES([
+--- files/patch-help_Makefile.am.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-help_Makefile.am	2014-07-21 17:09:18.000000000 -0500
+@@ -0,0 +1,10 @@
++--- help/Makefile.am.orig	2014-02-12 18:50:45.000000000 -0600
+++++ help/Makefile.am	2014-07-21 17:08:26.543319563 -0500
++@@ -1,6 +1,6 @@
++ # The day Irssi will be able to check in $(prefix), this will change. Until
++ # then, it's hardcoded.
++-helpdir = /usr/share/irssi/help
+++helpdir = /usr/local/share/irssi/help
++ help_DATA = otr
++ 
++ EXTRA_DIST = otr
+--- files/patch-src_Makefile.am.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-src_Makefile.am	2014-07-21 16:44:04.000000000 -0500
+@@ -0,0 +1,10 @@
++--- src/Makefile.am.orig	2014-02-12 18:50:45.000000000 -0600
+++++ src/Makefile.am	2014-07-21 16:43:34.653319339 -0500
++@@ -1,6 +1,6 @@
++ AM_CFLAGS = $(LIBOTR_CFLAGS) $(LIBGCRYPT_CFLAGS) $(PACKAGE_FLAGS)
++ 
++-IRSSI_DIST=/usr/include/irssi
+++IRSSI_DIST=/usr/local/include/irssi
++ IRSSI_INCLUDE = -I$(IRSSI_DIST) \
++ 				-I$(IRSSI_DIST)/src \
++ 				-I$(IRSSI_DIST)/src/fe-common/core \
