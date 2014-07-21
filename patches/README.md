@@ -267,8 +267,8 @@ editors/lazarus
 	
 irc/irssi-otr
 
-	irc/bitlbee was updated to need irc/libotr (4.0.0) while irc/irssi-otr still depends on irc/libotr3.  With
-	irc/libotr and irc/libotr3 conflicting, its hard to use both together.
+	irc/bitlbee was updated to need security/libotr (4.0.0) while irc/irssi-otr still depends on security/libotr3.  With
+	security/libotr and security/libotr3 conflicting, its hard to use both together.
 
 	After some investigation, it appears irssi-otr moved to github and was tagged v1.0.0 on Feb 12, 2014.  It contains
 	changes to make use of libotr 4.0.x.
