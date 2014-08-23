@@ -1,0 +1,28 @@
+--- configure.orig	2014-05-28 16:16:01.000000000 -0500
++++ configure	2014-08-22 18:40:42.813375389 -0500
+@@ -14112,12 +14112,12 @@
+ 
+     if $search_ncurses
+     then
+-        if test -f $withval/include/ncurses.h
++        if test -f $withval/include/ncurses/ncurses.h
+ 	then
+-	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: Found ncurses on $withval/include/ncurses.h" >&5
+-$as_echo "Found ncurses on $withval/include/ncurses.h" >&6; }
++	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: Found ncurses on $withval/include/ncurses/ncurses.h" >&5
++$as_echo "Found ncurses on $withval/include/ncurses/ncurses.h" >&6; }
+ 
+-	    CURSES_LIBS="-L$withval/lib -lncurses"
++	    CURSES_LIBS="-L$withval/lib -lncurses -ltinfo"
+ 	    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in -lncurses" >&5
+ $as_echo_n "checking for initscr in -lncurses... " >&6; }
+ if ${ac_cv_lib_ncurses_initscr+:} false; then :
+@@ -15266,7 +15266,7 @@
+ 		# otherwise.
+ 		if test "x$perl_set_use_lib" = "xyes"; then
+ 			perl -e 'use ExtUtils::MakeMaker; WriteMakefile("NAME" => "test", "MAKEFILE" => "Makefile.test");' $PERL_MM_PARAMS >/dev/null
+-			PERL_USE_LIB=`perl -e 'open(F, "Makefile.test"); while (<F>) { chomp; if (/^(\w+) = (.*$)/) { $keys{$1} = $2; } }; $key = $keys{INSTALLARCHLIB}; while ($key =~ /\\$\((\w+)\)/) { $value = $keys{$1}; $key =~ s/\\$\($1\)/$value/; }; print $key;'`
++			PERL_USE_LIB=`perl -e 'open(F, "Makefile.test"); while (<F>) { chomp; if (/^(\w+) = (.*$)/) { $keys{$1} = $2; } }; $key = $keys{INSTALLSITEARCH}; while ($key =~ /\\$\((\w+)\)/) { $value = $keys{$1}; $key =~ s/\\$\($1\)/$value/; }; print $key;'`
+ 			rm -f Makefile.test
+ 		fi
+ 

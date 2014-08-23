@@ -116,6 +116,13 @@ databases/pecl-mysqlnd_qc/patch-php_mysqlnd_qc.c
 	I started trying to add a new INI option to do this, but doing development on a 'production' server is bad,
 	so I went with the QAD way....
 
+databases/sqlitemanager
+
+	I should write something, except I forget what and why I made this patch or what its status is.  Except that I
+	recall it was what enabled me to overcome whatever problem I was having at the time....
+
+	PR: ??
+
 deskutils/gcalcli
 
 	Been trying to make use of the more advanced options of this, but haven't had much luck.  Went to see if there
@@ -265,6 +272,55 @@ editors/lazarus
 	fixed the deinstall in this version, and a later rebuild/reinstall and then delete of this build depend worked
 	without my hack.
 	
+irc/irssi
+
+	Since DateTime::TimeZone 1.70, a number of my irssi plugins (including twirssi) had stopped working.  Errors of
+	being "unable to determine local time zone" or "Attempt to reload DateTime::TimeZone::America::Chicago.pm aborted..."
+
+	I had originally opened a ticket against DateTime::TimeZone,
+	[RT #97227](https://rt.cpan.org/Public/Bug/Display.html?id=97227), indicating that something had changed between
+	1.69 and 1.70 to cause this.  Though among the differences, I couldn't see anything that would account for this.
+
+	Finally, today...I took a much deeper look and, eventually, found that List::AllUtils is complaining that List::Util
+	(v1.25) needs to be > 1.31.  But List::Util is a base perl module, and I'm running 5.16.  While 5.16 is already
+	considered EOL, with 5.18 and 5.20 being the two stable releases, with development in 5.21...
+
+	Suspect 5.16 when EOL when 5.20 was released on May 27, 2014.
+
+	When I had originally installed my systems, the default install was 5.12...and later when the default version was
+	changed to 5.14 (on June 30, 2012), I opted to jump my systems 5.16.  5.16 became the default version on
+	October 23, 2013.  I suppose some day (perhaps when I finally get my poudriere setup working), I'll be making the
+	jump to 5.20.
+
+	In the meantime, the List::Util version problem is addressed by installing `lang/p5-Scalar-List-Utils` package,
+	which the `devel/p5-List-AllUtils` correctly depends on when the installed perl version is less than 5.20.
+
+	So, why wasn't it working under irssi?  Well, its altering the @INC path by claiming to move the directory where
+	Irssi.pm is installed up in the search order.  Which its looking for the path of INSTALLARCHLIB, which is where
+	the all ARCH dependent base modules got.  But, it isn't a base module so it is actually going into INSTALLSITEARCH,
+	where SITE paths normally come before 'base', allowing List::AllUtils to find the newer List::Util that overrides
+	the base version.  So, with irssi forcing 'base' arch to come first, its preventing the newer module to be found
+	and causing DateTime::TimeZone to fail in strange ways.
+
+	I made a little patch to fix configure for irssi, that get me going (alternatively, the path it uses [promotes] can
+	be set in its config file:
+
+	settings = {
+	    "perl/core" = {
+		perl_use_lib = "/usr/local/lib/perl5/site_perl/5.16/mach";
+	    };
+	};
+
+	or
+
+	/set perl_use_lib /usr/local/ib/perl5/site_perl/5.16/mach
+	/save
+	_and restart irssi_
+
+	GH: https://github.com/irssi/irssi/issues/132
+
+	PR: ???
+
 irc/irssi-otr
 
 	irc/bitlbee was updated to need security/libotr (4.0.0) while irc/irssi-otr still depends on security/libotr3.  With

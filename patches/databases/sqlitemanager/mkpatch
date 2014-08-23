@@ -1,0 +1,4 @@
+rm -f patch
+diff -u Makefile.orig Makefile > patch
+diff -u distinfo.orig distinfo >> patch
+diff -u pkg-plist.orig pkg-plist >> patch

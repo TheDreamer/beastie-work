@@ -1,0 +1,27 @@
+--- files/patch-configure.orig	2013-10-21 09:42:24.000000000 -0500
++++ files/patch-configure	2014-08-22 18:42:06.141401507 -0500
+@@ -1,6 +1,6 @@
+---- configure.orig	2010-04-04 00:21:26.000000000 +0800
+-+++ configure	2013-10-21 22:33:39.000000000 +0800
+-@@ -12982,12 +12982,12 @@ if test "${with_ncurses+set}" = set; the
++--- configure.orig	2014-05-28 16:16:01.000000000 -0500
+++++ configure	2014-08-22 18:40:42.813375389 -0500
++@@ -14112,12 +14112,12 @@
+  
+      if $search_ncurses
+      then
+@@ -16,4 +16,13 @@
+ +	    CURSES_LIBS="-L$withval/lib -lncurses -ltinfo"
+  	    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for initscr in -lncurses" >&5
+  $as_echo_n "checking for initscr in -lncurses... " >&6; }
+- if test "${ac_cv_lib_ncurses_initscr+set}" = set; then :
++ if ${ac_cv_lib_ncurses_initscr+:} false; then :
++@@ -15266,7 +15266,7 @@
++ 		# otherwise.
++ 		if test "x$perl_set_use_lib" = "xyes"; then
++ 			perl -e 'use ExtUtils::MakeMaker; WriteMakefile("NAME" => "test", "MAKEFILE" => "Makefile.test");' $PERL_MM_PARAMS >/dev/null
++-			PERL_USE_LIB=`perl -e 'open(F, "Makefile.test"); while (<F>) { chomp; if (/^(\w+) = (.*$)/) { $keys{$1} = $2; } }; $key = $keys{INSTALLARCHLIB}; while ($key =~ /\\$\((\w+)\)/) { $value = $keys{$1}; $key =~ s/\\$\($1\)/$value/; }; print $key;'`
+++			PERL_USE_LIB=`perl -e 'open(F, "Makefile.test"); while (<F>) { chomp; if (/^(\w+) = (.*$)/) { $keys{$1} = $2; } }; $key = $keys{INSTALLSITEARCH}; while ($key =~ /\\$\((\w+)\)/) { $value = $keys{$1}; $key =~ s/\\$\($1\)/$value/; }; print $key;'`
++ 			rm -f Makefile.test
++ 		fi
++ 
