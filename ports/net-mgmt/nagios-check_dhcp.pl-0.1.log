@@ -1,0 +1,236 @@
+build started at Thu Aug 28 09:36:37 CDT 2014
+port directory: /usr/ports/net-mgmt/nagios-check_dhcp.pl
+building for: FreeBSD fbsd92-beastie 9.2-RELEASE FreeBSD 9.2-RELEASE amd64
+maintained by: beastie@tardisi.com
+ident warning: no id keywords in /poudriere/data/build/fbsd92-beastie/ref//usr/ports/net-mgmt/nagios-check_dhcp.pl/Makefile
+Makefile ident: 
+Poudriere version: 3.0.17
+Host OSVERSION: 902001
+Jail OSVERSION: 902001
+
+---Begin Environment---
+PKGREPOSITORY=/tmp/pkgs
+PACKAGES=/tmp/pkgs
+OSVERSION=902001
+UNAME_v=FreeBSD 9.2-RELEASE
+UNAME_r=9.2-RELEASE
+BLOCKSIZE=K
+MAIL=/var/mail/root
+STATUS=1
+SAVED_TERM=vt100
+NO_WARNING_PKG_INSTALL_EOL=yes
+MASTERMNT=/poudriere/data/build/fbsd92-beastie/ref
+HTTP_PROXY=http://zen.lhaven.homeip.net:63128
+PKG_EXT=txz
+FORCE_PACKAGE=yes
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/root/bin
+POUDRIERE_BUILD_TYPE=bulk
+PKGNG=1
+PKG_DELETE=/usr/local/sbin/pkg-static delete -y -f
+PKG_ADD=/usr/local/sbin/pkg-static add
+PWD=/usr/local/etc
+MASTERNAME=fbsd92-beastie
+DEVELOPER_MODE=yes
+USER=root
+HOME=/root
+POUDRIERE_VERSION=3.0.17
+SKIPSANITY=0
+LOCALBASE=/usr/local
+PACKAGE_BUILDING=yes
+PKG_BIN=/usr/local/sbin/pkg-static
+FTP_PROXY=http://zen.lhaven.homeip.net:63128
+---End Environment---
+
+---Begin OPTIONS List---
+---End OPTIONS List---
+
+--CONFIGURE_ARGS--
+
+--End CONFIGURE_ARGS--
+
+--CONFIGURE_ENV--
+XDG_DATA_HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work  HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work TMPDIR="/tmp" ac_cv_path_PERL=/usr/local/bin/perl ac_cv_path_PERL_PATH=/usr/local/bin/perl SHELL=/bin/sh CONFIG_SHELL=/bin/sh
+--End CONFIGURE_ENV--
+
+--MAKE_ENV--
+XDG_DATA_HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work  HOME=/wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work TMPDIR="/tmp" NO_PIE=yes SHELL=/bin/sh NO_LINT=YES PREFIX=/usr/local  LOCALBASE=/usr/local  LIBDIR="/usr/lib"  CC="cc" CFLAGS="-O2 -pipe -march=nocona -fno-strict-aliasing"  CPP="cpp" CPPFLAGS=""  LDFLAGS="" LIBS=""  CXX="c++" CXXFLAGS="-O2 -pipe -march=nocona -fno-strict-aliasing"  MANPREFIX="/usr/local" BSD_INSTALL_PROGRAM="install  -s -o root -g wheel -m 555"  BSD_INSTALL_LIB="install  -s -o root -g wheel -m 444"  BSD_INSTALL_SCRIPT="install  -o root -g wheel -m 555"  BSD_INSTALL_DATA="install  -o root -g wheel -m 444"  BSD_INSTALL_MAN="install  -o root -g wheel -m 444"
+--End MAKE_ENV--
+
+--SUB_LIST--
+PREFIX=/usr/local
+LOCALBASE=/usr/local
+DATADIR=/usr/local/share/check_dhcp.pl
+DOCSDIR=/usr/local/share/doc/check_dhcp.pl
+EXAMPLESDIR=/usr/local/share/examples/check_dhcp.pl
+WWWDIR=/usr/local/www/check_dhcp.pl
+ETCDIR=/usr/local/etc/check_dhcp.pl
+--End SUB_LIST--
+
+---Begin make.conf---
+USE_PACKAGE_DEPENDS=yes
+BATCH=yes
+WRKDIRPREFIX=/wrkdirs
+PACKAGES=/packages
+DISTDIR=/distfiles
+#### /usr/local/etc/poudriere.d/fbsd92-make.conf ####
+#CFENGINEd for poudriere/beastie
+
+WITH_PKGNG=		yes
+#
+CPUTYPE?=nocona
+#
+OPTIONS_SET+=	CUPS
+OPTIONS_UNSET+=	LPR
+
+.if ${.CURDIR:M*/x11-fonts/webfonts}
+WITH_MSWINDOWS_LICENSE=yes
+.endif
+
+CUPS_OVERWRITE_BASE=		YES
+#
+WITH_NEW_XORG=			YES
+#
+WITH_OPENSSL_BASE=		YES
+#
+NUT_USER=_ups
+NUT_GROUP=_ups
+#
+QT4_OPTIONS=	CUPS QGTKSTYLE
+
+CFENGINE_VERSION=	35
+---End make.conf---
+=======================<phase: check-sanity   >============================
+===========================================================================
+=======================<phase: pkg-depends    >============================
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/sbin/pkg - not found
+===>    Verifying install for /usr/local/sbin/pkg in /usr/ports/ports-mgmt/pkg
+===>   Installing existing package /packages/All/pkg-1.3.7.txz
+[fbsd92-beastie] Installing pkg-1.3.7... done
+Message for pkg-1.3.7:
+ If you are upgrading from the old package format, first run:
+
+  # pkg2ng
+===>   Returning to build of nagios-check_dhcp.pl-0.1
+===========================================================================
+=======================<phase: fetch-depends  >============================
+===========================================================================
+=======================<phase: fetch          >============================
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by nagios-check_dhcp.pl-0.1 for building
+===========================================================================
+=======================<phase: checksum       >============================
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by nagios-check_dhcp.pl-0.1 for building
+=> SHA256 Checksum OK for check_dhcp.pl.
+===========================================================================
+=======================<phase: extract-depends>============================
+===========================================================================
+=======================<phase: extract        >============================
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by nagios-check_dhcp.pl-0.1 for building
+===>  Extracting for nagios-check_dhcp.pl-0.1
+=> SHA256 Checksum OK for check_dhcp.pl.
+===========================================================================
+=======================<phase: patch-depends  >============================
+===========================================================================
+=======================<phase: patch          >============================
+===>  Patching for nagios-check_dhcp.pl-0.1
+===========================================================================
+=======================<phase: build-depends  >============================
+===========================================================================
+=======================<phase: lib-depends    >============================
+===========================================================================
+=======================<phase: configure      >============================
+===>  Configuring for nagios-check_dhcp.pl-0.1
+===========================================================================
+=======================<phase: build          >============================
+===========================================================================
+====>> Checking for filesystem violations... done
+=======================<phase: run-depends    >============================
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/libexec/nagios/utils.pm - not found
+===>    Verifying install for /usr/local/libexec/nagios/utils.pm in /usr/ports/net-mgmt/nagios-plugins
+===>   Installing existing package /packages/All/nagios-plugins-2.0.3_2,1.txz
+[fbsd92-beastie] Installing indexinfo-0.2... done
+[fbsd92-beastie] Installing libiconv-1.14_3... done
+[fbsd92-beastie] Installing gettext-0.18.3.1_1... done
+[fbsd92-beastie] Installing perl5-5.16.3_11... done
+[fbsd92-beastie] Installing nagios-plugins-2.0.3_2,1... done
+===>   Returning to build of nagios-check_dhcp.pl-0.1
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-IO-Interface>=0 - not found
+===>    Verifying install for p5-IO-Interface>=0 in /usr/ports/net/p5-IO-Interface
+===>   Installing existing package /packages/All/p5-IO-Interface-1.06_1.txz
+[fbsd92-beastie] Installing p5-IO-Interface-1.06_1... done
+===>   Returning to build of nagios-check_dhcp.pl-0.1
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-Net-DHCP-Watch>=0 - not found
+===>    Verifying install for p5-Net-DHCP-Watch>=0 in /usr/ports/net/p5-Net-DHCP-Watch
+===>   Installing existing package /packages/All/p5-Net-DHCP-Watch-2.03.txz
+[fbsd92-beastie] Installing p5-Net-DHCP-Watch-2.03... done
+===>   Returning to build of nagios-check_dhcp.pl-0.1
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/bin/perl5.16.3 - found
+===========================================================================
+=======================<phase: stage          >============================
+===>  Staging for nagios-check_dhcp.pl-0.1
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/libexec/nagios/utils.pm - found
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-IO-Interface>=0 - found
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-Net-DHCP-Watch>=0 - found
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/bin/perl5.16.3 - found
+===>   Generating temporary packing list
+/bin/mkdir -p /wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work/stage/usr/local/libexec/nagios
+install  -o root -g wheel -m 555 /wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work/check_dhcp.pl /wrkdirs/usr/ports/net-mgmt/nagios-check_dhcp.pl/work/stage/usr/local/libexec/nagios/check_dhcp.pl
+====> Compressing man pages (compress-man)
+===========================================================================
+====> Running Q/A tests (stage-qa)
+====> Checking for pkg-plist issues (check-plist)
+===> Parsing plist
+===> Checking for items in STAGEDIR missing from pkg-plist
+===> Checking for directories owned by MTREEs
+===> Checking for directories handled by dependencies
+===> Checking for items in pkg-plist which are not in STAGEDIR
+===> No pkg-plist issues found (check-plist)
+====>> Checking for staging violations... done
+=======================<phase: package        >============================
+===>  Building package for nagios-check_dhcp.pl-0.1
+===========================================================================
+=======================<phase: install-mtree  >============================
+===========================================================================
+=======================<phase: install        >============================
+===>  Installing for nagios-check_dhcp.pl-0.1
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/libexec/nagios/utils.pm - found
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-IO-Interface>=0 - found
+===>   nagios-check_dhcp.pl-0.1 depends on package: p5-Net-DHCP-Watch>=0 - found
+===>   nagios-check_dhcp.pl-0.1 depends on file: /usr/local/bin/perl5.16.3 - found
+===>  Checking if nagios-check_dhcp.pl already installed
+===>   Registering installation for nagios-check_dhcp.pl-0.1
+pkg-static: DEVELOPER_MODE: Notice: arch "freebsd:9:x86:64" -- no architecture specific files found:
+**** could this package use a wildcard architecture?
+===========================================================================
+====>> Checking shared library dependencies
+=======================<phase: deinstall      >============================
+===>  Deinstalling for nagios-check_dhcp.pl
+===>   Deinstalling nagios-check_dhcp.pl-0.1
+Updating database digests format... done
+Checking integrity... done (0 conflicting)
+Deinstallation has been requested for the following 1 packages (of 0 packages in the universe):
+
+Installed packages to be REMOVED:
+	nagios-check_dhcp.pl-0.1
+
+The operation will free 4 kB.
+[fbsd92-beastie] [1/1] Deleting nagios-check_dhcp.pl-0.1... done
+===========================================================================
+====>> Checking for extra files and directories
+====>> Installing from package
+[fbsd92-beastie] Installing nagios-check_dhcp.pl-0.1... done
+====>> Cleaning up
+===>  Cleaning for nagios-check_dhcp.pl-0.1
+====>> Deinstalling package
+Updating database digests format... done
+Checking integrity... done (0 conflicting)
+Deinstallation has been requested for the following 1 packages (of 0 packages in the universe):
+
+Installed packages to be REMOVED:
+	nagios-check_dhcp.pl-0.1
+
+The operation will free 4 kB.
+[fbsd92-beastie] [1/1] Deleting nagios-check_dhcp.pl-0.1... done
+build of /usr/ports/net-mgmt/nagios-check_dhcp.pl ended at Thu Aug 28 09:37:02 CDT 2014
