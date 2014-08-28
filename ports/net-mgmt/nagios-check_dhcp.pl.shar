@@ -32,7 +32,6 @@ X
 XUSES=		perl5
 XUSE_PERL5=	run
 X
-XPLIST_DIRSTRY=	libexec/nagios
 XPLIST_FILES=	libexec/nagios/check_dhcp.pl
 XNO_BUILD=	yes
 XNO_WRKSUBDIR=	yes

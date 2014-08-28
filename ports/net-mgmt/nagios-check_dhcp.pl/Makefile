@@ -19,7 +19,6 @@ RUN_DEPENDS=	${LOCALBASE}/libexec/nagios/utils.pm:${PORTSDIR}/net-mgmt/nagios-pl
 USES=		perl5
 USE_PERL5=	run
 
-PLIST_DIRSTRY=	libexec/nagios
 PLIST_FILES=	libexec/nagios/check_dhcp.pl
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
