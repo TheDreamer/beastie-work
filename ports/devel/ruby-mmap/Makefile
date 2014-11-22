@@ -29,7 +29,6 @@ DOCS=		Changes \
 		${RUBY_RD_HTML_FILES} \
 		doc/doc
 
-NO_STAGE=	yes
 .include <bsd.port.pre.mk>
 
 #.if ${RUBY_VER} == 1.9
@@ -46,14 +45,10 @@ post-build:
 	cd ${BUILD_WRKSRC}; ${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} rdoc
 .endif
 
-post-install: doc-install
-
-doc-install:
-.if !defined(NOPORTDOCS)
-	${MKDIR} ${RUBY_MODDOCDIR}
+post-install:
+	${MKDIR} ${STAGEDIR}${RUBY_MODDOCDIR}
 .for f in ${DOCS}
-	${CP} -R ${WRKSRC}/${f} ${RUBY_MODDOCDIR}/
+	${CP} -R ${WRKSRC}/${f} ${STAGEDIR}${RUBY_MODDOCDIR}/
 .endfor
-.endif
 
 .include <bsd.port.post.mk>

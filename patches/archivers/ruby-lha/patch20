@@ -1,0 +1,106 @@
+--- Makefile.orig	2014-07-15 18:11:12.000000000 -0500
++++ Makefile	2014-11-01 09:09:27.971858646 -0500
+@@ -3,7 +3,7 @@
+ 
+ PORTNAME=	lha
+ PORTVERSION=	0.8.1
+-PORTREVISION=	1
++PORTREVISION=	2
+ CATEGORIES=	archivers ruby
+ MASTER_SITES=	http://arton.no-ip.info/data/lhalib/
+ PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
+@@ -29,8 +29,4 @@
+ 	@${MKDIR} ${STAGEDIR}${RUBY_MODEXAMPLESDIR}
+ 	${INSTALL_SCRIPT} ${EXAMPLES:S,^,${WRKSRC}/,} ${STAGEDIR}${RUBY_MODEXAMPLESDIR}
+ 
+-.include <bsd.port.pre.mk>
+-.if ${RUBY_VER} == 2.0
+-BROKEN=	Does not build with Ruby 2.0
+-.endif
+-.include <bsd.port.post.mk>
++.include <bsd.port.mk>
+--- files/patch-ext-lhalib.c.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-ext-lhalib.c	2014-11-01 09:47:59.508450650 -0500
+@@ -0,0 +1,20 @@
++--- ext/lhalib.c.orig	2006-09-18 04:11:35.000000000 -0500
+++++ ext/lhalib.c	2014-11-01 09:46:39.370316994 -0500
++@@ -18,7 +18,7 @@
++ #define LHALIB_VERSION "0.8.1"
++ 
++ #include "lha.h"
++-#include "st.h"
+++#include "ruby/st.h"
++ 
++ static VALUE lhalib;
++ 
++@@ -75,7 +75,7 @@
++   VALUE file;
++   proc = Qnil;
++   rb_scan_args(argc, argv, "1&", &file, &proc);
++-  rb_check_safe_str(file);
+++  SafeStringValue(file);
++   rb_secure(4);
++ 
++   file_count = 0;
+--- files/patch-ext-slide.c.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-ext-slide.c	2014-11-01 09:08:18.013470365 -0500
+@@ -0,0 +1,59 @@
++--- ext/slide.c.orig	2006-09-17 12:45:51.000000000 -0500
+++++ ext/slide.c	2014-11-01 08:40:14.022188105 -0500
++@@ -87,7 +87,7 @@
++ 
++ static unsigned int txtsiz;
++ static unsigned long dicsiz;
++-static unsigned int remainder;
+++static unsigned int lha_remainder;
++ 
++ struct matchdata {
++     int len;
++@@ -162,7 +162,7 @@
++ 
++     n = fread_crc(crc, &text[txtsiz - dicsiz], dicsiz, infile);
++ 
++-    remainder += n;
+++    lha_remainder += n;
++ 
++     *pos -= dicsiz;
++     for (i = 0; i < HSHSIZ; i++) {
++@@ -270,7 +270,7 @@
++         /* re-search */
++         search_dict_1(token, pos, 0, off+2, m);
++ 
++-    if (m->len > remainder) m->len = remainder;
+++    if (m->len > lha_remainder) m->len = lha_remainder;
++ }
++ 
++ /* slide dictionary */
++@@ -280,7 +280,7 @@
++     unsigned int *pos;
++     unsigned int *crc;
++ {
++-    remainder--;
+++    lha_remainder--;
++     if (++*pos >= txtsiz - maxmatch) {
++         update_dict(pos, crc);
++ #ifdef DEBUG
++@@ -316,17 +316,17 @@
++     encode_set.encode_start();
++     memset(text, ' ', TXTSIZ);
++ 
++-    remainder = fread_crc(&crc, &text[dicsiz], txtsiz-dicsiz, infile);
+++    lha_remainder = fread_crc(&crc, &text[dicsiz], txtsiz-dicsiz, infile);
++ 
++     match.len = THRESHOLD - 1;
++     match.off = 0;
++-    if (match.len > remainder) match.len = remainder;
+++    if (match.len > lha_remainder) match.len = lha_remainder;
++ 
++     pos = dicsiz;
++     token = INIT_HASH(pos);
++     insert_hash(token, pos);     /* associate token and pos */
++ 
++-    while (remainder > 0 && ! unpackable) {
+++    while (lha_remainder > 0 && ! unpackable) {
++         last = match;
++ 
++         next_token(&token, &pos, &crc);

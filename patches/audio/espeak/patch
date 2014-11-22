@@ -1,0 +1,67 @@
+--- Makefile.orig	2014-07-15 18:11:12.000000000 -0500
++++ Makefile	2014-11-21 09:04:19.745156729 -0600
+@@ -13,10 +13,6 @@
+ 
+ LICENSE=	GPLv3
+ 
+-# default is runtime audio detection
+-LIB_DEPENDS=	${PORTAUDIOLIB} \
+-		${PULSEAUDIOLIB}
+-
+ OPTIONS_DEFINE=	DOCS
+ OPTIONS_DEFAULT=	PORTAUDIO
+ OPTIONS_RADIO=	AUDIO_SYSTEM
+@@ -26,11 +22,22 @@
+ PORTAUDIOLIB=	libportaudio.so:${PORTSDIR}/audio/portaudio
+ PULSEAUDIOLIB=	libpulse.so:${PORTSDIR}/audio/pulseaudio
+ 
++PORTAUDIO_LIB_DEPENDS=	${PORTAUDIOLIB}
++PULSEAUDIO_LIB_DEPENDS=	${PULSEAUDIOLIB}
++RUNTIME_LIB_DEPENDS=	${PORTAUDIOLIB} \
++			${PULSEAUDIOLIB}
++
++PULSEAUDIO_USES=	compiler:c++0x
++RUNTIME_USES=		compiler:c++0x
++
++PULSEAUDIO_MAKE_ENV=	AUDIO="pulseaudio"
++PORTAUDIO_MAKE_ENV=	AUDIO="portaudio"
++RUNTIME_MAKE_ENV=	AUDIO="runtime"
++
+ CONFLICTS=	speak-1.[0-9]
+ 
+ MAKE_ENV+=	PTHREAD_CFLAGS="${PTHREAD_CFLAGS}" \
+-		PTHREAD_LIBS="${PTHREAD_LIBS}" \
+-		AUDIO="${AUDIO}"
++		PTHREAD_LIBS="${PTHREAD_LIBS}"
+ 
+ CXXFLAGS+=	-I${LOCALBASE}/include
+ USES=		gmake zip
+@@ -45,20 +52,6 @@
+ 
+ BROKEN_sparc64=	Does not compile on sparc64
+ 
+-.include <bsd.port.options.mk>
+-
+-.if ${PORT_OPTIONS:MRUNTIME}
+-AUDIO=	"runtime"
+-.endif
+-.if ${PORT_OPTIONS:MPULSEAUDIO}
+-AUDIO=	"pulseaudio"
+-PORTAUDIOLIB=
+-.endif
+-.if ${PORT_OPTIONS:MPORTAUDIO}
+-AUDIO=	"portaudio"
+-PULSEAUDIOLIB=
+-.endif
+-
+ post-patch:
+ 	cd ${BUILD_WRKSRC} && ${REINPLACE_CMD} ${REINPLACE_FILES}
+ 
+--- pkg-plist.orig	2014-10-20 01:35:58.000000000 -0500
++++ pkg-plist	2014-11-21 09:07:33.105162564 -0600
+@@ -279,3 +279,5 @@
+ %%DATADIR%%/espeak-data/voices/test/ur
+ %%DATADIR%%/espeak-data/zh_dict
+ %%DATADIR%%/espeak-data/zhy_dict
++@dir %%DATADIR%%/espeak-data/mbrola
++@dir %%DATADIR%%/espeak-data/soundicons

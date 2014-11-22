@@ -1,0 +1,4 @@
+rm -f patch21
+diff -u Makefile.orig Makefile > patch21
+diff -Nu files/patch-ext-lhalib.c.orig files/patch-ext-lhalib.c >> patch21
+diff -Nu files/patch-ext-slide.c.orig files/patch-ext-slide.c >> patch21

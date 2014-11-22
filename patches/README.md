@@ -8,6 +8,68 @@ archivers/quazip
 	
 	PR: ports/187735
 
+archivers/ruby-lha
+
+	In UPDATING on 20141008, the default ruby version was updated from 1.9 to 2.0.  Long ago, in addition to listing
+	where my *default versions* differed from *default* (ie `mysql=55p` instead of `mysql=55`), I had added in definitions
+	for all of the then *default* versions to `DEFAULT_VERSIONS=` in my `make.conf` file.  Partly to avoid *surprise*
+	changes, from forgetting to check `UPDATING` until after I had started updating my ports.  With the added benefit
+	that if I'm not ready to make the switch, I don't have to right away.  Additionaly, now that I'm doing unattended
+	daily poudriere builds, it avoids surprises to my package repo.
+	
+	With poudriere, I have two repos being built.  One for my *headless 'servers'* and one for *'zen'*.  For the first
+	case, I was able with minor adjustments to get all my packages to build and have converted to updating those two
+	systems from that repo.  Getting the repo for *'zen'* continues to be a work in progress.
+
+	At the time of the switch, the only use of `lang/ruby19` was by `ports-mgmt/portupgrade`, so deleted 'portupgrade'
+	and the resulting leaf packages. from these systems.  However, later I found that I still needed it for other
+	automated tasks (`portsclean`) and the desire/need to occasionally build a port on these systems.  So, I changed
+	these systems repo to the new default, and (re-)installed 'portupgrade' from it.
+
+	Since the repo for *'zen'* was still a work in progress, I decided to be risky and switch its default to eventually
+	make that transistion.  The next day after making the switch, I discovered this port to be one that didn't get
+	survive the switch to 2.0.
+
+	I found a post 0.8.1 commit to github that addressed the **BROKEN** issue, and threw in a patch to silence the
+	deprecated function warning (which is removed from CAPI in 2.2.) and the #include warning.
+
+	As I was about to unleash this patch, I discovered that between Nov 1st and Nov 21st.  The port had been updated
+	to show that it also doesn't build with ruby 2.1.  So, with a bit of work, I run 'poudriere testport' with both
+	ruby 2.0 and ruby 2.1.
+
+	PR: 195268
+
+audio/espeak
+
+	As part of the sudden loss of Gnome2 and the appearance of Gnome3, `audio/pulseaudio` got a significant bump in
+	version.  This resulted in (re)build failure for `audio/espeak` if something other than the default option of
+	PORTAUDIO is selected.  RUNTIME includes both `audio/portaudio` and `audio/pulseaudio` as LIB_DEPENDS.
+
+	PULSEAUDIO is now making use of features that require at C99 to succeed. So, at first I thought it was a simple
+	matter of telling it to pass a switch to use c99 or c++99 or gnu99 or gnu++99(?), which would either invole using
+	USE_CXXSTD=gnu99 or USE_CXXSTD=gnu++99, the first applies to C not C++ and the second doesn't exist, though was
+	passed anyways so that things would fail differently.  Had opted to use the new OptionsNG way, so it was:
+
+		PULSEAUDIO_USE=	CXXSTD=gnu99
+
+	Or some varition of the sort.  Along the way, I considered the that perhaps the issue was the base GNU
+	compilers weren't new enough (later found a document that indicated that one of the things it had
+	complained about first appeared in 4.3, and base compilers are 4.2.1. So the attempts became:
+
+		PULSEAUDIO_USE= GCC=yes CXXSTD=gnu++99
+
+	Still no progress.  And, new and different errors to confuse and baffle me.  Had introduced typos in places.
+	Eventually, I looked through the files under `/usr/ports/Mk` to figure out what I should use.  I settled on:
+
+		PULSEAUDIO_USES= compiler:c++0x
+
+	Success!
+
+	Now there some final things that 'poudriere testport' complained about, resulting in making some changes to
+	`pkg-plist`.  Now to send it off into the world....
+
+	PR: 195264
+
 audio/gsm
 
 	Got a strange error, while troubleshooting something else likely unrelated, about /usr/local/bin/tcat and
@@ -444,6 +506,47 @@ security/gnutls3
 
 	PR: ports/188184
 
+security/seahorse
+
+	I had started a patch to change the line below in the `configure` script for seahorse.
+
+		GNUPG_ACCEPTED="1.2 1.4 2.0"
+
+	To
+
+		GNUPG_ACCEPTED="1.2 1.4 2.0 2.1"
+
+	Even had a preliminary 'poudriere testport', when I noticed the time stamps on another system showed it had
+	been updated.  Appears it changed the dependency from `security/gnupg` to `security/gnupg20`.
+
+	So, I deleted the work and cleaned up my port trees, so that poudriere could try to complete its update with
+	Gnome 3.  Unfortunately, this port still bombed out.  Turns out that this port has a dependency on `security/gpgme`
+	Which depends on `security/gnupg` for the 2 version.  So, its pulling in gnupg-2.1... to conflict with the
+	gnupg20-2.0... installed in advance for the build of seahorse in poudriere.
+
+	Started to work on (likely trivial) patch/bug report for `security/gpgme`, when I saw that a bug had already
+	been entered (195242).  And, figured I'll just chime in on it instead.  As I was writing the comment, I wondered
+	what else on my system depended on gnupg.  Which is current the 2.0 version as the 2.1 update was added
+	yesterday (the 20th)...which was after Gnome3 displaced Gnome2 on the 19th.
+
+	Quick invocation of `pkg info -r gnupg`, yielded an addtional two ports:
+
+		mail/thunderbird
+		security/clamav-unofficial-sigs
+
+	A default port option, ENIGMAIL, is what adds the dependency for `security/gnupg` for *thunderbird*,
+	while *clamav-unofficial-sigs* just does (its only options are DOCS and EXAMPLES.)  Not sure what gnupg (2.1)
+	breaks, if anything, so they would likely work either way.  Just need to decide what everybody using as
+	the 2.x version.  Or devise a way that all 3 versions can co-exist?  Since I have both the previous
+	security/gnupg (2.0.26 which became security/gnupg20 when the default port was upgraded to 2.1) and
+	security/gnupg1 (1.4.18) installed on my system.  No conflicts between the two.  Harder to have 2.1
+	and 2.0 together.  Might be beter trying to find out if seahorse works with 2.1 or not, and it just doesn't
+	build currently because 2.1 didn't exist until recently?
+
+	Not sure what I'm going to opt for in the mean time.
+
+	PR: ???
+
 sysutils/cfengine35
 
 	Recently in /usr/ports/UPDATING:
@@ -714,11 +817,138 @@ print/hplip
 
 	PR: ports/189056
 
+x11/nvidia-driver
+x11/nvidia-driver-304
+
+	On my *workstation* at work, I was not able to (completely) get X to working on the graphics card that came with
+	the system, but
+	eventually got things working used an NVidia Quadro X1400 that I scrounged from another workstation (Sun Ultra 20).
+	It was after this that I got X working on *'zen'*, where I had tried 5 other graphics cards before picking up an
+	NVidia Quadro X1700.
+
+	While the Quadro X1700 continues to be supported by the `x11/nvidia-driver`, in early 2013 the Quadro X1400 was EOL'd
+	and '304.xx' became the new legacy port `x11/nvidia-driver-304`.  The X1700 continued to work under the then '310.32'
+	driver and continues work under the current '331.67'.
+
+	Over time, I started having more and more strange video problems.  Due to *chromium*s heavy use of GPU.  So, I
+	started looking to see if there were settings I could change/disable inorder to address these problems.  Along the
+	way I found that there continued to be newer versions after '304.88', the latest at the time of discovery was
+	'304.123'.
+
+	After some fiddling around, I was able to figure out how to get it to build and install.  And, it fixed the issues
+	I was having.  Now comes to whether I'll be able to turn it into a proper patch.
+
+	One problem is that the master port assumes version numbers are either in the form XXX.XX.XX or in the form XXX.XX,
+	where it adds '00'.  The previous version '304.88' becomes '3048800', the current '331.67' becomes '3316700', but
+	for this new '304.123', its '30412300'.  Which causes it apply patches incorrectly to make it build on FreeBSD.
+
+	First there's some needed patches for versions >= '3048800', plus an option, which get missed.  It also appears
+	that a stack buffer overflow problem that existed prior to '319.23' had been backported in to '304.xx' at some point
+	and is not needed for '304.123'.
+
+	Additionally, I note the other latest versions of nvidia drivers.
+
+		FreeBSD x64
+		-----------
+		Latest Long Lived Branch version: 340.46			> 331.67
+		Latest Short Lived Branch version: 343.22
+		Latest Legacy GPU version (304.xx series): 304.123		> 304.88
+
+		FreeBSD x86
+		-----------
+		Latest Long Lived Branch version: 340.46			> 331.67
+		Latest Short Lived Branch version: 343.22
+		Latest Legacy GPU version (304.xx series): 304.123		> 304.88
+		Latest Legacy GPU version (71.86.xx series): 71.86.15		= 71.86.15
+		Latest Legacy GPU version (96.43.xx series): 96.43.23		= 96.43.23
+		Latest Legacy GPU version (173.14.xx series): 173.14.39		> 173.14.35
+
+		331.67 - April 09, 2014
+		331.79 - May 20, 2014
+		331.89 - July 4, 2014
+		
+		340.17 - June 9, 2014
+		340.24 - July 8, 2014
+		340.46 - September 30, 2014
+
+		304.88 - April 2, 2013
+		304.108 - August 08, 2013
+		304.116	- November 6, 2013
+		304.117 - December 16, 2013
+		304.119 - January 23, 2014
+		304.121 - March 11, 2014
+		304.123 - July 10, 2014
+
+		319.23 - May 23, 2013	so everything after 304.88 doesn't need this fix?
+					wonder if it als means after 173.14.37?
+
+		173.14.39 - December 6, 2013
+		173.14.38 - October 1, 2013
+		173.14.37 - April 5, 2013
+		173.14.36 - October 4, 2012
+		173.14.35 - June 28, 2012
+
+	Someday... *I'll come up with something, and get back to fiddling with other ports....*
+
+	So, decided to change the conversions to do this:
+
+		MMM.mm.uu => MMM0mmuu or MMM.0mmuu
+		MMM.mm	  => MMM0mm00 or MMM.0mm
+		MMM.mmm   => MMMmmm00 or MMM.mmm
+
+	The latter is simiplier....
+
+	Now to test.... which didn't go so well, as there were numerous pkg-plist problems lurking in the port that needed to be
+	taken care of first.  `poudriere testport` tests for things that apparently aren't normally the end of the world.
+
+	No idea where to look on why removing the port is removing one library that it didn't install.
+
+	PR:
+
 x11-server/xorg-nestserver
 
 	Options wouldn't stick, causing portmaster to ask for them over and over again.  A quick patch to fix.
 
 	PR: ports/188848
+
+www/lynx
+
+	Would you believe that this bug has existed since Mar 21, 2012?  It was to add NOPORTDOCS.  Something that I had
+	been using on my 'dedicated' FreeBSD servers.  Though I suppose this is not a normal thing to set globally, and
+	its something that escapes detection when using portmaster/portupgrade to upgrade this port.  Or its something
+	that became a problem as a result of staging and the importance of a proper pkg-plist to the creation of a package
+	and its installation?
+
+	Anyways, I've been playing around with `ports-mgmt/poudriere` to provide a custom pkg repo for both my 'dedicated'
+	FreeBSD servers and my main FreeBSD system.  The latter is still a work in progress.  But, I had recently gotten
+	everything to build on for my servers.  Other PRs outstanding, perhaps, on what I needed to do to get here.
+
+	So, while doing my first `pkg upgrade`, I noticed some error messages about problem of two messages of:
+
+		rm: /usr/local/@comment: is a directory
+
+	So, the DEINSTALL script filed, but the upgrade happened.
+
+	Sure, enough there's a `/usr/local/@comment` directory.  I remove it.  And, try force (re-)install again....it comes
+	back.
+
+	Hmmm.
+
+		@exec mkdir -p %D/%%PORTDOCS%%/share/lynx_help
+		...
+		@exec ln -sf %D/%F %D/%%PORTDOCS%%/share/lynx_help
+		@unexec rm -f %D/%%PORTDOCS/share/lynx_help/COPYHEADER.asc
+		...
+		@exec ln -sf %D/%F %D/%%PORTDOCS%%/share/lynx_help
+		@unexec rm -f %D/%%PORTDOCS/share/lynx_help/COPYING.asc
+
+	Suspect some kind of error in global injection of `%%PORTDOCS%%` ???
+
+	When NOPORTDOCS is not set, PORTDOCS="", so the path becomes `%D//share/lynx_help`... which is tolerated, but when
+	NOPORTDOCS is defined, PORTDOCS="@comment ", so the path becomes `%D/@comment /share/lynx_help`.  Sure enough
+	there's also a stray directory of `/share/lynx_help` on my servers.
+
+	PR: ??
 
 www/nginx
 
