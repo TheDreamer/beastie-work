@@ -1,0 +1,67 @@
+--- Makefile.orig	2014-10-19 03:50:17.000000000 -0500
++++ Makefile	2014-12-03 09:51:51.731909961 -0600
+@@ -2,7 +2,7 @@
+ # $FreeBSD: head/deskutils/gcalcli/Makefile 371173 2014-10-19 08:50:17Z mva $
+ 
+ PORTNAME=	gcalcli
+-PORTVERSION=	2.4.2
++PORTVERSION=	3.1
+ CATEGORIES=	deskutils
+ 
+ MAINTAINER=	lwhsu@FreeBSD.org
+@@ -10,32 +10,33 @@
+ 
+ LICENSE=	MIT
+ 
+-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/gdata/__init__.py:${PORTSDIR}/devel/py-gdata \
+-		${PYTHON_PKGNAMEPREFIX}dateutil>=0:${PORTSDIR}/devel/py-dateutil
++RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateutil>=0:${PORTSDIR}/devel/py-dateutil \
++		${PYTHON_PKGNAMEPREFIX}gflags>=0:${PORTSDIR}/devel/py-gflags \
++		${PYTHON_PKGNAMEPREFIX}httplib2>=0:${PORTSDIR}/www/py-httplib2 \
++		${PYTHON_PKGNAMEPREFIX}google-api-python-client>=0:${PORTSDIR}/www/py-google-api-python-client
+ 
+ USE_GITHUB=	yes
+ GH_ACCOUNT=	insanum
+ GH_PROJECT=	gcalcli
+ GH_TAGNAME=	v${PORTVERSION}
+-GH_COMMIT=	a0fc61a
++GH_COMMIT=	3a13fe1
+ 
+ USES=		python
+ 
+ NO_BUILD=	yes
++NO_ARCH=	yes
+ 
+-PORTDOCS=	README.md gcalcli_?.png
++PORTDOCS=	ChangeLog README.md gcalcli_?.png
+ 
+ PLIST_FILES=	bin/gcalcli
+ 
+-OPTIONS_DEFINE=		DOCS FUZZYDATES ICS_VCAL SIMPLEJSON
++OPTIONS_DEFINE=		DOCS FUZZYDATES ICS_VCAL
+ OPTIONS_DEFAULT=	ICS_VCAL
+ 
+ ICS_VCAL_DESC=		enable importing of ics/vcal files
+-SIMPLEJSON_DESC=	use simplejson for url shortening
+ FUZZYDATES_DESC=	use parsedatetime for fuzzy date parsing
+ 
+ ICS_VCAL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}vobject>=0.4.8:${PORTSDIR}/deskutils/py-vobject
+-SIMPLEJSON_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}simplejson>=0:${PORTSDIR}/devel/py-simplejson
+ FUZZYDATES_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}parsedatetime>=0:${PORTSDIR}/devel/py-parsedatetime
+ 
+ .include <bsd.port.options.mk>
+@@ -45,6 +46,7 @@
+ 	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+ .if ${PORT_OPTIONS:MDOCS}
+ 	${MKDIR} ${STAGEDIR}/${DOCSDIR}
++	${INSTALL_DATA} ${WRKSRC}/ChangeLog ${STAGEDIR}${DOCSDIR}
+ 	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+ .endif
+ 
+--- distinfo.orig	2014-03-16 12:45:47.000000000 -0500
++++ distinfo	2014-12-03 08:45:04.086886233 -0600
+@@ -1,2 +1,2 @@
+-SHA256 (gcalcli-2.4.2.tar.gz) = f20237400567383a614424485998d7f315f9ff819c84fab5d7d97f5f22daf00e
+-SIZE (gcalcli-2.4.2.tar.gz) = 1667781
++SHA256 (gcalcli-3.1.tar.gz) = 7d6c887212c32c3288bdc6732cbbcf2dee117d10ab495af900938ea910aa688d
++SIZE (gcalcli-3.1.tar.gz) = 1670782

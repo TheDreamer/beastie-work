@@ -1,0 +1,313 @@
+build started at Wed Dec  3 09:54:32 CST 2014
+port directory: /usr/ports/deskutils/gcalcli
+building for: FreeBSD fbsd92-testport 9.2-RELEASE FreeBSD 9.2-RELEASE amd64
+maintained by: lwhsu@FreeBSD.org
+Makefile ident:      $FreeBSD: head/deskutils/gcalcli/Makefile 371173 2014-10-19 08:50:17Z mva $
+Poudriere version: 3.0.19
+Host OSVERSION: 902001
+Jail OSVERSION: 902001
+
+---Begin Environment---
+PKGREPOSITORY=/tmp/pkgs
+PACKAGES=/tmp/pkgs
+OSVERSION=902001
+UNAME_v=FreeBSD 9.2-RELEASE
+UNAME_r=9.2-RELEASE
+BLOCKSIZE=K
+MAIL=/var/mail/root
+STATUS=1
+SAVED_TERM=vt100
+NO_WARNING_PKG_INSTALL_EOL=yes
+MASTERMNT=/poudriere/data/build/fbsd92-testport/ref
+HTTP_PROXY=http://zen.lhaven.homeip.net:63128
+PKG_EXT=txz
+FORCE_PACKAGE=yes
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/root/bin
+POUDRIERE_BUILD_TYPE=bulk
+PKGNG=1
+PKG_DELETE=/usr/local/sbin/pkg-static delete -y -f
+PKG_ADD=/usr/local/sbin/pkg-static add
+PWD=/root
+MASTERNAME=fbsd92-testport
+DEVELOPER_MODE=yes
+USER=root
+HOME=/root
+POUDRIERE_VERSION=3.0.19
+SKIPSANITY=0
+LOCALBASE=/usr/local
+PACKAGE_BUILDING=yes
+PKG_BIN=/usr/local/sbin/pkg-static
+FTP_PROXY=http://zen.lhaven.homeip.net:63128
+---End Environment---
+
+---Begin OPTIONS List---
+===> The following configuration options are available for gcalcli-3.1:
+     DOCS=on: Build and/or install documentation
+     FUZZYDATES=on: use parsedatetime for fuzzy date parsing
+     ICS_VCAL=on: enable importing of ics/vcal files
+===> Use 'make config' to modify these settings
+---End OPTIONS List---
+
+--CONFIGURE_ARGS--
+
+--End CONFIGURE_ARGS--
+
+--CONFIGURE_ENV--
+XDG_DATA_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work TMPDIR="/tmp" XDG_DATA_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work TMPDIR="/tmp" PYTHON="/usr/local/bin/python2.7" SHELL=/bin/sh CONFIG_SHELL=/bin/sh
+--End CONFIGURE_ENV--
+
+--MAKE_ENV--
+XDG_DATA_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work TMPDIR="/tmp" XDG_DATA_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  XDG_CONFIG_HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work  HOME=/wrkdirs/usr/ports/deskutils/gcalcli/work TMPDIR="/tmp" NO_PIE=yes SHELL=/bin/sh NO_LINT=YES PREFIX=/usr/local  LOCALBASE=/usr/local  LIBDIR="/usr/lib"  CC="cc" CFLAGS="-O2 -pipe -march=nocona -fstack-protector -fno-strict-aliasing"  CPP="cpp" CPPFLAGS=""  LDFLAGS=" -fstack-protector" LIBS=""  CXX="c++" CXXFLAGS="-O2 -pipe -march=nocona -fstack-protector -fno-strict-aliasing"  MANPREFIX="/usr/local" BSD_INSTALL_PROGRAM="install  -s -o root -g wheel -m 555"  BSD_INSTALL_LIB="install  -s -o root -g wheel -m 444"  BSD_INSTALL_SCRIPT="install  -o root -g wheel -m 555"  BSD_INSTALL_DATA="install  -o root -g wheel -m 0644"  BSD_INSTALL_MAN="install  -o root -g wheel -m 444"
+--End MAKE_ENV--
+
+--SUB_LIST--
+PREFIX=/usr/local
+LOCALBASE=/usr/local
+DATADIR=/usr/local/share/gcalcli
+DOCSDIR=/usr/local/share/doc/gcalcli
+EXAMPLESDIR=/usr/local/share/examples/gcalcli
+WWWDIR=/usr/local/www/gcalcli
+ETCDIR=/usr/local/etc/gcalcli
+--End SUB_LIST--
+
+---Begin make.conf---
+USE_PACKAGE_DEPENDS=yes
+BATCH=yes
+WRKDIRPREFIX=/wrkdirs
+PACKAGES=/packages
+DISTDIR=/distfiles
+#### /usr/local/etc/poudriere.d/fbsd92-make.conf ####
+#CFENGINEd for poudriere/beastie
+
+WITH_PKGNG=		yes
+#
+DEFAULT_VERSIONS=	mysql=5.5p apache2=2.2 ruby=2.0 perl5=5.20
+APACHE_DEFAULT=	2.2
+#
+CPUTYPE?=nocona
+#
+OPTIONS_SET+=	CUPS
+OPTIONS_UNSET+=	LPR
+
+OVERRIDE_LINUX_BASE_PORT=c6
+OVERRIDE_LINUX_NONBASE_PORTS=c6
+LINUX_OSRELEASE=2.6.18
+
+LICENSES_ACCEPTED=	Microsoft-exFAT
+
+.if ${.CURDIR:M*/x11-fonts/webfonts}
+WITH_MSWINDOWS_LICENSE=yes
+.endif
+
+.if ${.CURDIR:M*/print/cups-base}
+pre-configure:
+	${MKDIR}	${LOCALBASE}/etc/pam.d
+.endif
+
+DEFAULT_VERSIONS+=	perl5=5.16 php=5.4 pgsql=9.2
+DEFAULT_VERSIONS+=	python=2.7 python2=2.7 python3=3.3
+DEFAULT_VERSIONS+=	lua=5.2 tcltk=8.6
+
+TEX_DEFAULT=		texlive
+
+CUPS_OVERWRITE_BASE=		YES
+#
+WITH_NEW_XORG=			YES
+#
+WITH_OPENSSL_BASE=		YES
+#
+NUT_USER=_ups
+NUT_GROUP=_ups
+#
+QT4_OPTIONS=	CUPS QGTKSTYLE
+
+CFENGINE_VERSION=	35
+---End make.conf---
+=======================<phase: check-sanity   >============================
+===>  License MIT accepted by the user
+===>  Found saved configuration for gcalcli-3.1
+===========================================================================
+=======================<phase: pkg-depends    >============================
+===>   gcalcli-3.1 depends on file: /usr/local/sbin/pkg - not found
+===>    Verifying install for /usr/local/sbin/pkg in /usr/ports/ports-mgmt/pkg
+===>   Installing existing package /packages/All/pkg-1.3.8_3.txz
+[fbsd92-testport] Installing pkg-1.3.8_3... done
+Message for pkg-1.3.8_3:
+ If you are upgrading from the old package format, first run:
+
+  # pkg2ng
+===>   Returning to build of gcalcli-3.1
+===========================================================================
+=======================<phase: fetch-depends  >============================
+===========================================================================
+=======================<phase: fetch          >============================
+===>  License MIT accepted by the user
+===>  Found saved configuration for gcalcli-3.1
+===>   gcalcli-3.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by gcalcli-3.1 for building
+===========================================================================
+=======================<phase: checksum       >============================
+===>  License MIT accepted by the user
+===>  Found saved configuration for gcalcli-3.1
+===>   gcalcli-3.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by gcalcli-3.1 for building
+=> SHA256 Checksum OK for gcalcli-3.1.tar.gz.
+===========================================================================
+=======================<phase: extract-depends>============================
+===========================================================================
+=======================<phase: extract        >============================
+===>  License MIT accepted by the user
+===>  Found saved configuration for gcalcli-3.1
+===>   gcalcli-3.1 depends on file: /usr/local/sbin/pkg - found
+===> Fetching all distfiles required by gcalcli-3.1 for building
+===>  Extracting for gcalcli-3.1
+=> SHA256 Checksum OK for gcalcli-3.1.tar.gz.
+===========================================================================
+=======================<phase: patch-depends  >============================
+===========================================================================
+=======================<phase: patch          >============================
+===>  Patching for gcalcli-3.1
+===========================================================================
+=======================<phase: build-depends  >============================
+===>   gcalcli-3.1 depends on file: /usr/local/bin/python2.7 - not found
+===>    Verifying install for /usr/local/bin/python2.7 in /usr/ports/lang/python27
+===>   Installing existing package /packages/All/python27-2.7.8_6.txz
+[fbsd92-testport] Installing indexinfo-0.2... done
+[fbsd92-testport] Installing libiconv-1.14_6... done
+[fbsd92-testport] Installing gettext-runtime-0.19.3... done
+[fbsd92-testport] Installing libffi-3.0.13_3... done
+[fbsd92-testport] Installing python27-2.7.8_6... done
+Message for python27-2.7.8_6:
+ =====================================================================
+
+Note that some standard Python modules are provided as separate ports
+as they require additional dependencies. They are available as:
+
+bsddb           databases/py-bsddb
+gdbm            databases/py-gdbm
+sqlite3         databases/py-sqlite3
+tkinter         x11-toolkits/py-tkinter
+
+=====================================================================
+===>   Returning to build of gcalcli-3.1
+===========================================================================
+=======================<phase: lib-depends    >============================
+===========================================================================
+=======================<phase: configure      >============================
+===>   gcalcli-3.1 depends on file: /usr/local/bin/python2.7 - found
+===>  Configuring for gcalcli-3.1
+===========================================================================
+=======================<phase: build          >============================
+===========================================================================
+====>> Checking for filesystem violations... done
+=======================<phase: run-depends    >============================
+===>   gcalcli-3.1 depends on package: py27-dateutil>=0 - not found
+===>    Verifying install for py27-dateutil>=0 in /usr/ports/devel/py-dateutil
+===>   Installing existing package /packages/All/py27-dateutil-2.2.txz
+[fbsd92-testport] Installing py27-setuptools27-5.5.1... done
+[fbsd92-testport] Installing py27-six-1.8.0... done
+[fbsd92-testport] Installing py27-dateutil-2.2... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-gflags>=0 - not found
+===>    Verifying install for py27-gflags>=0 in /usr/ports/devel/py-gflags
+===>   Installing existing package /packages/All/py27-gflags-2.0_1.txz
+[fbsd92-testport] Installing python2-2_3... done
+[fbsd92-testport] Installing py27-gflags-2.0_1... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-httplib2>=0 - not found
+===>    Verifying install for py27-httplib2>=0 in /usr/ports/www/py-httplib2
+===>   Installing existing package /packages/All/py27-httplib2-0.9.txz
+[fbsd92-testport] Installing py27-httplib2-0.9... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-google-api-python-client>=0 - not found
+===>    Verifying install for py27-google-api-python-client>=0 in /usr/ports/www/py-google-api-python-client
+===>   Installing existing package /packages/All/py27-google-api-python-client-1.2.txz
+[fbsd92-testport] Installing py27-oauth2-1.5.211_2... done
+[fbsd92-testport] Installing py27-google-api-python-client-1.2... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-parsedatetime>=0 - not found
+===>    Verifying install for py27-parsedatetime>=0 in /usr/ports/devel/py-parsedatetime
+===>   Installing existing package /packages/All/py27-parsedatetime-1.4.txz
+[fbsd92-testport] Installing py27-parsedatetime-1.4... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-vobject>=0.4.8 - not found
+===>    Verifying install for py27-vobject>=0.4.8 in /usr/ports/deskutils/py-vobject
+===>   Installing existing package /packages/All/py27-vobject-0.8.1c_2.txz
+[fbsd92-testport] Installing py27-vobject-0.8.1c_2... done
+===>   Returning to build of gcalcli-3.1
+===>   gcalcli-3.1 depends on file: /usr/local/bin/python2.7 - found
+===========================================================================
+=======================<phase: stage          >============================
+===>  Staging for gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-dateutil>=0 - found
+===>   gcalcli-3.1 depends on package: py27-gflags>=0 - found
+===>   gcalcli-3.1 depends on package: py27-httplib2>=0 - found
+===>   gcalcli-3.1 depends on package: py27-google-api-python-client>=0 - found
+===>   gcalcli-3.1 depends on package: py27-parsedatetime>=0 - found
+===>   gcalcli-3.1 depends on package: py27-vobject>=0.4.8 - found
+===>   gcalcli-3.1 depends on file: /usr/local/bin/python2.7 - found
+===>   Generating temporary packing list
+/bin/mkdir -p /wrkdirs/usr/ports/deskutils/gcalcli/work/stage/usr/local/bin
+install  -o root -g wheel -m 555 /wrkdirs/usr/ports/deskutils/gcalcli/work/insanum-gcalcli-3a13fe1/gcalcli /wrkdirs/usr/ports/deskutils/gcalcli/work/stage/usr/local/bin
+/bin/mkdir -p /wrkdirs/usr/ports/deskutils/gcalcli/work/stage//usr/local/share/doc/gcalcli
+install  -o root -g wheel -m 0644 /wrkdirs/usr/ports/deskutils/gcalcli/work/insanum-gcalcli-3a13fe1/ChangeLog /wrkdirs/usr/ports/deskutils/gcalcli/work/stage/usr/local/share/doc/gcalcli
+(cd /wrkdirs/usr/ports/deskutils/gcalcli/work/insanum-gcalcli-3a13fe1/docs && /bin/sh -c '(/usr/bin/find -d $0 $2 | /usr/bin/cpio -dumpl $1 >/dev/null  2>&1) &&  /usr/sbin/chown -Rh root:wheel $1 &&  /usr/bin/find -d $0 $2 -type d -exec chmod 755 $1/{} \; &&  /usr/bin/find -d $0 $2 -type f -exec chmod 444 $1/{} \;' -- . /wrkdirs/usr/ports/deskutils/gcalcli/work/stage/usr/local/share/doc/gcalcli)
+====> Compressing man pages (compress-man)
+===========================================================================
+====> Running Q/A tests (stage-qa)
+====> Checking for pkg-plist issues (check-plist)
+===> Parsing plist
+===> Checking for items in STAGEDIR missing from pkg-plist
+===> Checking for items in pkg-plist which are not in STAGEDIR
+===> No pkg-plist issues found (check-plist)
+====>> Checking for staging violations... done
+=======================<phase: package        >============================
+===>  Building package for gcalcli-3.1
+===========================================================================
+=======================<phase: install-mtree  >============================
+===========================================================================
+=======================<phase: install        >============================
+===>  Installing for gcalcli-3.1
+===>   gcalcli-3.1 depends on package: py27-dateutil>=0 - found
+===>   gcalcli-3.1 depends on package: py27-gflags>=0 - found
+===>   gcalcli-3.1 depends on package: py27-httplib2>=0 - found
+===>   gcalcli-3.1 depends on package: py27-google-api-python-client>=0 - found
+===>   gcalcli-3.1 depends on package: py27-parsedatetime>=0 - found
+===>   gcalcli-3.1 depends on package: py27-vobject>=0.4.8 - found
+===>   gcalcli-3.1 depends on file: /usr/local/bin/python2.7 - found
+===>  Checking if gcalcli already installed
+===>   Registering installation for gcalcli-3.1
+pkg-static: DEVELOPER_MODE: Notice: arch "freebsd:9:*" -- no architecture specific files found:
+**** could this package use a wildcard architecture?
+===========================================================================
+====>> Checking shared library dependencies
+=======================<phase: deinstall      >============================
+===>  Deinstalling for gcalcli
+===>   Deinstalling gcalcli-3.1
+Updating database digests format... done
+Checking integrity... done (0 conflicting)
+Deinstallation has been requested for the following 1 packages (of 0 packages in the universe):
+
+Installed packages to be REMOVED:
+	gcalcli-3.1
+
+The operation will free 1 MB.
+[fbsd92-testport] [1/1] Deleting gcalcli-3.1... done
+===========================================================================
+====>> Checking for extra files and directories
+====>> Installing from package
+[fbsd92-testport] Installing gcalcli-3.1... done
+====>> Cleaning up
+===>  Cleaning for gcalcli-3.1
+====>> Deinstalling package
+Updating database digests format... done
+Checking integrity... done (0 conflicting)
+Deinstallation has been requested for the following 1 packages (of 0 packages in the universe):
+
+Installed packages to be REMOVED:
+	gcalcli-3.1
+
+The operation will free 1 MB.
+[fbsd92-testport] [1/1] Deleting gcalcli-3.1... done
+build of /usr/ports/deskutils/gcalcli ended at Wed Dec  3 09:54:48 CST 2014
+build time: 00:00:16

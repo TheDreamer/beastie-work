@@ -52,9 +52,9 @@ audio/espeak
 
 		PULSEAUDIO_USE=	CXXSTD=gnu99
 
-	Or some varition of the sort.  Along the way, I considered the that perhaps the issue was the base GNU
+	Or some variation of the sort.  Along the way, I considered the that perhaps the issue was the base GNU
 	compilers weren't new enough (later found a document that indicated that one of the things it had
-	complained about first appeared in 4.3, and base compilers are 4.2.1. So the attempts became:
+	complained about first appeared in 4.3, and base compilers are 4.2.1.) So the attempts became:
 
 		PULSEAUDIO_USE= GCC=yes CXXSTD=gnu++99
 
@@ -203,6 +203,26 @@ deskutils/gcalcli
 	Which was the main reason I was fiddling with gcalcli today.
 
 	PR: ports/187619
+
+	On November 17th, Google pulled the plug on its deprecated V2 Calendar API.  Found that gcalcli had apparently
+	undergone a complete rewrite to support V3 differently, but no releases had been made/tagged.  So, I devised a quick
+	and dirty patch to grab its state on 2014-10-31.  So, created a PORTVERSION of 3.0.a.20141031.  Not really clear
+	whether its 3.0.a.20141031 or 3.1.a.20141031 that comes before 3.1, so opted to err on the cautious side, figuring
+	I'd get corrected after I submitted....
+
+	Now on December 3rd, after returning from my annual trip to Chicago TARDIS, I went to work on cleaning this up for
+	submission....only to find that releases have now been tagged.  The v3.1 tag appears to have occured yesterday.
+
+	So, off to update my patch to do this version.
+
+	Got my answer.... on zen I had installed it as 3.1.a.20141031, while on dbox as 3.0.a.20141031.  Locked the pkg on
+	both to protect against it getting downgraded to 2.4.2 when doing an upgrade from my private poudriere package
+	repos.  Well, went to install 3.1 on zen, and portmaster stumbled that an older version 3.1.a.20141031 was already
+	installed....
+
+	Should go through `poudriere testport` without a hitch right....
+
+	PR: 195617
 
 deskutils/recoll
 
