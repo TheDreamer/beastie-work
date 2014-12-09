@@ -440,6 +440,14 @@ mail/evolution
 
 	PR: ports/188525
 
+mail/thunderbird
+
+	A strange little bug that was introduced somewhere, but didn't surface until the recent 31.3.0 update.  Appears
+	the definition of CONFIGURE_TARGET changed in `bsd.gecko.mk` as part of this update.  Switching the order of two
+	lines fixes the configuration error that had resulted.
+
+	PR: 195728
+
 math/octave
 math/octave-forge
 
