@@ -354,6 +354,43 @@ editors/lazarus
 	fixed the deinstall in this version, and a later rebuild/reinstall and then delete of this build depend worked
 	without my hack.
 	
+graphics/jpeg-turbo
+
+	When I discovered this port, by installing `net/tigervnc` it used to be a single port named `graphics/libjpeg-turbo`
+	and was a drop-in replacement for `graphics/jpeg`, though had to make a tweak here and there for it.  Initially, I
+	had done it with 'portmaster -o graphics/libjpeg-turbo jpeg-....`  But, as ports got updated it soon caused lots
+	of problems.
+
+	So, after numerous iterations, I have CFEngine invoke a script called `do-jpeg-override` which goes through my
+	ports tree(s) and changes the dependencies for `graphics/jpeg` to `graphics/libjpeg-turbo`.  Later it got a bit more
+	complicated when the part that I wanted got renamed `graphics/jpeg-turbo`.
+
+	The *pkg-descr* of `graphics/jpeg-turbo` is:
+
+		This is a drop-in replacement for the graphics/jpeg library. It does not
+		include libturbojpeg.so (see graphics/libjpeg-turbo).
+
+	And, *pkg-descr* of `graphics/libjpeg-turbo` is:
+
+		This is the libjpeg-turbo library.
+
+	The latter depends on the first, and is pulled in by `net/tigervnc`.  The challenge was avoid the run away
+	substitution.
+
+	But, then on Oct 20, 2014 there's a commit of just 'Cleanup plist', which ends this port as a drop in replacement,
+	and no longer in conflict, etc.  Not what it says it does or how I want to use it.  It was updated from 1.3.0 to
+	1.3.1 as well.
+
+	So, I made a patch to make it a drop-in replacement again.  And, continue to use it as such.
+
+	But, then yesterday (Dec 8, 2014), there's a commit to "Replace USES=libtool:oldver with USES=libtool or
+	USES=libtool:keepla in 32 ports that still use it."  Which drastically changes the Makefile, and bumps the version
+	number.  Among the other ports, is `graphics/jpeg`.
+
+	I decide it time to give up and just use `graphics/jpeg` everywhere except with `net/tigervnc`....
+
+	Maybe I'll submit a PR that the *pkg-descr*, is now wrong.
+
 irc/irssi
 
 	Since DateTime::TimeZone 1.70, a number of my irssi plugins (including twirssi) had stopped working.  Errors of
@@ -401,8 +438,6 @@ irc/irssi
 
 	GH: https://github.com/irssi/irssi/issues/132
 
-	PR: ???
-
 irc/irssi-otr
 
 	irc/bitlbee was updated to need security/libotr (4.0.0) while irc/irssi-otr still depends on security/libotr3.  With
@@ -414,6 +449,23 @@ irc/irssi-otr
 	After many attempts, I got portmaster to build and install it.
 
 	PR: 192026
+
+mail/dcc-dccd
+
+	Recently notice that this package got staged and has reappeared in ports.  I was kind of using it, though not really
+	sure how much impact it has.
+
+	However, it just won't build in poudriere.  Seems poudriere does a mixture of installing a pile of depends before
+	starting the build, and then various depends as the build discovers its in need of additional dependencies.
+
+	This seem to not meet this ports Makefile's expectation that a prior OptionsNG knob introducing a dependency for
+	`mail/sendmail`, and the older PORT_OPTIONS check of another options requires `mail/sendmail` to have been installed
+	before starting the pre-build parts of the Makefile.
+
+	After some investigation of other ports I'd expect to have issues, found the define **PACKAGE_BUILDING**, and that
+	get's this port to build into my private poudriere pkgng repo.
+
+	PR: ???
 
 mail/dovecot2
 
@@ -469,8 +521,24 @@ math/orpie
 	What's interesting is that 1.5.1 came out 2007-09-13, where the first change after it was 2007-09-17.  The changes
 	for compability with OCaml 3.11 was on 2010-03-06, and the update catches a division by zero.
 
-	PR: ports/??????
+	*Forgot about this port, and somebody else updated it....*
 
+	PR: 190901
+
+multimedia/ffmpegthumbnailer
+
+	On December 1st, this updated port failed to build for me.  After a quick head scratch, I figured out the next
+	day that adding `compiler:c++11-lang` to **USES** would make it build.
+
+	But, didn't get to it until the 8th, to decide I should submit.  Though somebody submitted about 4.5 hours after
+	I had made my patch to fix build on 8.4, followed by a report today that it fixes the problem on 9.3. I'm still on
+	9.2, should maybe see about upgrading soon.
+
+	One difference though is the submitter used `compiler:c++11-lib` and patched a header file.  Wonder which is
+	rigth?
+
+	PR: 195600
+	
 net/boinc-client
 
 	When I first started running boinc on FreeBSD, I discovered to my delight that VirtualBox was detected and usable

@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-09-11 08:34:39.000000000 -0500
++++ Makefile	2014-11-26 22:10:34.005160427 -0600
+@@ -84,7 +84,7 @@
+ 
+ ## dccm milter support
+ #
+-.if ${PORT_OPTIONS:MDCCM}
++.if ${PORT_OPTIONS:MDCCM} && !defined(PACKAGE_BUILDING)
+ 
+ .if !exists(/usr/lib/libmilter.a) && !exists(${LOCALBASE}/lib/libmilter.a)
+ IGNORE=		neither base system nor Ports version of Sendmail installed, cannot build milter
