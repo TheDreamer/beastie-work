@@ -587,6 +587,16 @@ net/nxserver
 
 	PR: ports/183825
 
+net-mgmt/nagios-check_dhcp.pl
+
+	Oh noes, it seems to be broke.  Well, I updated some of its dependencies.  Which one was it.  Looks like
+	IO::Interface is deprecated, IO::Interface::Simple is the way to go now.  Whip up a quick patch to make it use
+	that and it looks good.
+
+	Then turn it into a patch, run it through `poudriere testport` and off to submit....
+
+	PR: 196528
+
 security/gnutls3
 
 	Recently this port updated, and it wants security/openssl to be installed as well.  But, I don't want that.
@@ -784,6 +794,13 @@ sysutils/panicmail
 
 	Decided to do the nasty, and patch /usr/sbin/crashinfo to use kernel.symbols with kgdb (if available, or
 	specified.)
+
+	2015-01-03: Post upgrade to 9.3-RELEASE-p7, there have been a number of panics.  The first few from needing to
+	update ports (particularly `emulators/virtualbox-ose-kmod`).  Though there have been later panics as well. 
+	Wonder what's keep my modified panicmail script in place against my personal poudriere package repository.
+	I probably locked it.  But, notice that my version differs from what I had in git, and also notice that the port
+	got updated a bit recently.  So, I rework it quickly as patch against the current-ish, and continue to be
+	undecided if I want to submit anything at all...  Not sure if anything happens to the reports yet....
 
 sysutils/pefs-kmod
 

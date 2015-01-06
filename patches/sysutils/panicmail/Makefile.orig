@@ -1,4 +1,4 @@
-# $FreeBSD: head/sysutils/panicmail/Makefile 332673 2013-11-04 08:57:06Z cperciva $
+# $FreeBSD: head/sysutils/panicmail/Makefile 374505 2014-12-11 00:40:16Z feld $
 
 PORTNAME=	panicmail
 PORTVERSION=	1.0
@@ -8,7 +8,7 @@ MASTER_SITES=	http://www.daemonology.net/panicmail/
 MAINTAINER=	cperciva@FreeBSD.org
 COMMENT=	Automatically report kernel panics
 
-LICENSE=	BSD
+LICENSE=	BSD2CLAUSE
 
 RUN_DEPENDS=	pkesh:${PORTSDIR}/security/pkesh
 

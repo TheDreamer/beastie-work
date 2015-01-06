@@ -1,0 +1,3 @@
+rm -f patch
+diff -Nu Makefile.orig Makefile > patch
+diff -Nu files/patch-check_dhcp.pl.orig files/patch-check_dhcp.pl >> patch
