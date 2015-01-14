@@ -1,0 +1,44 @@
+Re: [tigervnc-devel] Ubuntu trusty build failures
+
+Alan Coopersmith Thu, 11 Dec 2014 17:34:03 -0800
+
+On 12/11/14 05:19 PM, Brian Hinz wrote:
+As of yesterday, upstream patches to the ubuntu 14.04 xorg-server-source package
+cause our build to fail with the following error:
+
+../../include/regionstr.h: In function 'void RegionInit(RegionPtr, BoxPtr, 
+int)':
+../../include/regionstr.h:147:45: error: invalid conversion from 'void*' to 
+'pixman_region16_data_t* {aka pixman_region16_data*}' [-fpermissive]
+              (((_pReg)->data = malloc(rgnSize)) != NULL)) {
+
+Still looking into what changed that's now causing this, but thechangelog  
+<http://changelogs.ubuntu.com/changelogs/pool/main/x/xorg-server/xorg-server_1.15.1-0ubuntu2.5/changelog>
+  references CVEs so we should probably review them to make sure the 1.4.0 release is 
+not affected.
+
+Sorry, I'm a C programmer, so I'm in the habit of deleting casts of malloc()
+results, forgetting that breaks C++.
+
+After the patches were released, I also found late yesterday that this change
+had broken our  TigerVNC 1.1 package build on Solaris:
+
+-        if (((_size) > 1) && ((_pReg)->data =
+-                              (RegDataPtr) malloc(RegionSizeof(_size)))) {
++        if (((_size) > 1) && ((rgnSize = RegionSizeof(_size)) > 0) &&
++            (((_pReg)->data = malloc(rgnSize)) != NULL)) {
+
+from http://cgit.freedesktop.org/xorg/xserver/commit/?id=97015a07b9e15d8ec5608b95d95ec0eb51202acb
+
+I can make it build again by putting the (RegDataPtr) back but was hoping we
+could find some way to make extern "C" { ... } or similar convince the compiler
+C code was okay, since on the upstream Xorg side we have no way of knowing when
+our C changes break VNC trying to use our C code as C++ code.
+
+--
+        -Alan Coopersmith-              alan.coopersm...@oracle.com
+         Oracle Solaris Engineering - http://blogs.oracle.com/alanc
+_______________________________________________
+xorg-devel@lists.x.org: X.Org development
+Archives: http://lists.x.org/archives/xorg-devel
+Info: http://lists.x.org/mailman/listinfo/xorg-devel

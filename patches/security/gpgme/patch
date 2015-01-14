@@ -1,0 +1,13 @@
+--- Makefile.orig	2014-09-17 10:05:18.000000000 -0500
++++ Makefile	2014-11-21 18:12:21.580157587 -0600
+@@ -37,8 +37,8 @@
+ GNUPG1_RUN_DEPENDS=	gpgv:${PORTSDIR}/security/gnupg1
+ 
+ GNUPG2_DESC=		Build gpgme library for GnuPG 2.x
+-GNUPG2_BUILD_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg
+-GNUPG2_RUN_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg
++GNUPG2_BUILD_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg20
++GNUPG2_RUN_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg20
+ 
+ UISERVER_DESC=			GnuPG UI server support
+ UISERVER_CONFIGURE_ENABLE=	fd-passing

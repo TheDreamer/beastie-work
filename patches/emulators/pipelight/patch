@@ -1,0 +1,20 @@
+--- Makefile.orig	2014-12-16 12:35:35.000000000 -0600
++++ Makefile	2015-01-12 12:22:03.760140928 -0600
+@@ -18,7 +18,7 @@
+ LICENSE=	LGPL21
+ LICENSE_FILE=	${WRKSRC}/LICENSE
+ 
+-BUILD_DEPENDS=	${LOCALBASE}/bin/gpg2:${PORTSDIR}/security/gnupg \
++BUILD_DEPENDS=	${LOCALBASE}/bin/gpg:${PORTSDIR}/security/gnupg1 \
+ 		${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash
+ LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2
+ RUN_DEPENDS=	${LOCALBASE}/bin/bash:${PORTSDIR}/shells/bash \
+@@ -26,7 +26,7 @@
+ 		${LOCALBASE}/bin/zenity:${PORTSDIR}/x11/zenity \
+ 		${LOCALBASE}/bin/cabextract:${PORTSDIR}/archivers/cabextract \
+ 		${LOCALBASE}/bin/flock:${PORTSDIR}/sysutils/flock \
+-		${LOCALBASE}/bin/gpg2:${PORTSDIR}/security/gnupg
++		${LOCALBASE}/bin/gpg:${PORTSDIR}/security/gnupg1
+ 
+ WRKSRC=		${WRKDIR}/mmueller2012-pipelight-79b1b7ba0032
+ USE_GCC=	yes

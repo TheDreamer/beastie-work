@@ -1,0 +1,14 @@
+--- Makefile.orig	2014-11-19 05:49:04.000000000 -0600
++++ Makefile	2015-01-12 08:42:34.350138972 -0600
+@@ -29,4 +29,11 @@
+ LDFLAGS+=	-L${LOCALBASE}/lib
+ INSTALL_TARGET=	install-strip
+ 
++.include <bsd.port.pre.mk>
++
++# because webkit-gtk3 needs it
++.if ${OSVERSION} < 1000000
++USES+= compiler:c++11-lib
++.endif
++
+ .include <bsd.port.mk>

@@ -1,0 +1,12 @@
+--- doc/Makefile.am.orig	2014-11-24 19:26:31.370159199 -0600
++++ doc/Makefile.am	2014-11-24 19:29:46.885159241 -0600
+@@ -32,7 +32,8 @@
+ 
+ info_TEXINFOS = gnupg1.texi
+ 
+-man_MANS = $(myman_pages) gnupg.7 gpg-zip.1
++man_MANS = $(myman_pages) gpg-zip.1
++noinst_MANS = gnupg.7
+ 
+ gnupg1_TEXINFOS = gnupg1.texi
+ 

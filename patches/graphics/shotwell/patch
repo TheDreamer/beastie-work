@@ -1,0 +1,25 @@
+--- Makefile.orig	2014-12-20 18:16:45.000000000 -0600
++++ Makefile	2015-01-13 09:54:05.966828854 -0600
+@@ -42,10 +42,21 @@
+ 
+ .include <bsd.port.options.mk>
+ 
++# because webkit-gtk3 needs it
++.if ${OSVERSION} < 1000000
++USES+=		compiler:c++11-lib
++
+ .if ${PORT_OPTIONS:MOPENMP}
+-USE_GCC=	yes
++LDFLAGS+=	-lstdc++
++.endif
++
++.else
++.if ${PORT_OPTIONS:MOPENMP}
++USES+=		compiler:openmp
++LIB_DEPENDS+=	libc++.so:${PORTSDIR}/devel/libc++
+ LDFLAGS+=	-lc++
+ .endif
++.endif
+ 
+ SHEBANG_FILES=	${WRKSRC}/${CONFIGURE_SCRIPT} ${WRKSRC}/chkver
+ 

@@ -1,0 +1,36 @@
+--- Makefile.ttf.orig	2014-07-18 13:41:53.000000000 -0500
++++ Makefile.ttf	2014-12-29 16:48:00.251200986 -0600
+@@ -17,8 +17,6 @@
+ PLIST_SUB+=	FONTSDIR=${FONTSDIR_REL}
+ 
+ XFONTSDIR?=	${LOCALBASE}/lib/X11/fonts/TrueType
+-XFONTSDIR_REL=	${XFONTSDIR:S,${LOCALBASE}/,,}
+-PLIST_SUB+=	XFONTSDIR=${XFONTSDIR_REL}
+ 
+ .if ${PORT_OPTIONS:MX11}
+ RUN_DEPENDS+=	${LOCALBASE}/bin/fc-cache:${PORTSDIR}/x11-fonts/fontconfig
+@@ -50,6 +48,7 @@
+ 	@${FALSE}
+ .endif
+ 
++.if !defined(PACKAGE_BUILDING)
+ post-install: do-install-ttf
+ do-install-ttf:
+ .if defined(_TTF_MODULES)
+@@ -64,6 +63,7 @@
+ 	@${ECHO_MSG} "===>  Running fc-cache"
+ 	-@${LOCALBASE}/bin/fc-cache -f -v ${STAGEDIR}${XFONTSDIR}
+ .endif
++.endif
+ 
+ add-plist-post: add-plist-ttf
+ add-plist-ttf:
+@@ -83,8 +83,6 @@
+ .if ${PORT_OPTIONS:MX11}
+ 	@${ECHO_CMD} "@unexec ${LOCALBASE}/bin/fc-cache -f -v ${XFONTSDIR} || true" >> ${TMPPLIST}
+ 	@${ECHO_CMD} "@exec ${LOCALBASE}/bin/fc-cache -f -v ${XFONTSDIR} || true" >> ${TMPPLIST}
+-	@${ECHO_CMD} "@unexec find ${XFONTSDIR} -size -3c -delete || true" >> ${TMPPLIST}
+-	@${ECHO_CMD} "@dirrmtry ${XFONTSDIR}" >> ${TMPPLIST}
+ .endif
+ 	@${ECHO_CMD} "@dirrmtry ${FONTSDIR}" >> ${TMPPLIST}
+ 	@${ECHO_CMD} "@dirrmtry share/fonts" >> ${TMPPLIST}

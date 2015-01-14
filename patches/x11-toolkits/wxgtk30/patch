@@ -1,0 +1,15 @@
+--- Makefile.orig	2014-12-25 14:54:41.000000000 -0600
++++ Makefile	2015-01-04 17:44:54.820737801 -0600
+@@ -52,4 +52,12 @@
+ MSPACK_CONFIGURE_WITH=	libmspack
+ MSPACK_LIB_DEPENDS=	libmspack.so:${PORTSDIR}/archivers/libmspack
+ 
++.include <bsd.port.pre.mk>
++
++# because webkit-gtk2 needs it
++.if ${OSVERSION} < 1000000
++USES+= compiler:c++11-lib
++CONFIGURE_ARGS+=	--disable-precomp-headers
++.endif
++
+ .include <bsd.port.mk>

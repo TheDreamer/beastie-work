@@ -90,6 +90,21 @@ audio/gsm
 
 	PR: 191971
 
+chinese/ttfm
+
+	For the longest time when I started running poudriere, `chinese/arphicttf` would fail leading to
+	`misc/freebsd-doc-en` getting skipped.
+
+	Eventually, I found that the problem was with _Makefile.ttf_ under `chinese/ttfm`.  This 'Makefile' is not used by
+	this port, but is for ports that depend on this port to use it during their build.
+
+	Seems the post-install isn't applicable if PACKAGE_BUILDING, though it seems to me its not applicable for staging
+	in general.  Then there was the package trying to remove something it didn't create.
+
+	Now I finally have my own copy of `misc/freebsd-doc-en` from poudriere :)
+
+	PR: 196702
+
 conf
 
 	These are patches I've made to /etc/periodic/daily/100.clean-disks and /etc/periodic/security/100.chksetuid
@@ -353,7 +368,62 @@ editors/lazarus
 	Turns out the problem was stray files left behind by the old version causing problems.  The maintainer says he
 	fixed the deinstall in this version, and a later rebuild/reinstall and then delete of this build depend worked
 	without my hack.
-	
+
+emulators/pipelight
+
+	Due to the death of support for NPAPI plugins by `www/chromium`, I've been looking for alternatives to restoring
+	some of the lost plugin functionality.  During the search, I had come across a pointer to `multimedia/moonlight`.
+	Namely by trying to join a Microsoft Lync meeting, which requires Silverlight (which I had partly been able to do
+	with an earlier chromium release) and was suggested that I look for Moonlight.  Which may or may not still be a
+	supported offering on Linux, but had dropped out of ports back in 2012.
+
+	Meanwhile, in earlier searches, I had come across reference to `emulators/pipelight`.  And, thought I had already
+	installed it, or was at least already building it in *poudriere*.  I discovered that while I had created a UFS zvol
+	for ~/.wine-pipelight, and induced a number of system panics due to trying to extend my snapshot backup scripts to
+	handle this.  But, since its not in use yet, currently skip for now.  Though someday I'll need to, as I also have
+	other UFS zvol filesystems that I will eventually want to back up.  The other being bounced around using CARP/HAST,
+	which I haven't had time to continue working on that project.
+
+	The *pipelight* project being described as __"Windows plugins in Linux browsers"__, where FreeBSD is listed as a
+	supported system ;)  Was mainly looking for Flash, but Silverlight is on the list.  Not sure about others.
+
+	Though what had diverted by attention for a while, was whether it was possible to install the Chrome for CentOS 6
+	into the linuxulator and have `www/chromium` access that.  But, there didn't seem to be a way to port compatible
+	way to wrap it, the download is always the latest version, or a simple way to call it from chromium (have to parse
+	plugin's manifest to generate some of the commandline flags to add it to the browser's command line.  Given more
+	time I'd probably have devised something, but haven't got past the first step of having it work.)  In an earlier
+	time, I had wondered if it would be possible to use the Mac OS X Flash on FreeBSD....and since learning that clang
+	and LLVM are associated with Apple, it does raise the question of whether code generated to use LLVM libraries
+	code be made to run with mimimal effort by switching out the LLVM libraries?  Perhaps my recollection is blurred
+	by my past where (*commercial*) software products that were sufficient abstracted that supporting other systems
+	started by creating new system specific libraries.  Where other products had been developed onto a proprietary 'xVM'
+	(which I believe also had orginated from the University of Illinois) where the push was to convert it to use an
+	industry recognized language and use that xVM....namely Java & JVM.
+
+	Anyways...I found this port would not build in *poudriere*.  Eventually, I tried to build it outside of *poudriere*
+	where it worked.  Causing me to finally start an interactive jail to see what was different inside of *poudriere*
+	versus on the outside.  Found the port uses gpg, but its set to depend on gpg2.  Which in the absence of gpg,
+	creates a symlink.  Evidentally, not sufficiently compatible for pipelight though.
+
+	So, switched it to use `security/gnupg1`.
+
+	PR: 196708
+
+finance/gnucash
+
+	On Dec 25th, 2014, `www/webkit-gtk2` was updated to 2.4.7.  This lead to a number of ports failing to build due to
+	its use of __compiler:c++11-lib__.  And, since I had waited to after Christmas to finally get around to updating
+	to 9.3, which requires a rebuild of all my ports, this was preventing from reaching that target until late on
+	January 8th, 2015.  There was a patch to this port (on December 30th, specifically for 8.x but also applicable to
+	9.x) to also use that, but it wasn't sufficient to get things to build for me.
+
+	After lots of trial and error, I eventually settled on injecting `LD_LIBRARY_PATH=/usr/local/lib/gcc48` into the
+	*MAKE_ENV*.
+
+	Wonder if I should wait to see if everything still builds with the update of `www/webkit-gtk2` to 2.4.8?
+
+	PR: 196704
+
 graphics/jpeg-turbo
 
 	When I discovered this port, by installing `net/tigervnc` it used to be a single port named `graphics/libjpeg-turbo`
@@ -390,6 +460,23 @@ graphics/jpeg-turbo
 	I decide it time to give up and just use `graphics/jpeg` everywhere except with `net/tigervnc`....
 
 	Maybe I'll submit a PR that the *pkg-descr*, is now wrong.
+
+graphics/shotwell
+
+	Finally, there was this port that broke after the update to `www/webkit-gtk3`.  Which was the last that I expected
+	to run into.  But, was a little bit more complicated to resolve.  In that, the OPENMP option has code compiled with
+	gcc that links against libc++ which was a dependency of `www/webkit-gtk3` prior to its switch to being compiled with
+	`USES= compiler:c++11-lib`.
+
+	This does bring in to question whether using `compiler:c++11-lib` is limited to FreeBSD releases less than 10, but
+	I come up with something that maintains the separation.  Though a quick glance at freshports, seems to say that
+	`www/webkit-gtk3` was the primary consumer of `devel/libc++`.  "libc++" being a c++11-lib for use with prior gcc
+	compilers.  Where *USES* of `compiler:openmp` had done *USE_GCC* part of this, and a *USES* of
+	`compiler:gcc-c++11-lib` would take this futher with a *LIB_DEPENDS* for 'libc++s.o' but make changes to other
+	environment variables that differed from what was needed in this port.  So, opted to only switch to *USES* of
+	`compiler:openmp` and insert a *LIB_DEPENDS* for the pre-existing *LDFLAGS* mod.
+
+	PR: 196707
 
 irc/irssi
 
@@ -491,6 +578,11 @@ mail/evolution
 	updated pkg-plist.
 
 	PR: ports/188525
+
+	After looking at `x11-fm/sushi`, I look see why this port had failed and found the same issue.  Resolved with the
+	same fix.
+
+	PR: 196706
 
 mail/thunderbird
 
@@ -597,6 +689,26 @@ net-mgmt/nagios-check_dhcp.pl
 
 	PR: 196528
 
+security/gnupg1
+
+	With the `security/gnupg` moving up to 2.1, and the previous 2.0 becoming `security/gnupg20`, caused conflicts
+	despite the claim that they should all be able to be installed together.  What had been done upstream to make this
+	possible was to suppress the installation of `gnupg.7` in the 2.0 version, to avoid colliding with the one installed
+	by the 1.x version.
+
+	But, this suppression wasn't being done with 2.1, there were various bugs going back and forth between having other
+	ports move forward to working with 2.1 or staying behind with 2.0.  Where it wasn't possible to have both.  But, as
+	I understand, it is intended that, at least, `gnupg1` can be installed with either `gnupg20` or `gnupg(21)`.
+
+	Eventually, I reported the conflict of the 2.1 version installing 'gnupg.7' versus the 1.x version installing it as
+	well.  Decision upstream was about time that the 2.1 version win, and that in a future update (which would likely be
+	dependent on somebody finding a security vulnerability...) the patch to stop install the the 1.x version of `gnupg.7`
+	would get included.
+
+	This doesn't help until that time, so a patch of some form would be necessary.  And, I had commented on a bug or two
+	that had been filed against `security/gnupg`, and eventually things seemed to settle on suppressing `gnupg.7` from
+	`security/gnupg1`.
+
 security/gnutls3
 
 	Recently this port updated, and it wants security/openssl to be installed as well.  But, I don't want that.
@@ -611,6 +723,13 @@ security/gnutls3
 	the '--check' option with danetool3.
 
 	PR: ports/188184
+
+security/gpgme
+
+	Before the resolution with ports such as `security/seahorse`, the conflict problem of version 2.0 vs version 2.1.
+	I had run into this port with depends for the 2.1 version.  Where `security/seahorse` below was at first being
+	patched to use 2.0, rather than my patch to have it accept 2.1.  So, I had started to do the same here.  Until
+	it was decided to go with 2.1....
 
 security/seahorse
 
@@ -899,7 +1018,7 @@ ports-mgmt/portrac
 pr178818
 
 	docs/178818 
-		gmirror(8) says to use rc.eary which is no longer available
+		`gmirror(8)` says to use rc.eary which is no longer available
 
 	proposed fix is to automate this in the dumpon script, which had one small flaw, which I corrected.  And, then tried
 	to recall how to include a patch that won't get munged by mail client....
@@ -1009,7 +1128,7 @@ x11/nvidia-driver-304
 		MMM.mm	  => MMM0mm00 or MMM.0mm
 		MMM.mmm   => MMMmmm00 or MMM.mmm
 
-	The latter is simiplier....
+	The latter is simplier....
 
 	Now to test.... which didn't go so well, as there were numerous pkg-plist problems lurking in the port that needed to be
 	taken care of first.  `poudriere testport` tests for things that apparently aren't normally the end of the world.
@@ -1018,11 +1137,33 @@ x11/nvidia-driver-304
 
 	PR:
 
+x11-fm/sushi
+
+	Well, with the update of `www/webkit-gtk2` & `www/webkit-gtk3` to 2.4.8, the result is that the latter now also USES
+	`compiler:c++11-lib`.  Which causes this port to fail until a modification similiar to getting ports affected by
+	the update of `www/webkit-gtk2` to 2.4.7 to be gone.
+
+	PR: 196705
+	
 x11-server/xorg-nestserver
 
 	Options wouldn't stick, causing portmaster to ask for them over and over again.  A quick patch to fix.
 
 	PR: ports/188848
+
+x11-toolkits/wxgtk30
+
+	Related to the Dec 25th, 2014 upgrade of `www/webkit-gtk2`, this port was also failing to build and resulting in
+	a number of skipped ports.  On January 4th, 2015, I noticed the change to `finance/gnucash`'s Makefile, so I
+	tried that addition here as well.  Eventually, found that I needed to make one additional change.  In addition to
+	this and the aforementioned, there had been two other ports failing.  But, after I fixed this the only one left
+	was `finance/gnucash`.  Didn't look to see if the other two had been related to this or if they had some other
+	problem.
+
+	I made one additional change of adding `--disable-precomp-headers`, didn't really want to chase down why this
+	had apparently worked with base gcc but not with gcc48.
+
+	PR: 196703
 
 www/lynx
 
