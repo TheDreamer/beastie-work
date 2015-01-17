@@ -1164,7 +1164,7 @@ x11-fm/sushi
 
 	Well, with the update of `www/webkit-gtk2` & `www/webkit-gtk3` to 2.4.8, the result is that the latter now also USES
 	`compiler:c++11-lib`.  Which causes this port to fail until a modification similiar to getting ports affected by
-	the update of `www/webkit-gtk2` to 2.4.7 to be gone.
+	the update of `www/webkit-gtk2` to 2.4.7 to be done.
 
 	PR: 196705
 	
