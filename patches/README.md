@@ -200,6 +200,29 @@ databases/sqlitemanager
 
 	PR: ??
 
+deskutils/calibre
+
+	It has been a while since I've used this app, like evidently pre-gnome3 or was it pre-9.3, having trouble remembering
+	when was the last time I used it.  Feels like it was before my last KUMC trip in December.  But, don't recall when I had
+	made the jump to gnome3...
+
+	But, clicking on it in the Appplications menu, or from the favorites section in my gnome-shell, wouldn't start.  It would
+	start in terminal window.
+
+	Eventually, it occurred to me that it might be doing something different from menu than starting it naked on commandline.
+
+	Yup.  The `calibre-gui.desktop` file has "Exec=calibre --detach %F".  I tried "calibre --detach" in a terminal window.
+
+	Result, it fails due to `"calibre: error: no such option: --detach"`.  Hmmm, do a online search.  Online man page has
+	next to the option `(linux only)`, guess we're not linux anymore....
+
+	Remove the `--detach` from the `calibre-gui.desktop` files, update the desktop database, restart gnome-shell, and try
+	starting it from menu.  It starts.  Now to figure out where its coming from, since they aren't source files.
+
+	It involves patching `linux.py`.
+
+	PR: 196817
+
 deskutils/gcalcli
 
 	Been trying to make use of the more advanced options of this, but haven't had much luck.  Went to see if there
