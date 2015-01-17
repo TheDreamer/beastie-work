@@ -495,7 +495,7 @@ graphics/shotwell
 	I come up with something that maintains the separation.  Though a quick glance at freshports, seems to say that
 	`www/webkit-gtk3` was the primary consumer of `devel/libc++`.  "libc++" being a c++11-lib for use with prior gcc
 	compilers.  Where *USES* of `compiler:openmp` had done *USE_GCC* part of this, and a *USES* of
-	`compiler:gcc-c++11-lib` would take this futher with a *LIB_DEPENDS* for 'libc++s.o' but make changes to other
+	`compiler:gcc-c++11-lib` would take this futher with a *LIB_DEPENDS* for 'libc++.so' but make changes to other
 	environment variables that differed from what was needed in this port.  So, opted to only switch to *USES* of
 	`compiler:openmp` and insert a *LIB_DEPENDS* for the pre-existing *LDFLAGS* mod.
 
