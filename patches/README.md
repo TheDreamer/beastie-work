@@ -689,6 +689,39 @@ net/freeradius2
 
 	PR: ports/188089
 
+net/p5-IO-Interface
+
+	After this port was upgraded from 1.06 to 1.09, I had incorrectly assumed that my port `net-mgmt/nagios-check_dhcp.pl`
+	failing was due to a problem with its use of IO::Interface methods marked as deprecated.
+
+	However, the patch (PR: 196528) didn't solve this problem.
+
+	The problem was that the check would fail with:
+
+	     Error: Illegal seek
+
+	And, in dmesg, lines like this would appear:
+
+	     WARNING pid 10917 (perl): ioctl sign-extension ioctl ffffffffc0206933
+	     WARNING pid 10917 (perl): ioctl sign-extension ioctl ffffffffc0206921
+
+	In deeper investigation, found that the probem was in `net/p5-IO-Interface`.
+
+	In looking at the change log, between 1.06 and 1.09.  The upstream applied a patch for a segfault in 1.07, and
+	another in 1.08.  1.08 was also the first Git version.  In 1.09, converted to use Module::Build.
+
+	The problem is that the CONFIGURE portion that was in Makefile.PL was not replicated into Build.PL, so it wasn't
+	checking if it was being built on FreeBSD, OpenBSD or NetBSD.  Or testing fo the presence of two headerfiles.  So,
+	the compile was missing 3 compiler flags (DEFINES) for FreeBSD.
+
+	I waited to see if this port would get fixed, or rolled back to 1.08, but didn't seem either wanted to take place.
+	So, after figureing out what specific change to Build.PL I needed and fed it into 'poudriere testport', I submitted
+	a report to CPAN for IO::Interface (#101985).
+
+	Made an additional change to the Makefile to satisfy a warning from *poudriere* QA.
+
+	PR: 197404
+
 net/nxserver
 
 	PORTREVISION got bumped to 9, due to newer libaudiofile.  But, it wouldn't build.  audiofile-config has been
