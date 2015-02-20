@@ -1,4 +1,4 @@
-# $FreeBSD: head/finance/gnucash/Makefile 376110 2015-01-03 08:47:51Z mva $
+# $FreeBSD: head/finance/gnucash/Makefile 377795 2015-01-24 15:07:39Z antoine $
 #   $MCom: ports/finance/gnucash/Makefile,v 1.26 2008/12/31 03:25:18 mezz Exp $
 
 PORTNAME=	gnucash
@@ -51,11 +51,11 @@ GTKMM_USE=		GNOME=gtkmm24
 GTKMM_CONFIGURE_ON=	--enable-gtkmm
 GTKMM_CONFIGURE_OFF=	--disable-gtkmm
 GUILE1_LIB_DEPENDS=     libguile.so:${PORTSDIR}/lang/guile
-GUILE1_BUILD_DEPENDS=	${LOCALBASE}/share/guile/1.8/slibcat:${PORTSDIR}/lang/slib-guile
-GUILE1_RUN_DEPENDS=	${LOCALBASE}/share/guile/1.8/slibcat:${PORTSDIR}/lang/slib-guile
+GUILE1_BUILD_DEPENDS=	slib-guile>0:${PORTSDIR}/lang/slib-guile
+GUILE1_RUN_DEPENDS=	slib-guile>0:${PORTSDIR}/lang/slib-guile
 GUILE2_LIB_DEPENDS=     libguile-2.0.so:${PORTSDIR}/lang/guile2
-GUILE2_BUILD_DEPENDS=	${LOCALBASE}/share/guile/2.0/slibcat:${PORTSDIR}/lang/slib-guile2
-GUILE2_RUN_DEPENDS=	${LOCALBASE}/share/guile/2.0/slibcat:${PORTSDIR}/lang/slib-guile2
+GUILE2_BUILD_DEPENDS=	slib-guile2>0:${PORTSDIR}/lang/slib-guile2
+GUILE2_RUN_DEPENDS=	slib-guile2>0:${PORTSDIR}/lang/slib-guile2
 
 USE_XORG=	x11
 USES=		desktop-file-utils gettext gmake libtool perl5 pkgconfig shebangfix tar:bzip2
