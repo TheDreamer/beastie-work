@@ -1,9 +1,9 @@
 # Created by: Kris Moore <kmoore@FreeBSD.org>
-# $FreeBSD: head/emulators/pipelight/Makefile 374813 2014-12-16 18:35:35Z kmoore $
+# $FreeBSD: head/emulators/pipelight/Makefile 376990 2015-01-14 01:25:55Z swills $
 
 PORTNAME=	pipelight
 DISTVERSION=	0.2.7.3
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	emulators
 MASTER_SITES=	https://bitbucket.org/mmueller2012/pipelight/get/ \
 		http://repos.fds-team.de/pluginloader/v${DISTVERSION}/:plg
