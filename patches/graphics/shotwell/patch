@@ -1,25 +1,23 @@
---- Makefile.orig	2014-12-20 18:16:45.000000000 -0600
-+++ Makefile	2015-01-13 09:54:05.966828854 -0600
-@@ -42,10 +42,21 @@
+--- Makefile.orig	2015-02-21 09:11:52.000000000 -0600
++++ Makefile	2015-03-22 10:21:38.110064518 -0500
+@@ -35,17 +35,14 @@
+ CONFIGURE_ARGS=	--prefix=${PREFIX} --disable-icon-update
+ CONFIGURE_ENV+=	--define=NO_CAMERA
+ INSTALLS_ICONS=	yes
++PORTSCOUT=	limitw:1,even
  
- .include <bsd.port.options.mk>
+ OPTIONS_DEFINE=	OPENMP
+ OPTIONS_DEFAULT=
+ OPENMP_DESC=	libraw uses OpenMP (implies GCC 4.6+)
  
-+# because webkit-gtk3 needs it
-+.if ${OSVERSION} < 1000000
-+USES+=		compiler:c++11-lib
-+
- .if ${PORT_OPTIONS:MOPENMP}
+-.include <bsd.port.options.mk>
+-
+-.if ${PORT_OPTIONS:MOPENMP}
 -USE_GCC=	yes
-+LDFLAGS+=	-lstdc++
-+.endif
-+
-+.else
-+.if ${PORT_OPTIONS:MOPENMP}
-+USES+=		compiler:openmp
-+LIB_DEPENDS+=	libc++.so:${PORTSDIR}/devel/libc++
- LDFLAGS+=	-lc++
- .endif
-+.endif
+-LDFLAGS+=	-lc++
+-.endif
++OPENMP_USES=		compiler:gcc-c++11-lib
++OPENMP_USES_OFF=	compiler:c++11-lib
  
  SHEBANG_FILES=	${WRKSRC}/${CONFIGURE_SCRIPT} ${WRKSRC}/chkver
  

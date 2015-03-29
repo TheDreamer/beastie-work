@@ -1,9 +1,9 @@
 # Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org> et al.
-# $FreeBSD: head/graphics/shotwell/Makefile 375143 2014-12-21 00:16:45Z bapt $
+# $FreeBSD: head/graphics/shotwell/Makefile 379522 2015-02-21 15:11:52Z makc $
 
 PORTNAME=	shotwell
 PORTVERSION=	0.20.2
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	GNOME/sources/shotwell/${PORTVERSION:R}
 
@@ -35,28 +35,14 @@ HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix=${PREFIX} --disable-icon-update
 CONFIGURE_ENV+=	--define=NO_CAMERA
 INSTALLS_ICONS=	yes
+PORTSCOUT=	limitw:1,even
 
 OPTIONS_DEFINE=	OPENMP
 OPTIONS_DEFAULT=
 OPENMP_DESC=	libraw uses OpenMP (implies GCC 4.6+)
 
-.include <bsd.port.options.mk>
-
-# because webkit-gtk3 needs it
-.if ${OSVERSION} < 1000000
-USES+=		compiler:c++11-lib
-
-.if ${PORT_OPTIONS:MOPENMP}
-LDFLAGS+=	-lstdc++
-.endif
-
-.else
-.if ${PORT_OPTIONS:MOPENMP}
-USES+=		compiler:openmp
-LIB_DEPENDS+=	libc++.so:${PORTSDIR}/devel/libc++
-LDFLAGS+=	-lc++
-.endif
-.endif
+OPENMP_USES=		compiler:gcc-c++11-lib
+OPENMP_USES_OFF=	compiler:c++11-lib
 
 SHEBANG_FILES=	${WRKSRC}/${CONFIGURE_SCRIPT} ${WRKSRC}/chkver
 
