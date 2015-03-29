@@ -1,0 +1,10 @@
+--- Makefile.orig	2015-01-03 02:47:51.000000000 -0600
++++ Makefile	2015-03-29 10:12:49.434993861 -0500
+@@ -33,6 +33,7 @@ NLS_CONFIGURE_OFF=	--disable-nls
+ RANDR_USE=		XORG=xrandr
+ RANDR_CONFIGURE_ENABLE=	randr
+ 
++VIDMODE_USE=		XORG=xxf86vm
+ VIDMODE_CONFIGURE_ENABLE=	vidmode
+ 
+ GUI_USES=		python
