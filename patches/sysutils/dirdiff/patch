@@ -1,0 +1,11 @@
+--- Makefile.orig	2014-02-18 11:19:25.000000000 -0600
++++ Makefile	2015-03-26 11:05:10.051034000 -0500
+@@ -23,7 +23,7 @@ CFLAGS+=	-fPIC -I${TCL_INCLUDEDIR}
+ post-patch:
+ 	@${REINPLACE_CMD} -e \
+ 		's|.0.0|.0|g ; \
+-		 s|^CFLAGS=|CFLAGS?=|g' ${WRKSRC}/Makefile
++		 s|^CFLAGS=.*|CFLAGS=${CFLAGS}|g' ${WRKSRC}/Makefile
+ 	@${REINPLACE_CMD} -e \
+ 		's|^exec wish |exec ${WISH} |' ${WRKSRC}/dirdiff
+ 

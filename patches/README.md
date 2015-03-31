@@ -951,6 +951,23 @@ sysutils/devcpu-data
 
 	PR: ports/191411
 
+sysutils/dirdiff
+
+	Since meld got displaced during upgrade to Gnome3, and re-installing it from ports seems to give why.  It just
+	doesn't seem to want to pick colors that are close to legible.  What came in its place with Gnome3 doesn't do
+	diffs of directories.  So, I finally decided to look at other ports.
+
+	Cheating, I first tried to install this port outside of _poudriere_.  It failed because I have CFLAGS set in my
+	/etc/make.conf, which overrides CFLAGS passed into the build environment.  The port had adjusted the CFLAGS line
+	in the port's Makefile to be conditional, so to not override what it was setting through environment.
+	Concluded the better `post-patch:` would be to change the CFLAGS in the Makefile to the CFLAGS that has been
+	generated through framework... 
+
+	PR: 199058
+
+	Occurs to me this was probably the issue with a previous port, though probably dealt with by other PRs since all
+	seems to have been working well for some time now.
+	
 sysutils/memtest86+
 
 	Doesn't build if ISO option is selected, the distribution Makefile is
