@@ -1,5 +1,15 @@
 PATCHES
 =======
+accessibility/redshift
+
+	This for some reason was failing to build in _poudriere_ on work computer due to missing dependency for VIDMODE.
+	The port had built fine outside of poudriere, so likely something else had installed the dependency.  Though
+	was confused as to why it had built fine in _poudriere_ on my home computer.  After digging around for a while,
+	discovered that I had changed the options for one of the deeper dependencies of `graphics/jasper`... and that
+	enabling OPENGL for that port had pulled in the otherwise missed direct dependency.
+
+	PR: 199004
+
 archivers/quazip
 
 	This port got updated, but it wouldn't build.  After some investigation, it was obviously a problem of conflict
@@ -501,6 +511,16 @@ graphics/shotwell
 
 	PR: 196707
 
+	Through discussions on OPENMP or not OPENMP and OSVERSION vs DragonFly BSD....settled on just doing:
+
+		OPENMP_USES=		compiler:gcc-c++11-lib
+		OPENMP_USES_OFF=	compiler:c++11-lib
+
+	The framework then takes care of whether base compiler or the ports compiler can meet the need, and in OPENMP case
+	if works out if `devel/libc++` is need from ports or not.  Suspect where DragonFly has base gcc that supports
+	c++11-lib that it doesn't need it. While FreeBSD 10+ has clang as its base compiler, which does support c++11-lib,
+	but isn't gcc so gcc from ports is used and therefore libc++ from ports is also needed ???
+	
 irc/irssi
 
 	Since DateTime::TimeZone 1.70, a number of my irssi plugins (including twirssi) had stopped working.  Errors of
