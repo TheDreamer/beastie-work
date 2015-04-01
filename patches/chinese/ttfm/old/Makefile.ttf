@@ -2,7 +2,7 @@
 # Date created:		17 Feb 2005
 # Whom:			leeym
 #
-# $FreeBSD: head/chinese/ttfm/Makefile.ttf 381876 2015-03-21 23:05:19Z bapt $
+# $FreeBSD: head/chinese/ttfm/Makefile.ttf 362223 2014-07-18 18:41:53Z leeym $
 #
 # The variable(s) for installing TrueType fonts.
 # TTF		- Name(s) of font file(s) installed in FONTSDIR. Mandatory.
@@ -16,8 +16,7 @@ FONTSDIR?=	${PREFIX}/share/fonts/TrueType
 FONTSDIR_REL=	${FONTSDIR:S,^${PREFIX}/,,}
 PLIST_SUB+=	FONTSDIR=${FONTSDIR_REL}
 
-USES+=		fonts
-XFONTSDIR?=	${LOCALBASE}/share/fonts/TrueType
+XFONTSDIR?=	${LOCALBASE}/lib/X11/fonts/TrueType
 
 .if ${PORT_OPTIONS:MX11}
 RUN_DEPENDS+=	${LOCALBASE}/bin/fc-cache:${PORTSDIR}/x11-fonts/fontconfig
