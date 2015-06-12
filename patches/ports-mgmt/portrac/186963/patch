@@ -1,0 +1,36 @@
+--- Makefile.orig	2013-11-22 12:48:41.000000000 -0600
++++ Makefile	2014-02-22 14:28:16.405015353 -0600
+@@ -3,7 +3,7 @@
+ 
+ PORTNAME=	portrac
+ PORTVERSION=	0.4
+-PORTREVISION=	1
++PORTREVISION=	2
+ CATEGORIES=	ports-mgmt
+ MASTER_SITES=	http://e-soul.org/distfiles/ \
+ 		http://home.e-soul.org/~mgp/distfiles/
+@@ -24,6 +24,10 @@
+ USE_BZIP2=	yes
+ USE_QT4=	gui moc_build
+ 
++.if defined(WITH_PKGNG)
++EXTRA_PATCHES+=	${FILESDIR}/extra-patch-PortChecker.cc
++.endif
++
+ do-install:
+ 		${INSTALL_PROGRAM} ${WRKDIR}/${DISTNAME}/portrac ${STAGEDIR}${PREFIX}/bin && \
+ 		${MKDIR} ${STAGEDIR}${DATADIR} && \
+--- files/extra-patch-PortChecker.cc.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/extra-patch-PortChecker.cc	2014-02-22 14:26:47.367015320 -0600
+@@ -0,0 +1,11 @@
++--- PortChecker.cc.orig	2011-05-29 04:27:22.000000000 -0500
+++++ PortChecker.cc	2014-02-22 14:26:23.633015152 -0600
++@@ -88,7 +88,7 @@
++ 	{
++ 		index = (preferences->getPreference(INDEX_PREF).c_str());
++ 	}
++-	execl("/usr/sbin/pkg_version", "pkg_version", "-I", index, (char *) 0);
+++	execl("/usr/sbin/pkg", "pkg", "version", "-I", index, (char *) 0);
++ 	perror("execl");
++ }
++ 

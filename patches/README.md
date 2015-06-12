@@ -21,11 +21,11 @@ archivers/quazip
 archivers/ruby-lha
 
 	In UPDATING on 20141008, the default ruby version was updated from 1.9 to 2.0.  Long ago, in addition to listing
-	where my *default versions* differed from *default* (ie `mysql=55p` instead of `mysql=55`), I had added in definitions
-	for all of the then *default* versions to `DEFAULT_VERSIONS=` in my `make.conf` file.  Partly to avoid *surprise*
-	changes, from forgetting to check `UPDATING` until after I had started updating my ports.  With the added benefit
-	that if I'm not ready to make the switch, I don't have to right away.  Additionaly, now that I'm doing unattended
-	daily poudriere builds, it avoids surprises to my package repo.
+	where my *default versions* differed from *default* (ie `mysql=55p` instead of `mysql=55`), I had added in
+	definitions for all of the then *default* versions to `DEFAULT_VERSIONS=` in my `make.conf` file.  Partly to avoid
+	*surprise* changes, from forgetting to check `UPDATING` until after I had started updating my ports.  With the added
+	benefit that if I'm not ready to make the switch, I don't have to right away.  Additionaly, now that I'm doing
+	unattended daily poudriere builds, it avoids surprises to my package repo.
 	
 	With poudriere, I have two repos being built.  One for my *headless 'servers'* and one for *'zen'*.  For the first
 	case, I was able with minor adjustments to get all my packages to build and have converted to updating those two
@@ -611,6 +611,27 @@ mail/dovecot2
 		libexttextcat-1.0.so(.*)->
 			libexttextcat-2.0.so(.*)
 
+	================================================================================
+
+	After years, my patch fails to apply.  Upstream version 2.2.18 seems to have fixed the libexttextcat issue, but the
+	libstemmer issue remains.
+
+	Wondering what has becoming of my PR, find that it was a fatality of the convert from GNATS to bugzilla.
+	My "Reply-to:" was lost, so the PR wasn't associated with my external email address and my internal addressing isn't
+	'real'.  The PR had been created before I had hacked send-pr to use my "Reply-to:" (from env REPLY_TO) to use as
+	my "From:", and not expose my internal home network name.
+
+	I have thought about getting a 'real' personal domain, so that my home network can have more a real connection with
+	the outside world.  Possibly involving having some external servers, either by finding a VPS offering FreeBSD or
+	using AWS.  In part of relocating my home email mess somewhere with greater availability....and overhauling my
+	out of control email address situation.  Perhaps in conjunction for when I finally get around to redoing my home
+	network and do IPv6, etc.
+
+	Since the original PR got closed abruptly in its brief bit of attention post conversion to bugzilla, a new PR is
+	born.
+
+	PR: 
+
 mail/davmail
 
 	Update to 4.4.0
@@ -659,6 +680,16 @@ math/orpie
 	*Forgot about this port, and somebody else updated it....*
 
 	PR: 190901
+
+	This is a work in progress...not sure where I left things...the change to how OCAML is done has broken the building
+	or this package.  No PORTREVISION bump was done to this port though on '04 May 2015 15:45:52', even though the
+	description makes mention of doing it on dependent ports.  And orpie does depend on the specific package of ports
+	that should get a bummp.
+
+	But, the pre-OCAML shift from 3 to 4, hasn't broken orpie (installed on Dec 31st, which is when I finished the
+	most of the upgrading at home to FreeBSD 9.3.  Doing it at work, is still a work in progress.)  So, I've forgotten
+	where things got left.  There are other ports that I need to get to creating or updating patches for that I just
+	haven't gotten around to, and wonder why nobody else has....
 
 multimedia/ffmpegthumbnailer
 
@@ -1107,6 +1138,19 @@ ports-mgmt/portrac
 	PKGNG.
 
 	PR: ports/186963
+
+	Version 0.5 of portrac has never built for me, I continue to use version 0.4_2 (the PORTREVISION bump due to the
+	above ;) even though I was pushed into rebuilding all ports in upgrading to FreeBSD 9.3.  Since I do this all with
+	poudriere and pkgng...portrac remained because there's no new version of it in my private repo.
+
+	What is interesting is that 0.5 was released back on '15 Oct 2014 21:48:04', I suspect that I'm the only <10 user?
+	Some day I plan to make the leap, it might be more likely should I ever come to own a computer capable of ByHVE use.
+
+	Decided after almost 8 months...to take another crack at getting it to build.
+
+	Next question is will it run?
+
+	PR: ???
 
 pr178818
 

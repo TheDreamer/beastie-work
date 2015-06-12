@@ -1,36 +1,71 @@
---- Makefile.orig	2013-11-22 12:48:41.000000000 -0600
-+++ Makefile	2014-02-22 14:28:16.405015353 -0600
-@@ -3,7 +3,7 @@
+--- Makefile.orig	2014-10-15 16:48:04.000000000 -0500
++++ Makefile	2015-06-11 19:30:15.293669000 -0500
+@@ -16,7 +16,7 @@ PLIST_FILES=	bin/portrac \
+ 		share/portrac/up-to-date.png \
+ 		share/portrac/updates-available.png
  
- PORTNAME=	portrac
- PORTVERSION=	0.4
--PORTREVISION=	1
-+PORTREVISION=	2
- CATEGORIES=	ports-mgmt
- MASTER_SITES=	http://e-soul.org/distfiles/ \
- 		http://home.e-soul.org/~mgp/distfiles/
-@@ -24,6 +24,10 @@
- USE_BZIP2=	yes
- USE_QT4=	gui moc_build
+-USES=		qmake tar:bzip2
++USES=		qmake tar:bzip2 compiler:c++11-lib
+ USE_QT5=	widgets buildtools_build
  
-+.if defined(WITH_PKGNG)
-+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-PortChecker.cc
-+.endif
-+
  do-install:
- 		${INSTALL_PROGRAM} ${WRKDIR}/${DISTNAME}/portrac ${STAGEDIR}${PREFIX}/bin && \
- 		${MKDIR} ${STAGEDIR}${DATADIR} && \
---- files/extra-patch-PortChecker.cc.orig	1969-12-31 18:00:00.000000000 -0600
-+++ files/extra-patch-PortChecker.cc	2014-02-22 14:26:47.367015320 -0600
-@@ -0,0 +1,11 @@
-+--- PortChecker.cc.orig	2011-05-29 04:27:22.000000000 -0500
-++++ PortChecker.cc	2014-02-22 14:26:23.633015152 -0600
-+@@ -88,7 +88,7 @@
-+ 	{
-+ 		index = (preferences->getPreference(INDEX_PREF).c_str());
-+ 	}
-+-	execl("/usr/sbin/pkg_version", "pkg_version", "-I", index, (char *) 0);
-++	execl("/usr/sbin/pkg", "pkg", "version", "-I", index, (char *) 0);
-+ 	perror("execl");
-+ }
+--- files/patch-Decompressor.cc.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-Decompressor.cc	2015-06-11 19:54:04.651668000 -0500
+@@ -0,0 +1,30 @@
++--- Decompressor.cc.orig	2014-09-29 13:19:21.000000000 -0500
+++++ Decompressor.cc	2015-06-11 19:53:42.065668238 -0500
++@@ -24,6 +24,18 @@
++  */
 + 
++ #include <string>
+++#include <sstream>
+++
+++namespace patch
+++{
+++    template < typename T > std::string to_string( const T& n )
+++    {
+++        std::ostringstream stm ;
+++        stm << n ;
+++        return stm.str() ;
+++    }
+++}
+++
++ #include <bzlib.h>
++ 
++ #include "Decompressor.hh"
++@@ -41,7 +53,7 @@ void Decompressor::decompress(std::strin
++     BZFILE *bzfile = BZ2_bzReadOpen(&bzerror, sourceFile, 0, 0, NULL, 0);
++     if(BZ_OK != bzerror)
++     {
++-        std::string message = Logger::libraryCallError(std::string("bz2"), std::string("BZ2_bzReadOpen"), source, std::to_string(bzerror));
+++        std::string message = Logger::libraryCallError(std::string("bz2"), std::string("BZ2_bzReadOpen"), source, patch::to_string(bzerror));
++         throw PortracException(message);
++     }
++     signed char buf[BUFF_LEN] = {0};
+--- files/patch-PortChecker.cc.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-PortChecker.cc	2015-06-11 19:36:24.708669000 -0500
+@@ -0,0 +1,11 @@
++--- PortChecker.cc.orig	2014-09-29 13:19:21.000000000 -0500
+++++ PortChecker.cc	2015-06-11 19:33:58.843669381 -0500
++@@ -23,6 +23,8 @@
++  * should not be interpreted as representing official policies, either expressed or implied, of e-soul.org.
++  */
++ 
+++#include <cstdio>
+++#include <cerrno>
++ #include <unistd.h>
++ #include <stdlib.h>
++ #include <sys/wait.h>
+--- files/patch-Preferences.cc.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-Preferences.cc	2015-06-11 19:36:34.500669000 -0500
+@@ -0,0 +1,10 @@
++--- Preferences.cc.orig	2014-09-29 13:19:21.000000000 -0500
+++++ Preferences.cc	2015-06-11 19:34:52.470670233 -0500
++@@ -25,6 +25,7 @@
++ 
++ #include <unistd.h>
++ 
+++#include <cstdlib>
++ #include <string>
++ #include <map>
++ #include <iostream>

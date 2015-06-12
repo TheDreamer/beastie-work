@@ -1,0 +1,5 @@
+rm -f patch
+diff -Nudp Makefile.orig Makefile > patch
+diff -Nudp files/patch-Decompressor.cc.orig files/patch-Decompressor.cc >> patch
+diff -Nudp files/patch-PortChecker.cc.orig files/patch-PortChecker.cc >> patch
+diff -Nudp files/patch-Preferences.cc.orig files/patch-Preferences.cc >> patch
