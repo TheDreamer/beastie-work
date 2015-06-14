@@ -879,6 +879,33 @@ security/seahorse
 
 	PR: ???
 
+sysutils/backuppc
+
+	Apparently, in Perl 5.18 the randomization of hash keys was taken a step further.  As always, there was no guarantee
+	on the order of hash keys, but until 5.18 the random order was constant.  For years, and many different versions of
+	Perl up to 5.16, the order of 'tabs' in configuration editing has always been the same in the various places that
+	I've run BackupPC.  But, when FreeBSD changed the default perl to be 5.18, I opted to take the leap to 5.20 on my
+	BackupPC server.  In trying to avoid massive rebuilds with perl changes, I had previously skipped 5.14....  Though
+	the leap to 5.20 caused lots of problems, which I've had to make adjustments here and there to deal with.
+
+	So, in Perl 5.20 (and likely 5.18), hash keys are not only random in order, but they are randomized every time.
+	Possibly instead of a constant seed for how the keys are randomized, they now use some time component for determining
+	the seed.  This causes the 'Edit Config' page tabs to not only be in a different order than what I had gotten acustom
+	to, but they are in a different order every time the page is refreshed.  So, clicking on a 'tab', results in the
+	order changing.  Confusing at first, annoying constantly.
+
+	Once this started happening, I lost record of what the order had always been in the past.  No attempt was made to
+	recover that order, even though work server is still running 5.16.  My patch had made it into the poudriere
+	regeneration of all packages at the current freeze (the last svn commit before gnome2 disappeared and gnome3
+	appeared.)  Some day I'll have time to be prepared to give up my current 'perfected' work environment and switch
+	to gnome3, etc.
+
+	The simple solution to this problem is to replace 'keys(%hash)' with 'sort(keys(%hash))'.
+
+	Wonder if I should submit this forgotten patch....
+
+	PR:
+
 sysutils/cfengine35
 
 	Recently in /usr/ports/UPDATING:
