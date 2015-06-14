@@ -1,5 +1,5 @@
---- src/plugins/fts-lucene/SnowballFilter.h.orig	2013-03-14 08:28:31.000000000 -0500
-+++ src/plugins/fts-lucene/SnowballFilter.h	2014-04-29 09:30:51.625055519 -0500
+--- src/plugins/fts-lucene/SnowballFilter.h.orig	2014-06-02 06:50:10.000000000 -0500
++++ src/plugins/fts-lucene/SnowballFilter.h	2015-05-19 20:46:58.799052362 -0500
 @@ -8,7 +8,7 @@
  #define _lucene_analysis_snowball_filter_
  

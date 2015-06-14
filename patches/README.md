@@ -627,8 +627,8 @@ mail/dovecot2
 	out of control email address situation.  Perhaps in conjunction for when I finally get around to redoing my home
 	network and do IPv6, etc.
 
-	Since the original PR got closed abruptly in its brief bit of attention post conversion to bugzilla, a new PR is
-	born.
+	Since the original PR got closed abruptly in its brief bit of attention post conversion to bugzilla, a new PR will
+	be born.
 
 	PR: 
 
