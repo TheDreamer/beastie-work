@@ -1,0 +1,54 @@
+--- Makefile.orig	2015-05-07 12:32:52.000000000 -0500
++++ Makefile	2015-06-15 10:45:33.426704136 -0500
+@@ -2,7 +2,7 @@
+ # $FreeBSD: head/print/cloudprint/Makefile 385643 2015-05-07 17:32:52Z mat $
+ 
+ PORTNAME=	cloudprint
+-PORTVERSION=	0.11.20140216
++PORTVERSION=	0.12.20150607
+ CATEGORIES=	print
+ 
+ MAINTAINER=	decke@FreeBSD.org
+@@ -15,7 +15,7 @@ RUN_DEPENDS=	${PYTHON_SITELIBDIR}/cups.s
+ 
+ USE_GITHUB=	yes
+ GH_ACCOUNT=	armooo
+-GH_TAGNAME=	d55435a
++GH_TAGNAME=	a2fdab3
+ 
+ USES=		python:2
+ USE_PYTHON=	distutils
+--- distinfo.orig	2015-05-07 12:32:52.000000000 -0500
++++ distinfo	2015-06-15 10:55:30.565710155 -0500
+@@ -1,2 +1,2 @@
+-SHA256 (armooo-cloudprint-0.11.20140216-d55435a_GH0.tar.gz) = 9fdb2a014f823a28f961db1d86249eeeadbafbef431e519ebe318f8a45feeccf
+-SIZE (armooo-cloudprint-0.11.20140216-d55435a_GH0.tar.gz) = 24633
++SHA256 (armooo-cloudprint-0.12.20150607-a2fdab3_GH0.tar.gz) = 710ee0b1bcdf4a5b424492267e5dcdf17cc1b4bd58bda49eceb9c75d32943a08
++SIZE (armooo-cloudprint-0.12.20150607-a2fdab3_GH0.tar.gz) = 23624
+--- pkg-plist.orig	2014-11-13 01:41:17.000000000 -0600
++++ pkg-plist	2015-06-15 10:55:37.933705519 -0500
+@@ -1,18 +1,16 @@
+ bin/cloudprint
+-%%PYTHON_SITELIBDIR%%/cloudprint-0.11-py2.7.egg-info/PKG-INFO
+-%%PYTHON_SITELIBDIR%%/cloudprint-0.11-py2.7.egg-info/SOURCES.txt
+-%%PYTHON_SITELIBDIR%%/cloudprint-0.11-py2.7.egg-info/dependency_links.txt
+-%%PYTHON_SITELIBDIR%%/cloudprint-0.11-py2.7.egg-info/entry_points.txt
+-%%PYTHON_SITELIBDIR%%/cloudprint-0.11-py2.7.egg-info/top_level.txt
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/PKG-INFO
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/SOURCES.txt
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/dependency_links.txt
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/entry_points.txt
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/requires.txt
++%%PYTHON_SITELIBDIR%%/cloudprint-0.12-py2.7.egg-info/top_level.txt
+ %%PYTHON_SITELIBDIR%%/cloudprint/__init__.py
+ %%PYTHON_SITELIBDIR%%/cloudprint/__init__.pyc
+ %%PYTHON_SITELIBDIR%%/cloudprint/__init__.pyo
+ %%PYTHON_SITELIBDIR%%/cloudprint/cloudprint.py
+ %%PYTHON_SITELIBDIR%%/cloudprint/cloudprint.pyc
+ %%PYTHON_SITELIBDIR%%/cloudprint/cloudprint.pyo
+-%%PYTHON_SITELIBDIR%%/cloudprint/rest.py
+-%%PYTHON_SITELIBDIR%%/cloudprint/rest.pyc
+-%%PYTHON_SITELIBDIR%%/cloudprint/rest.pyo
+ %%PYTHON_SITELIBDIR%%/cloudprint/xmpp.py
+ %%PYTHON_SITELIBDIR%%/cloudprint/xmpp.pyc
+ %%PYTHON_SITELIBDIR%%/cloudprint/xmpp.pyo

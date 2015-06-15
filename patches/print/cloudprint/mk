@@ -1,0 +1,4 @@
+rm -f patch
+diff -udp Makefile.orig Makefile > patch
+diff -udp distinfo.orig distinfo >> patch
+diff -udp pkg-plist.orig pkg-plist >> patch

@@ -1187,6 +1187,19 @@ pr178818
 	proposed fix is to automate this in the dumpon script, which had one small flaw, which I corrected.  And, then tried
 	to recall how to include a patch that won't get munged by mail client....
 
+print/cloudprint
+
+	While browsing through ports looking for something else, I stopped to take a peek at this port.  I've been building
+	this port for sometime, with the intent of trying to get it set up.  Currently, I'm running a small ubuntu VM for
+	this...
+
+	On further browsing into the details of this port, I saw that it had recently been updated to version 0.12.  Mainly
+	there's OAUTH2 support, since sometime last month the old method got turned off.
+
+	So, I do a (kind of) quick update of the port...
+
+	PR: 200878
+
 print/hplip
 
 	LIB_DEPENDS is testing for a library that is no longer part of print/cups-base to determine if is installed.
