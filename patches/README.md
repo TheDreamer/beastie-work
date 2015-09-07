@@ -1393,3 +1393,19 @@ www/nginx
 	that needs it hasn't gone into production yet...but will hopefully later today.
 
 	PR: ports/189393
+
+www/squid
+
+	The port got upgraded to 3.5.8 (from 3.5.7), but it won't build with TP_IPF.  The next day 3.5.8_1 came out with a
+	fix TP_IPF build.  Not sure if I had this update when it was encountered by my automated poudriere setup.  But, it
+	failed again the next day, so there's something else wrong.
+
+	Digging into the code, found where the offending block of code was...and that it was to clutter up logs about running
+	less than ipfilter 5.1 and having IPv6.  Well, I don't have IPv6, so the encounter shouldn't happen (though someday 
+	I'll get around to doing IPv6, but plan to do networking different so this might not matter.)
+	
+	I do see that for 3.5.8, squid.conf.documented changes the note that 'intercept' disables 'authentication and IPv6'
+	on the port, to just disables 'authentication'.  
+
+	Anyways, the quick fix is comment out the nag that is causing compile failure.  FreeBSD 9.3 has 4.1.28, while
+	FreeBSD 10 got 5.1.2.  Guess nobody wanted to backport 5.1.2 to 9....
