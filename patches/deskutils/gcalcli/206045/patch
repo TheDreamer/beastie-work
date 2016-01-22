@@ -1,0 +1,24 @@
+--- Makefile.orig	2015-09-10 10:24:12.000000000 -0500
++++ Makefile	2016-01-22 09:01:50.494086866 -0600
+@@ -3,6 +3,7 @@
+ 
+ PORTNAME=	gcalcli
+ PORTVERSION=	3.2
++PORTREVISION=	1
+ DISTVERSIONPREFIX=	v
+ CATEGORIES=	deskutils
+ 
+--- files/patch-gcalcli.orig	1969-12-31 18:00:00.000000000 -0600
++++ files/patch-gcalcli	2016-01-22 08:54:22.794085841 -0600
+@@ -0,0 +1,11 @@
++--- gcalcli.orig	2014-12-17 01:50:24 UTC
+++++ gcalcli
++@@ -185,7 +185,7 @@ try:
++     from apiclient.discovery import build
++     from oauth2client.file import Storage
++     from oauth2client.client import OAuth2WebServerFlow
++-    from oauth2client.tools import run
+++    from oauth2client.tools import run_flow as run
++ except ImportError as e:
++     print "ERROR: Missing module - %s" % e.args[0]
++     sys.exit(1)
