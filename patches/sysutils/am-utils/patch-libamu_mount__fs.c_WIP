@@ -1,0 +1,175 @@
+--- libamu/mount_fs.c.orig	2014-10-28 17:13:00 UTC
++++ libamu/mount_fs.c
+@@ -1058,7 +1058,7 @@ compute_nfs23_args(nfs_args_t *nap,
+   return;			/* end of compute_nfs_args() function */
+ }
+ 
+-#ifdef HAVE_FS_NFS4
++#if defined(HAVE_FS_NFS4) && defined(HAVE_LINUX_NFS4_H)
+ 
+ #define RPC_AUTH_GSS_KRB5       390003
+ #define RPC_AUTH_GSS_KRB5I      390004
+@@ -1382,7 +1382,162 @@ print_nfs4_args(const nfs4_args_t *nap, 
+   print_nfs_common_args(&a);
+ }
+ #endif
+-#endif /* HAVE_FS_NFS4 */
++#elif defined(HAVE_FS_NFS4) && defined(__FreeBSD__)
++
++struct {
++  const char *name;
++  int num;
++} flavours[] = {
++  { "unix",	
++static char *
++set_nfs4_security(nfs4_args_t *nap, mntent_t *mntp)
++{
++}
++
++static int
++get_my_ipv4addr(struct nfs_string *ns)
++{
++}
++
++static void
++add_nfs4_mntopts(const nfs4_args_t *nap, mntent_t *mntp, char *sec)
++{
++}
++
++static void
++print_nfs4_security(const nfs4_args_t *nap)
++{
++  char buf[1024];
++  char num[64];
++  size_t i, j;
++
++  buf[0] = '\0';
++
++  for (i = 0; i < nap->auth_flavourlenkkkkkkkkkkkk
++}
++
++static void
++discard_nfs4_args(nfs4_args_t *nap)
++{
++  /* HAVE_TRANSPORT_TYPE_TLI */
++}
++
++static void
++compute_nfs4_args(nfs4_args_t *nap,
++		  mntent_t *mntp,
++		  int genflags,
++		  struct netconfig *nfsncp,
++		  struct sockaddr_in *ip_addr,
++		  u_long nfs_version,
++		  char *nfs_proto,
++		  am_nfs_handle_t *fhp,
++		  char *host_name,
++		  char *fs_name)
++{
++  struct nfs_common_args a;
++
++  /* initialize just in case */
++  memset((voidp) nap, 0, sizeof(nfs_args_t));
++
++  /* compute all of the NFS attribute-cache flags */
++  memset(&a, 0, sizeof(a));
++  compute_nfs_attrcache_flags(&a, mntp);
++  compute_nfs_common_args(&a, mntp, nfs_proto, nfs_version);
++  get_nfs_common_args(nap, a);
++
++  /************************************************************************/
++  /***	FILEHANDLE DATA AND LENGTH					***/
++  /************************************************************************/
++  if (fhp == NULL) {
++    plog(XLOG_FATAL, "cannot pass NULL fh for NFSv%lu", nfs_version);
++    going_down(1);
++    return;
++  }
++
++  nap-flags |= NFSMNT_NFSV4;
++
++  /*
++   * Some systems (Irix/bsdi3) have a separate field in nfs_args for
++   * the length of the file handle for NFS V3.  They insist that
++   * the file handle set in nfs_args be plain bytes, and not
++   * include the length field.
++   */
++  /* this is the version of the nfs_args structure, not of NFS! */
++  NFS_FH_DREF(nap->NFS_FH_FIELD, &fhp->v3.am_fh3_data);
++  nap->fhsize = fhp->v3.am_fh3_length;
++
++  /************************************************************************/
++  /***	HOST NAME							***/
++  /************************************************************************/
++  /*
++   * XXX: warning, using xstrlcpy in NFS_HN_DREF, which may corrupt a
++   * struct nfs_args, or truncate our concocted "hostname:/path"
++   * string prematurely.
++   */
++  NFS_HN_DREF(nap->hostname, host_name);
++
++  /************************************************************************/
++  /***	IP ADDRESS OF REMOTE HOST					***/
++  /************************************************************************/
++  if (ip_addr) {
++    NFS_SA_DREF(nap, ip_addr);
++  }
++
++  ((struct sockaddr_in *)nap->host_addr)->sin_port = htons(NFS_PORT);
++
++  /************************************************************************/
++  /***	NFS PROTOCOL (UDP, TCP) AND VERSION				***/
++  /************************************************************************/
++  /* bsdi3 uses this */
++  if (nfs_proto) {
++    if (STREQ(nfs_proto, "tcp"))
++      nap->sotype = SOCK_STREAM;
++    else if (STREQ(nfs_proto, "udp"))
++      nap->sotype = SOCK_DGRAM;
++  }
++
++  nap->proto = IPPROTO_TCP;		/* FreeBSD sets this field to zero  */
++  if (nfs_proto) {
++    if (STREQ(nfs_proto, "tcp"))	/* AIX 4.2.x needs this */
++      nap->proto = IPPROTO_TCP;
++    else if (STREQ(nfs_proto, "udp"))
++      nap->proto = IPPROTO_UDP;
++  }
++
++  nap->version = NFS_ARGSVERSION; /* BSDI 3.0 and OpenBSD 2.2 */
++
++  /************************************************************************/
++  /***	OTHER NFS SOCKET RELATED OPTIONS AND FLAGS			***/
++  /************************************************************************/
++
++  /************************************************************************/
++  /***	OTHER FLAGS AND OPTIONS						***/
++  /************************************************************************/
++
++  nap->maxgrouplist = hasmntval(mntp, MNTTAB_OPT_MAXGROUPS);
++  if (nap->maxgrouplist != 0)
++    nap->flags |= MNT2_NFS_OPT_MAXGRPS;
++
++  /************************************************************************/
++  /***	FINAL ACTIONS							***/
++  /************************************************************************/
++
++  s = set_nfs4_security(nap, mntp);
++
++  /* Add address to the mount options */
++  add_nfs4_mntopts(nap, mntp, s);
++
++  return;			/* end of compute_nfs4_args() function */
++}
++
++#ifdef DEBUG
++static void
++print_nfs4_args(const nfs4_args_t *nap, u_long nfs_version)
++{
++}
++#endif
++
++#endif /* HAVE_FS_NFS4 && HAVE_LINUX_NFS4_H */
+ 
+ void
+ compute_nfs_args(void *nap,
