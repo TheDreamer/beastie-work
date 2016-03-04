@@ -1,0 +1,4 @@
+rm -f patch
+diff -udpN Makefile.orig Makefile > patch
+diff -udpN pkg-plist.orig pkg-plist >> patch
+diff -udpN files/patch-configure.ac.orig files/patch-configure.ac >> patch

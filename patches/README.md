@@ -252,7 +252,7 @@ deskutils/gcalcli
 
 	PR: ports/187619
 
-	On November 17th, Google pulled the plug on its deprecated V2 Calendar API.  Found that gcalcli had apparently
+	On November 17th (2014), Google pulled the plug on its deprecated V2 Calendar API.  Found that gcalcli had apparently
 	undergone a complete rewrite to support V3 differently, but no releases had been made/tagged.  So, I devised a quick
 	and dirty patch to grab its state on 2014-10-31.  So, created a PORTVERSION of 3.0.a.20141031.  Not really clear
 	whether its 3.0.a.20141031 or 3.1.a.20141031 that comes before 3.1, so opted to err on the cautious side, figuring
@@ -271,6 +271,48 @@ deskutils/gcalcli
 	Should go through `poudriere testport` without a hitch right....
 
 	PR: 195617
+
+	On January 21st, 2016, found that gcalcli had stopped working with 'Missing module - cannot import name run'.
+	Eventually tracked this down to having upgraded to py27-oauth2client-1.5.2 (which occured on January 9, guess it had
+	been that long since I used it on my desktop.)  Wonder why nobody mentioned that it had broken my irc bot?  [Guess
+	I upgraded that on January 15, so hasn't been long enough.]
+
+	Noticed in the comments for tools.py for oauth2client that it said 'run()' but the function was 'run_flow()',
+	either it was recently renamed or something that made 'run()' the same as 'run_flow()' was removed.  After a quick
+	google search to confirm syntax, I patched 'gcalcli': 
+
+		--- gcalcli.orig	2016-01-18 13:26:30.000000000 -0600
+		+++ gcalcli	2016-01-20 20:11:44.962327852 -0600
+		@@ -185,7 +185,7 @@ try:
+		     from apiclient.discovery import build
+		     from oauth2client.file import Storage
+		     from oauth2client.client import OAuth2WebServerFlow
+		-    from oauth2client.tools import run
+		+    from oauth2client.tools import run_flow as run
+		 except ImportError as e:
+		     print "ERROR: Missing module - %s" % e.args[0]
+		     sys.exit(1)
+
+	I then decided to see if the bug had been reported to FreeBSD.  There was a bug dated January 8, 2016.  So, I
+	generated a FreeBSD port patch, and added it to the bug.
+
+	In the preparation of the report, found that on August 25, 2015: The old_run [old run] module was removed, had been
+	deprecated since July 2, 2013.
+
+		"""This module holds the old run() function which is deprecated, the
+		tools.run_flow() function should be used in its place."""
+
+	I also noted, that gcalcli upstream's most recent commit was on January 21, 2016, still hadn't reflected this change.
+	Presumably, they run operating systems that don't provide the latest py-oauth2client.  Also noticed that the latest
+	tagged release is v3.3.2 (Sep 14, 2015 - 4 commits behind master), while ours is v3.2 (Dec 16, 2014).  Perhaps v3.3
+	was buggy, but given the amount of time since v3.3.2, likely stable now?
+
+	Oh, I see that in v3.3.1, they pinned oauth2client to <=1.4.12 to dodge the issue.  Looking at oauth2client, the
+	oldest tag is v1.3 (dated Sep 29, 2014), so making my patch shouldn't cause a regression.
+
+	Wonder how to re-open an issue?
+
+	PR: 206045
 
 deskutils/recoll
 
@@ -878,6 +920,46 @@ security/seahorse
 	Not sure what I'm going to opt for in the mean time.
 
 	PR: ???
+
+sysutils/am-utils
+
+	Wanted to see if installing newer version of this port than base would support NFSv4, but in quick build test I
+	ran into dbm_pagfno() undefined error.  Which in a quick search, found a post on [forums.freebsd.org](https://forums.freebsd.org/threads/52103/#post-292331) and PR 201140.
+	But, the PR was closed as "Overcome By Events", meaning what?  Since the problem still exists...
+
+	Well following what was in this PR, where part of the options handling was changed to `OPENLDAP_CONFIGURE_WITH` but
+	the how to change the other options wasn't understood by the original submitter.  So, I completed the other options
+	resulting in changes to `Makefile` and `pkg-plist`.
+
+	This however, didn't fully resolve the problem or how it works in poudriere.
+
+	Well, the issue is that when `OPENLDAP` (default), it adds `/usr/local/include` to the include search path.  Where
+	the automatic ndbm discovery, can get tripped up if gdbm is installed and was built with the (non-default) `COMPAT`
+	option.  Which was the case on my systems.
+
+	In base ndbm, dbm_pagfno is a macro to always return undefined, with intent to force devs away from it.  OTOH, it
+	exists in the `COMPAT` library for gdbm.  And, the gdbm install puts its own version of 'ndbm.h' in '/usr/local/include'
+	which doesn't block the function.  But, the configure script doesn't handle this case correctly.  So, I patched
+	`configure.ac` to handle this.
+
+	The issue doesn't occur in poudriere, because all ports are built in clean jails and this port doesn't depend on
+	gdbm, so it doesn't stumble on this edge case.
+
+	PR: ???
+
+	However, the NFSv4 support in am-utils seems to be Linux only, so a bigger hacking of the code will be needed to get
+	it to work on FreeBSD...  Which I started, but have abandonned as it is way more work to get around the fact that
+	the implemented code is Linux only, and apparently none of the other OSs can do NFSv4 either. :no_good:
+
+	Plus its missing various other mount options, partly because the defines aren't the same as Linux.
+
+	I guess I'll leave my Linux servers as NFSv3, and only do NFSv4 serving from FreeBSD.  Only need it for mounting
+	shares to my OS X box, which all come from my FreeBSD server.  Had setup NFSv4 on Linux while trouble shooting
+	Kerberos on Mac...FreeBSD & Linux worked in both directions, but Mac wouldn't work either until I ran Wireshark
+	and saw what evil thing it was doing w.r.t Kerberos...
+
+	Both FreeBSD and Linux have my uid as 1000, its OS X that did it as 501.  The Linux share that I mount on FreeBSD
+	is my Dropbox folder, which isn't necessary with OS X.
 
 sysutils/backuppc
 

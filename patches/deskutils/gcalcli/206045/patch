@@ -9,16 +9,35 @@
  CATEGORIES=	deskutils
  
 --- files/patch-gcalcli.orig	1969-12-31 18:00:00.000000000 -0600
-+++ files/patch-gcalcli	2016-01-22 08:54:22.794085841 -0600
-@@ -0,0 +1,11 @@
++++ files/patch-gcalcli	2016-01-22 12:59:59.135087915 -0600
+@@ -0,0 +1,30 @@
 +--- gcalcli.orig	2014-12-17 01:50:24 UTC
 ++++ gcalcli
-+@@ -185,7 +185,7 @@ try:
++@@ -185,7 +185,8 @@ try:
 +     from apiclient.discovery import build
 +     from oauth2client.file import Storage
 +     from oauth2client.client import OAuth2WebServerFlow
 +-    from oauth2client.tools import run
-++    from oauth2client.tools import run_flow as run
+++    from oauth2client.tools import run_flow
+++    from oauth2client.tools import argparser
 + except ImportError as e:
 +     print "ERROR: Missing module - %s" % e.args[0]
 +     sys.exit(1)
++@@ -627,14 +628,15 @@ class gcalcli:
++             credentials = storage.get()
++ 
++             if credentials is None or credentials.invalid:
++-                credentials = run(
+++		args, unknown = argparser.parse_known_args(sys.argv)
+++                credentials = run_flow(
++                     OAuth2WebServerFlow(
++                         client_id=self.client_id,
++                         client_secret=self.client_secret,
++                         scope=['https://www.googleapis.com/auth/calendar',
++                                'https://www.googleapis.com/auth/urlshortener'],
++                         user_agent=__program__+'/'+__version__),
++-                    storage)
+++                    storage, args)
++ 
++             self.authHttp = credentials.authorize(httplib2.Http())
++ 
