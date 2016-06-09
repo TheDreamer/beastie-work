@@ -1,12 +1,12 @@
 --- panicmail.orig	2013-11-04 02:22:56.000000000 -0600
-+++ panicmail	2015-01-03 19:03:19.126050022 -0600
++++ panicmail	2016-06-09 17:12:30.221914900 -0500
 @@ -39,19 +39,44 @@
  #				emails instead of sending them to root for
  #				review first.
  #
 +# panicmail_autonotify (bool):	Set to "YES" by default.
-+#				Set it to "NO" to suppress copy to root for
-+#				automatically submitted panic email.
++#				Set it to "NO" to suppress copy to root for automatically
++#				submitted panic email.
 +#
  # panicmail_sendto (str):	Set to
  #				"FreeBSD Panic Reporting <cperciva+panicmail@freebsd.org>"
@@ -45,7 +45,7 @@
  
  . /etc/rc.subr
  
-@@ -64,19 +89,55 @@
+@@ -64,19 +89,55 @@ stop_cmd=":"
  panicmail_gather()
  {
  	local tmpfile
@@ -108,7 +108,7 @@
  	echo >> "${dumpdir}/panicmail.$1"
  
  	# Remove the temporary file.
-@@ -138,13 +199,33 @@
+@@ -138,13 +199,33 @@ panicmail_auto()
  
  	cat <<-EOF
  		To: ${panicmail_sendto}
@@ -143,7 +143,7 @@
  panicmail_run()
  {
  	local nr
-@@ -187,6 +268,9 @@
+@@ -187,6 +268,9 @@ panicmail_run()
  	# Generate and send an email.
  	if checkyesno panicmail_autosubmit; then
  		panicmail_auto "${nr}" | sendmail -t
