@@ -1,0 +1,35 @@
+--- Makefile.orig	2016-12-09 08:36:52.677048515 -0600
++++ Makefile	2016-12-09 08:36:52.720051957 -0600
+@@ -1,11 +1,13 @@
+ # $FreeBSD: head/security/softether/Makefile 418767 2016-07-19 11:04:13Z mat $
+ 
+ PORTNAME=	softether
+-PORTVERSION=	4.18.9570
++PORTVERSION=	4.20.9608
+ PORTREVISION=	1
+ CATEGORIES=	security
+-MASTER_SITES=	http://www.softether-download.com/files/softether/v4.18-9570-rtm-2015.07.26-tree/Source_Code/
+-DISTNAME=	${PORTNAME}-src-v4.18-9570-rtm
++MASTER_SITES=	http://www.softether-download.com/files/softether/v4.20-9608-rtm-2016.04.17-tree/Source_Code/
++VERTEMP=	${PORTVERSION:C/\./-/g}
++DISTVER=	${VERTEMP:C/-/./}
++DISTNAME=	${PORTNAME}-src-v${DISTVER}-rtm
+ 
+ MAINTAINER=	net@arrishq.net
+ COMMENT=	Softether VPN solution
+@@ -41,7 +43,7 @@ SUB_FILES=	vpncmd
+ MAKE_JOBS_UNSAFE=	yes
+ 
+ # a pity the source directory has such a naming scheme, but well
+-WRKSRC=		${WRKDIR}/v4.18-9570
++WRKSRC=		${WRKDIR}/v${DISTVER}
+ 
+ ALL_TARGET=	build
+ 
+--- distinfo.orig	2016-12-09 08:36:56.270053636 -0600
++++ distinfo	2016-12-09 08:36:56.271052267 -0600
+@@ -1,2 +1,2 @@
+-SHA256 (softether-src-v4.18-9570-rtm.tar.gz) = 585d61e524d3cad90806cbeb52ebe54b5144359e6c44676e8e7fb5683ffd4574
+-SIZE (softether-src-v4.18-9570-rtm.tar.gz) = 35180998
++SHA256 (softether-src-v4.20-9608-rtm.tar.gz) = e559644e34ec6feba43d99f4083f77f9b082dd0574d0bb1e416a65f32ccbc51e
++SIZE (softether-src-v4.20-9608-rtm.tar.gz) = 33691945
