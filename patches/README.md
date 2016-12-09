@@ -921,6 +921,12 @@ security/seahorse
 
 	PR: ???
 
+security/softether
+
+	Quick update to latest RTM (4.20) - builds, but not yet tested.
+
+	PR:
+
 sysutils/am-utils
 
 	Wanted to see if installing newer version of this port than base would support NFSv4, but in quick build test I
@@ -1394,7 +1400,11 @@ x11/nvidia-driver-304
 
 	No idea where to look on why removing the port is removing one library that it didn't install.
 
-	PR:
+	PR: superceded by events
+
+x11/nvidia-driver
+
+	Dabbled with implementing 'DEFAULT_VERSIONS= nvidia=###', forget where I left things.
 
 x11-fm/sushi
 
